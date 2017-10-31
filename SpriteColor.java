@@ -52,6 +52,13 @@ public class SpriteColor {
 		return n;
 	}
 	
+	public String toFullString() {
+		return String.format("%s (RGB{%s,%s,%s})",
+				n,
+				Byte.toUnsignedInt(RGB[0]),
+				Byte.toUnsignedInt(RGB[1]),
+				Byte.toUnsignedInt(RGB[2]));
+	}
 	// TODO : Some formula that works well
 	public ColorPair makeShadedPair() {
 		int r2 = Byte.toUnsignedInt(RGB[0]);
@@ -81,13 +88,13 @@ public class SpriteColor {
 	public static final SpriteColor HISPANIC_SKIN_DK =
 			new SpriteColor("Hispanic skin shade", 216, 136, 80);
 	public static final SpriteColor BROWN_SKIN_LT =
-			new SpriteColor("Hispanic skin", 168, 88, 24);
+			new SpriteColor("Brown skin", 168, 88, 24);
 	public static final SpriteColor BROWN_SKIN_DK =
-			new SpriteColor("Hispanic skin shade", 152, 72, 16);
+			new SpriteColor("Brown skin shade", 152, 72, 16);
 	public static final SpriteColor BLACK_SKIN_LT =
-			new SpriteColor("Hispanic skin", 96, 48, 8);
+			new SpriteColor("Black skin", 96, 48, 8);
 	public static final SpriteColor BLACK_SKIN_DK =
-			new SpriteColor("Hispanic skin shade", 80, 32, 8);
+			new SpriteColor("Black skin shade", 80, 32, 8);
 	
 	// THE BEST COLORS
 	public static final SpriteColor RASPBERRY =

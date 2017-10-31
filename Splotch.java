@@ -28,7 +28,11 @@ public class Splotch extends JComponent {
 		String changeable = editable ?
 					"" :
 					" - This color cannot be edited.";
-		this.setToolTipText(color.toString() + changeable);
+		this.setToolTipText(this.toString() + changeable);
+	}
+	
+	public String toString() {
+		return color.toFullString();
 	}
 	public void paint(Graphics g) {
 		g.fillRect(0, 0, SIZE, SIZE);
@@ -41,7 +45,7 @@ public class Splotch extends JComponent {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
+				// TODO Color editing maybe?
 				
 			}
 

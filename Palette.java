@@ -4,7 +4,6 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -148,6 +147,11 @@ public class Palette extends Container {
 		}
 	}
 	
+	public void setColorOneMail(int m, int i, SpriteColor c) {
+		if (editableIndex(i)) {
+			splotches[m][i] = new Splotch(c);
+		}
+	}
 	public static boolean editableIndex(int i) {
 		boolean ret = true;
 		for (int x : UNCHANGEABLE_INDICES) {
@@ -158,6 +162,7 @@ public class Palette extends Container {
 		}
 		return ret;
 	}
+	
 	public void paint(Graphics g) {
 		this.paintComponents(g);
 	}

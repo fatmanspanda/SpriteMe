@@ -1,6 +1,5 @@
 package SpriteMe;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -37,6 +36,7 @@ public class SpriteMe {
 	public static final String[] MAIL_NAMES = {
 		"Green mail", "Blue mail", "Red mail", "Bunny"
 	};
+
 	public static void main(String[] args) {
 		//try to set LaF
 		try {
@@ -111,7 +111,7 @@ public class SpriteMe {
 		frame.setMinimumSize(d);
 		setAllSizes(frame, d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocation(150, 150);
+		frame.setLocation(100, 100);
 		frame.setVisible(true);
 	}
 	
