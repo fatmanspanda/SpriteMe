@@ -59,12 +59,15 @@ public class SpriteColor {
 				Byte.toUnsignedInt(RGB[1]),
 				Byte.toUnsignedInt(RGB[2]));
 	}
+
 	// TODO : Some formula that works well
 	public ColorPair makeShadedPair() {
 		int r2 = Byte.toUnsignedInt(RGB[0]);
 		int g2 = Byte.toUnsignedInt(RGB[1]);
 		int b2 = Byte.toUnsignedInt(RGB[2]);
-		
+		r2 = r2 * 6 / 8;
+		g2 = g2 * 6 / 8;
+		b2 = b2 * 6 / 8;
 		SpriteColor shade = new SpriteColor(n + "shaded",r2, g2, b2);
 		return new ColorPair(n, this, shade);
 	}
@@ -79,22 +82,14 @@ public class SpriteColor {
 	public static final SpriteColor LEIUTENANT_FACE = WHITE_SKIN_LT;
 	public static final SpriteColor WHITE_SKIN_DK =
 			new SpriteColor("White skin shade", 184, 104, 32);
-	public static final SpriteColor PALE_SKIN_LT =
+	public static final SpriteColor PALE_SKIN =
 			new SpriteColor("Pale skin", 248, 232, 168);
-	public static final SpriteColor PALE_SKIN_DK =
-			new SpriteColor("Pale skin shade", 224, 208, 152);
-	public static final SpriteColor HISPANIC_SKIN_LT =
+	public static final SpriteColor HISPANIC_SKIN =
 			new SpriteColor("Hispanic skin", 216, 136, 80);
-	public static final SpriteColor HISPANIC_SKIN_DK =
-			new SpriteColor("Hispanic skin shade", 216, 136, 80);
-	public static final SpriteColor BROWN_SKIN_LT =
+	public static final SpriteColor BROWN_SKIN =
 			new SpriteColor("Brown skin", 168, 88, 24);
-	public static final SpriteColor BROWN_SKIN_DK =
-			new SpriteColor("Brown skin shade", 152, 72, 16);
-	public static final SpriteColor BLACK_SKIN_LT =
+	public static final SpriteColor BLACK_SKIN =
 			new SpriteColor("Black skin", 96, 48, 8);
-	public static final SpriteColor BLACK_SKIN_DK =
-			new SpriteColor("Black skin shade", 80, 32, 8);
 	
 	// THE BEST COLORS
 	public static final SpriteColor RASPBERRY =

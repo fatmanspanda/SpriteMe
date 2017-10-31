@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -86,12 +88,12 @@ public class SpriteMe {
 		frame.add(controls);
 
 		// palette TODO: WORK THIS
-		Palette p = new Palette();
-		l.putConstraint(SpringLayout.SOUTH, p, 0,
+		Palette pal = new Palette();
+		l.putConstraint(SpringLayout.SOUTH, pal, 0,
 				SpringLayout.SOUTH, fullWrap);
-		l.putConstraint(SpringLayout.EAST, p, 0,
+		l.putConstraint(SpringLayout.EAST, pal, 0,
 				SpringLayout.EAST, fullWrap);
-		frame.add(p);
+		frame.add(pal);
 		
 		// add ico
 		// But what if Ganon dabs back?
@@ -113,6 +115,13 @@ public class SpriteMe {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(100, 100);
 		frame.setVisible(true);
+		
+		// Action listeners
+		skinPick.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				pal.setSkinColor((ColorPair) skinPick.getSelectedItem());
+			}});
 	}
 	
 	/**

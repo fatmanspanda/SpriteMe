@@ -30,6 +30,7 @@ public class Palette extends Container {
 			"Sleeves",
 			"Water"
 	};
+
 	public static final byte[][] VANILLA_PALETTE = {
 			// Green mail
 			{ (byte)   0, (byte)   0, (byte)   0 }, // Transparent
@@ -106,11 +107,17 @@ public class Palette extends Container {
 	private static final int[] UNCHANGEABLE_INDICES =
 		{ 0, 1, 2, 5, 6, 7, 13 };
 
+	/**
+	 * 
+	 */
 	public Palette() {
 		initializePalette();
 		initializeDisplay();
 	}
 	
+	/**
+	 * 
+	 */
 	private void initializePalette() {
 		int palN;
 		int palI;
@@ -126,6 +133,9 @@ public class Palette extends Container {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	private void initializeDisplay() {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
@@ -147,11 +157,74 @@ public class Palette extends Container {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param m
+	 * @param i
+	 * @param c
+	 */
 	public void setColorOneMail(int m, int i, SpriteColor c) {
 		if (editableIndex(i)) {
-			splotches[m][i] = new Splotch(c);
+			splotches[m][i].setColor(c);
 		}
 	}
+
+	/**
+	 * 
+	 * @param i
+	 * @param c
+	 */
+	public void setColorAllMails(int i, SpriteColor c) {
+		if (editableIndex(i)) {
+			for (int m = 0; m < 4; m++) {
+				splotches[m][i].setColor(c);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 * @param j
+	 * @param p
+	 */
+	public void setTwoColorsOneMail(int m, int i, int j, ColorPair p) {
+		if (editableIndex(i) && editableIndex(j)) {
+			splotches[m][i].setColor(p.color1());
+			splotches[m][j].setColor(p.color2());
+		}
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 * @param j
+	 * @param p
+	 */
+	public void setTwoColorsAllMails(int i, int j, ColorPair p) {
+		if (editableIndex(i) && editableIndex(j)) {
+			for (int m = 0; m < 4; m++) {
+				splotches[m][i].setColor(p.color1());
+				splotches[m][j].setColor(p.color2());
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param p
+	 */
+	public void setSkinColor(ColorPair p) {
+		for (int m = 0; m < 4; m++) {
+			splotches[m][4].setColor(p.color1());
+			splotches[m][3].setColor(p.color2());
+		}
+	}
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 */
 	public static boolean editableIndex(int i) {
 		boolean ret = true;
 		for (int x : UNCHANGEABLE_INDICES) {
@@ -163,6 +236,9 @@ public class Palette extends Container {
 		return ret;
 	}
 	
+	/**
+	 * 
+	 */
 	public void paint(Graphics g) {
 		this.paintComponents(g);
 	}

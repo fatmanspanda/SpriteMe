@@ -11,7 +11,12 @@ public class Splotch extends JComponent {
 	private static final long serialVersionUID = -2349012926208164404L;
 	private static final int SIZE = SpriteMe.SPLOTCH_SIZE;
 	private SpriteColor color;
-	private boolean editable;
+	private boolean editable = true;
+	
+	/**
+	 * 
+	 * @param c
+	 */
 	public Splotch(SpriteColor c) {
 		color = c;
 		this.setForeground(color.toColor());
@@ -19,21 +24,42 @@ public class Splotch extends JComponent {
 		this.setSize(SpriteMe.SPLOTCH_DIMENSION);
 		this.setMinimumSize(SpriteMe.SPLOTCH_DIMENSION);
 		this.setPreferredSize(SpriteMe.SPLOTCH_DIMENSION);
-		this.setToolTipText(color.toString());
+		setToolTip();
 		addMouse();
 	}
 	
+	/**
+	 * 
+	 * @param c
+	 */
+	public void setColor(SpriteColor c) {
+		color = c;
+		this.setForeground(color.toColor());
+		this.setBackground(color.toColor());
+		setToolTip();
+	}
+	/**
+	 * 
+	 * @param x
+	 */
 	public void setEditable(boolean x) {
 		editable = x;
+		setToolTip();
+	}
+	/**
+	 * 
+	 */
+	private void setToolTip() {
 		String changeable = editable ?
-					"" :
-					" - This color cannot be edited.";
+				"" :
+				" - This color cannot be edited.";
 		this.setToolTipText(this.toString() + changeable);
 	}
 	
 	public String toString() {
 		return color.toFullString();
 	}
+
 	public void paint(Graphics g) {
 		g.fillRect(0, 0, SIZE, SIZE);
 		g.setColor(Color.BLACK);
