@@ -1,11 +1,14 @@
 package SpriteMe;
 
+import java.awt.Color;
+
 import SpriteManipulator.SpriteManipulator;
 
 public class SpriteColor {
 	
 	private String n;
 	private byte[] RGB;
+	private Color c;
 	/**
 	 * Makes a new color with a name and 3 RGB values.
 	 * @param name
@@ -17,6 +20,11 @@ public class SpriteColor {
 		n = name;
 		RGB = new byte[] { r, g, b };
 		roundSelf();
+		c = new Color(
+					Byte.toUnsignedInt(RGB[0]),
+					Byte.toUnsignedInt(RGB[1]),
+					Byte.toUnsignedInt(RGB[2])
+				);
 	}
 	
 	/**
@@ -29,7 +37,11 @@ public class SpriteColor {
 	public SpriteColor(String name, int r, int g,  int b) {
 		this(name, (byte) r, (byte) g, (byte) b );
 	}
-	
+
+	public Color toColor() {
+		return c;
+	}
+
 	private void roundSelf() {
 		RGB[0] = (byte) SpriteManipulator.roundVal(RGB[0]);
 		RGB[1] = (byte) SpriteManipulator.roundVal(RGB[1]);
@@ -84,6 +96,8 @@ public class SpriteColor {
 			new SpriteColor("Raspberry shade", 112, 0, 56);
 	public static final SpriteColor MIKES_ORANGE =
 			new SpriteColor("Mike's orange", 248, 176, 0);
+	public static final SpriteColor NUMPTY_BLUE =
+			new SpriteColor("Numpty blue", 56, 152, 216);
 
 	// A beautiful rainbow
 	public static final SpriteColor BRIGHT_RED =
