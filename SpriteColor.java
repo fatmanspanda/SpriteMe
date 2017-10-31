@@ -45,7 +45,7 @@ public class SpriteColor {
 	private void roundSelf() {
 		RGB[0] = (byte) SpriteManipulator.roundVal(RGB[0]);
 		RGB[1] = (byte) SpriteManipulator.roundVal(RGB[1]);
-		RGB[2] = (byte) SpriteManipulator.roundVal(RGB[1]);
+		RGB[2] = (byte) SpriteManipulator.roundVal(RGB[2]);
 	}
 	
 	public String toString() {

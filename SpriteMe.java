@@ -84,9 +84,8 @@ public class SpriteMe {
 		l.putConstraint(SpringLayout.SOUTH, p, 0,
 				SpringLayout.SOUTH, fullWrap);
 		l.putConstraint(SpringLayout.EAST, p, 15,
-				SpringLayout.WEST, fullWrap);
+				SpringLayout.EAST, fullWrap);
 		frame.add(p);
-		
 		// display frame
 		frame.setPreferredSize(d);
 		frame.setMinimumSize(d);
