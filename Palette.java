@@ -105,7 +105,7 @@ public class Palette extends Container {
 	private SpriteColor[][] pal = new SpriteColor[4][16];
 	private Splotch[][] splotches = new Splotch[4][16];
 	private static final int[] UNCHANGEABLE_INDICES =
-		{ 0, 1, 2, 4, 5, 6, 14 };
+		{ 0, 1, 2, 5, 6, 7, 13 };
 
 	public Palette() {
 		initializePalette();
@@ -140,11 +140,24 @@ public class Palette extends Container {
 					w);
 			w.gridx++;
 			for (int j = 0; j < 16; j++, w.gridx++) {
+					if (!editableIndex(j)) {
+						splotches[i][j].setEditable(false);
+					}
 				this.add(splotches[i][j], w);
 			}
 		}
 	}
 	
+	public static boolean editableIndex(int i) {
+		boolean ret = true;
+		for (int x : UNCHANGEABLE_INDICES) {
+			if (i == x) {
+				ret = false;
+				break;
+			}
+		}
+		return ret;
+	}
 	public void paint(Graphics g) {
 		this.paintComponents(g);
 	}

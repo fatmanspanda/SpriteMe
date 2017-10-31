@@ -9,8 +9,9 @@ import javax.swing.JComponent;
 public class Splotch extends JComponent {
 
 	private static final long serialVersionUID = -2349012926208164404L;
-	private SpriteColor color;
 	private static final int SIZE = SpriteMe.SPLOTCH_SIZE;
+	private SpriteColor color;
+	private boolean editable;
 	public Splotch(SpriteColor c) {
 		color = c;
 		this.setForeground(color.toColor());
@@ -22,6 +23,13 @@ public class Splotch extends JComponent {
 		addMouse();
 	}
 	
+	public void setEditable(boolean x) {
+		editable = x;
+		String changeable = editable ?
+					"" :
+					" - This color cannot be edited.";
+		this.setToolTipText(color.toString() + changeable);
+	}
 	public void paint(Graphics g) {
 		g.fillRect(0, 0, SIZE, SIZE);
 		g.setColor(Color.BLACK);
