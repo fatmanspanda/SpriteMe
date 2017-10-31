@@ -28,6 +28,7 @@ public class ColorPair {
 	/*
 	 * Some constants
 	 */
+	// Skin
 	public static final ColorPair WHITE_SKIN =
 			new ColorPair("White skin", SpriteColor.WHITE_SKIN_LT, SpriteColor.WHITE_SKIN_DK);
 	public static final ColorPair PALE_SKIN =

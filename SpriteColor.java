@@ -36,6 +36,20 @@ public class SpriteColor {
 		RGB[2] = (byte) SpriteManipulator.roundVal(RGB[1]);
 	}
 	
+	public String toString() {
+		return n;
+	}
+	
+	// TODO : Some formula that works well
+	public ColorPair makeShadedPair() {
+		int r2 = Byte.toUnsignedInt(RGB[0]);
+		int g2 = Byte.toUnsignedInt(RGB[1]);
+		int b2 = Byte.toUnsignedInt(RGB[2]);
+		
+		SpriteColor shade = new SpriteColor(n + "shaded",r2, g2, b2);
+		return new ColorPair(n, this, shade);
+	}
+	
 	/*
 	 * Some color constants
 	 */
@@ -62,4 +76,34 @@ public class SpriteColor {
 			new SpriteColor("Hispanic skin", 96, 48, 8);
 	public static final SpriteColor BLACK_SKIN_DK =
 			new SpriteColor("Hispanic skin shade", 80, 32, 8);
+	
+	// THE BEST COLORS
+	public static final SpriteColor RASPBERRY =
+			new SpriteColor("Raspberry", 152, 0, 64);
+	public static final SpriteColor RASPBERRY_DK =
+			new SpriteColor("Raspberry shade", 112, 0, 56);
+	public static final SpriteColor MIKES_ORANGE =
+			new SpriteColor("Mike's orange", 248, 176, 0);
+
+	// A beautiful rainbow
+	public static final SpriteColor BRIGHT_RED =
+			new SpriteColor("Bright red", 248, 0, 0);
+	public static final SpriteColor BRIGHT_ORANGE =
+			new SpriteColor("Bright orange", 248, 128, 0);
+	public static final SpriteColor BRIGHT_YELLOW =
+			new SpriteColor("Bright yellow", 248, 248, 0);
+	public static final SpriteColor BRIGHT_GREEN =
+			new SpriteColor("Bright green", 0, 248, 0);
+	public static final SpriteColor BRIGHT_CYAN =
+			new SpriteColor("Bright cyan", 0, 248, 248);
+	public static final SpriteColor BRIGHT_BLUE =
+			new SpriteColor("Bright blue", 0, 0, 248);
+	public static final SpriteColor BRIGHT_PURPLE =
+			new SpriteColor("Bright indigo", 128, 0, 248);
+	
+	// other colors
+	public static final SpriteColor BLACK =
+			new SpriteColor("Black", 72, 72, 72);
+	public static final SpriteColor OFFWHITE =
+			new SpriteColor("Off-white", 232, 232, 232);
 }

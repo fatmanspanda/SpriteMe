@@ -1,13 +1,11 @@
 package SpriteMe;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -132,11 +130,11 @@ public class SpriteMe {
 		w.gridy = 0;
 		controls.add(skinPick, w);
 
-		
 		// format frame
 		final Container fullWrap = frame.getContentPane();
 		SpringLayout l = new SpringLayout();
 		frame.setLayout(l);
+
 		// add image
 		l.putConstraint(SpringLayout.WEST, image, 5,
 				SpringLayout.WEST, fullWrap);
@@ -150,7 +148,6 @@ public class SpriteMe {
 		l.putConstraint(SpringLayout.NORTH, controls, 5,
 				SpringLayout.NORTH, fullWrap);
 		frame.add(controls);
-		
 
 		// display frame
 		frame.setPreferredSize(d);
