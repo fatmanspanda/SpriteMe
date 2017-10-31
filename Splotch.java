@@ -1,4 +1,5 @@
 package SpriteMe;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,6 +24,8 @@ public class Splotch extends JComponent {
 	
 	public void paint(Graphics g) {
 		g.fillRect(0, 0, SIZE, SIZE);
+		g.setColor(Color.BLACK);
+		g.drawRect(0, 0, SIZE, SIZE);
 	}
 	
 	private void addMouse() {

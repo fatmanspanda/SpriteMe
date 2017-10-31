@@ -31,6 +31,9 @@ public class SpriteMe {
 			ColorPair.BLACK_SKIN
 	};
 
+	public static final String[] MAIL_NAMES = {
+		"Green mail", "Blue mail", "Red mail", "Bunny"
+	};
 	public static void main(String[] args) {
 		//try to set LaF
 		try {
@@ -83,7 +86,7 @@ public class SpriteMe {
 		Palette p = new Palette();
 		l.putConstraint(SpringLayout.SOUTH, p, 0,
 				SpringLayout.SOUTH, fullWrap);
-		l.putConstraint(SpringLayout.EAST, p, 15,
+		l.putConstraint(SpringLayout.EAST, p, 0,
 				SpringLayout.EAST, fullWrap);
 		frame.add(p);
 		// display frame

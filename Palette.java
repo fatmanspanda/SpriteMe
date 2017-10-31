@@ -1,12 +1,13 @@
 package SpriteMe;
 
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class Palette extends Container {
 
@@ -129,19 +130,22 @@ public class Palette extends Container {
 	private void initializeDisplay() {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
-		w.insets = new Insets(1,1,0,0);
-		this.setForeground(Color.BLACK);
-		for (int i = 0; i < 4; i++) {
-			w.gridy = i;
-			for (int j = 0; j < 16; j++) {
-				w.gridx = j;
+
+		w.gridy = 0;
+		for (int i = 0; i < 4; i++, w.gridy++) {
+			w.gridx = 0;
+			// TODO fix alignment?????
+			this.add(
+					new JLabel(SpriteMe.MAIL_NAMES[i], SwingConstants.RIGHT),
+					w);
+			w.gridx++;
+			for (int j = 0; j < 16; j++, w.gridx++) {
 				this.add(splotches[i][j], w);
 			}
 		}
 	}
 	
 	public void paint(Graphics g) {
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		this.paintComponents(g);
 	}
 }
