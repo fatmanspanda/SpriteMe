@@ -28,6 +28,9 @@ public class Splotch extends JComponent {
 		addMouse();
 	}
 	
+	public SpriteColor getColor() {
+		return color;
+	}
 	/**
 	 * 
 	 * @param c

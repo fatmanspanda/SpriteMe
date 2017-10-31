@@ -38,20 +38,34 @@ public class SpriteColor {
 		this(name, (byte) r, (byte) g, (byte) b );
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Color toColor() {
 		return c;
 	}
 
+	/**
+	 * 
+	 */
 	private void roundSelf() {
 		RGB[0] = (byte) SpriteManipulator.roundVal(RGB[0]);
 		RGB[1] = (byte) SpriteManipulator.roundVal(RGB[1]);
 		RGB[2] = (byte) SpriteManipulator.roundVal(RGB[2]);
 	}
 	
+	/**
+	 * 
+	 */
 	public String toString() {
 		return n;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String toFullString() {
 		return String.format("%s (RGB{%s,%s,%s})",
 				n,
@@ -60,7 +74,14 @@ public class SpriteColor {
 				Byte.toUnsignedInt(RGB[2]));
 	}
 
-	// TODO : Some formula that works well
+	public byte[] getRGB() {
+		return new byte[] { RGB[0], RGB[1], RGB[2] };
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	// TODO : Some formula that works better
 	public ColorPair makeShadedPair() {
 		int r2 = Byte.toUnsignedInt(RGB[0]);
 		int g2 = Byte.toUnsignedInt(RGB[1]);

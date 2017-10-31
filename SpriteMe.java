@@ -64,7 +64,6 @@ public class SpriteMe {
 		final JPanel controls = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
 		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(SKINCOLORS);
-		final JPanel image = new JPanel();
 		w.gridy = 0;
 		controls.add(skinPick, w);
 
@@ -72,13 +71,6 @@ public class SpriteMe {
 		final Container fullWrap = frame.getContentPane();
 		SpringLayout l = new SpringLayout();
 		frame.setLayout(l);
-
-		// add image
-		l.putConstraint(SpringLayout.WEST, image, 5,
-				SpringLayout.WEST, fullWrap);
-		l.putConstraint(SpringLayout.NORTH, image, 5,
-				SpringLayout.NORTH, fullWrap);
-		frame.add(image);
 
 		// add controls
 		l.putConstraint(SpringLayout.EAST, controls, -5,
@@ -95,7 +87,15 @@ public class SpriteMe {
 				SpringLayout.EAST, fullWrap);
 		frame.add(pal);
 		
-		// add ico
+		// sprite appearance
+		IndexedSprite mySprite = new IndexedSprite(pal);
+		l.putConstraint(SpringLayout.NORTH, mySprite, 5,
+				SpringLayout.NORTH, fullWrap);
+		l.putConstraint(SpringLayout.WEST, mySprite, 5,
+				SpringLayout.WEST, fullWrap);
+		frame.add(mySprite);
+		// TODO : Credits
+		// bazly + fish for images
 		// But what if Ganon dabs back?
 		ImageIcon ico = new ImageIcon(
 				SpriteMe.class.getResource("/SpriteMe/Images/Link thinking small.png")
@@ -113,7 +113,7 @@ public class SpriteMe {
 		frame.setMinimumSize(d);
 		setAllSizes(frame, d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocation(100, 100);
+		frame.setLocation(200, 200);
 		frame.setVisible(true);
 		
 		// Action listeners
@@ -121,6 +121,7 @@ public class SpriteMe {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				pal.setSkinColor((ColorPair) skinPick.getSelectedItem());
+				mySprite.repaint();
 			}});
 	}
 	

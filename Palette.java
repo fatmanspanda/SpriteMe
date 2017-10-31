@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import SpriteManipulator.SpriteManipulator;
 import SpriteMe.Listeners.*;
 
 public class Palette extends Container {
@@ -106,7 +108,6 @@ public class Palette extends Container {
 			{ (byte) 192, (byte) 128, (byte) 240 }
 		};
 
-	private SpriteColor[][] pal = new SpriteColor[4][16];
 	private Splotch[][] splotches = new Splotch[4][16];
 	private static final int[] UNCHANGEABLE_INDICES =
 		{ 0, 1, 2, 5, 6, 7, 13 };
@@ -128,12 +129,12 @@ public class Palette extends Container {
 		for (int i = 0; i < 64; i++) {
 			palN = i / 16;
 			palI = i % 16;
-			pal[palN][palI] = new SpriteColor(
+			SpriteColor vanilla = new SpriteColor(
 								VANILLA_PALETTE_NAMES[palI],
 								VANILLA_PALETTE[i][0],
 								VANILLA_PALETTE[i][1],
 								VANILLA_PALETTE[i][2]);
-			splotches[palN][palI] = new Splotch(pal[palN][palI]);
+			splotches[palN][palI] = new Splotch(vanilla);
 		}
 	}
 	
@@ -260,6 +261,34 @@ public class Palette extends Container {
 		this.paintComponents(g);
 	}
 	
+	/**
+	 * 
+	 */
+	public byte[][] toArray() {
+		byte[][] ret = new byte[64][3];
+		for (int i = 0; i < 64; i++) {
+			int mailI = i / 16;
+			int colI = i % 16;
+			ret[i] = splotches[mailI][colI].getColor().getRGB();
+		}
+		return ret;
+	}
+	
+	/**
+	 * 
+	 */
+	public int[] toRGB9Array() {
+		byte[][] temp = toArray();
+		int[] ret = new int[64];
+		for (int i = 0; i < 64; i++) {
+			ret[i] = SpriteManipulator.RGB9(
+						Byte.toUnsignedInt(temp[i][0]),
+						Byte.toUnsignedInt(temp[i][1]),
+						Byte.toUnsignedInt(temp[i][2])
+						);
+		}
+		return ret;
+	}
 	/*
 	 * Change listeners
 	 */
