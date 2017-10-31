@@ -4,9 +4,13 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import SpriteMe.Listeners.*;
 
 public class Palette extends Container {
 
@@ -166,7 +170,10 @@ public class Palette extends Container {
 	public void setColorOneMail(int m, int i, SpriteColor c) {
 		if (editableIndex(i)) {
 			splotches[m][i].setColor(c);
+		} else {
+			return; // break out to avoid firing an event
 		}
+		firePaletteChangeEvent();
 	}
 
 	/**
@@ -179,7 +186,10 @@ public class Palette extends Container {
 			for (int m = 0; m < 4; m++) {
 				splotches[m][i].setColor(c);
 			}
+		} else {
+			return; // break out to avoid firing an event
 		}
+		firePaletteChangeEvent();
 	}
 	
 	/**
@@ -192,7 +202,10 @@ public class Palette extends Container {
 		if (editableIndex(i) && editableIndex(j)) {
 			splotches[m][i].setColor(p.color1());
 			splotches[m][j].setColor(p.color2());
+		} else {
+			return; // break out to avoid firing an event
 		}
+		firePaletteChangeEvent();
 	}
 	
 	/**
@@ -207,7 +220,10 @@ public class Palette extends Container {
 				splotches[m][i].setColor(p.color1());
 				splotches[m][j].setColor(p.color2());
 			}
+		} else {
+			return; // break out to avoid firing an event
 		}
+		firePaletteChangeEvent();
 	}
 	
 	/**
@@ -219,6 +235,7 @@ public class Palette extends Container {
 			splotches[m][4].setColor(p.color1());
 			splotches[m][3].setColor(p.color2());
 		}
+		firePaletteChangeEvent();
 	}
 	/**
 	 * 
@@ -241,5 +258,25 @@ public class Palette extends Container {
 	 */
 	public void paint(Graphics g) {
 		this.paintComponents(g);
+	}
+	
+	/*
+	 * Change listeners
+	 */
+	private List<PaletteChangeListener> paletteListeners = new ArrayList<PaletteChangeListener>();
+	public synchronized void addPaletteChangeListener(PaletteChangeListener s) {
+		paletteListeners.add(s);
+	}
+
+	public synchronized void removePaletteChangeListener(PaletteChangeListener s) {
+		paletteListeners.remove(s);
+	}
+
+	private synchronized void firePaletteChangeEvent() {
+		PaletteChangeEvent s = new PaletteChangeEvent(this);
+		Iterator<PaletteChangeListener> listening = paletteListeners.iterator();
+		while(listening.hasNext()) {
+			(listening.next()).eventReceived(s);
+		}
 	}
 }
