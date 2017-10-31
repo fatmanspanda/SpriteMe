@@ -1,8 +1,10 @@
 package SpriteMe;
 
-import java.awt.Component;
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
-public class Palette extends Component {
+public class Palette extends Container {
 
 	private static final long serialVersionUID = 9036341073446768809L;
 
@@ -96,11 +98,13 @@ public class Palette extends Component {
 		};
 
 	private SpriteColor[][] pal = new SpriteColor[4][16];
+	private Splotch[][] splotches = new Splotch[4][16];
 	private static final int[] UNCHANGEABLE_INDICES =
 		{ 0, 1, 2, 4, 5, 6, 14 };
 
 	public Palette() {
 		initializePalette();
+		initializeDisplay();
 	}
 	
 	private void initializePalette() {
@@ -114,6 +118,19 @@ public class Palette extends Component {
 								VANILLA_PALETTE[i][0],
 								VANILLA_PALETTE[i][1],
 								VANILLA_PALETTE[i][2]);
+			splotches[palN][palI] = new Splotch(pal[palN][palI]);
+		}
+	}
+	
+	private void initializeDisplay() {
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints w = new GridBagConstraints();
+		for (int i = 0; i < 4; i++) {
+			w.gridy = i;
+			for (int j = 0; j < 16; j++) {
+				w.gridx = j;
+				this.add(splotches[i][j], w);
+			}
 		}
 	}
 }
