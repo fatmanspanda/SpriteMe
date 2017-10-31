@@ -6,7 +6,10 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -89,6 +92,20 @@ public class SpriteMe {
 		l.putConstraint(SpringLayout.EAST, p, 0,
 				SpringLayout.EAST, fullWrap);
 		frame.add(p);
+		
+		// add ico
+		// But what if Ganon dabs back?
+		ImageIcon ico = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Link thinking small.png")
+			);
+		ImageIcon icoTask = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Link thinking.png")
+			);
+		ArrayList<Image> icons = new ArrayList<Image>();
+		icons.add(ico.getImage());
+		icons.add(icoTask.getImage());
+		frame.setIconImages(icons);
+
 		// display frame
 		frame.setPreferredSize(d);
 		frame.setMinimumSize(d);
