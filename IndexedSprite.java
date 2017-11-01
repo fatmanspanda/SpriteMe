@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import SpriteManipulator.SpriteManipulator;
 
@@ -32,6 +34,7 @@ public class IndexedSprite extends Component {
 	
 	public void setMail(int m) {
 		mail = m;
+		repaint();
 	}
 
 	public void makeSprite() {
@@ -96,5 +99,25 @@ public class IndexedSprite extends Component {
 		BufferedImage head = cur.getSubimage(16, 0, 16, 16);
 		g2.drawImage(body, 33, 8, null);
 		g2.drawImage(head, 33, 0, null);
+	}
+	
+	/*
+	 * Change listeners
+	 */
+	private List<SpriteChangeListener> spriteListeners = new ArrayList<SpriteChangeListener>();
+	public synchronized void addSpriteChangeListener(SpriteChangeListener s) {
+		spriteListeners.add(s);
+	}
+
+	public synchronized void removeSpriteChangeListener(SpriteChangeListener s) {
+		spriteListeners.remove(s);
+	}
+
+	private synchronized void fireSpriteChangeEvent() {
+		SpriteChangeEvent s = new SpriteChangeEvent(this);
+		Iterator<SpriteChangeListener> listening = spriteListeners.iterator();
+		while(listening.hasNext()) {
+			(listening.next()).eventReceived(s);
+		}
 	}
 }

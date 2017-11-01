@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -61,8 +63,25 @@ public class SpriteMe {
 		final JFrame frame = new JFrame("Sprite Me " + VERSION);
 		final JPanel controls = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
+
+		w.gridy = -1;
+		w.fill = GridBagConstraints.HORIZONTAL;
+		// mail preview
+		final JLabel mailLbl = new JLabel("Mail preview", SwingConstants.RIGHT);
+		final JComboBox<String> mailPick = new JComboBox<String>(MAIL_NAMES);
+		w.gridy++;
+		w.gridx = 0;
+		controls.add(mailLbl,w);
+		w.gridx = 1;
+		controls.add(mailPick, w);
+		
+		// skin color
+		final JLabel skinLbl = new JLabel("Skin color", SwingConstants.RIGHT);
 		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(SKINCOLORS);
-		w.gridy = 0;
+		w.gridy++;
+		w.gridx = 0;
+		controls.add(skinLbl,w);
+		w.gridx = 1;
 		controls.add(skinPick, w);
 
 		// format main wrapper
@@ -145,13 +164,6 @@ public class SpriteMe {
 		frame.setLocation(200, 200);
 		frame.setVisible(true);
 		
-		// Action listeners
-		skinPick.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				pal.setSkinColor((ColorPair) skinPick.getSelectedItem());
-			}});
-		
 		// repainting on all sprite changes
 		SpriteChangeListener repainter = new SpriteChangeListener() {
 
@@ -164,6 +176,20 @@ public class SpriteMe {
 		
 		editor.addSpriteChangeListener(repainter);
 		pal.addSpriteChangeListener(repainter);
+		mySprite.addSpriteChangeListener(repainter);
+	
+		// Action listeners for controls
+		skinPick.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				pal.setSkinColor((ColorPair) skinPick.getSelectedItem());
+			}});
+
+		mailPick.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mySprite.setMail(mailPick.getSelectedIndex());
+			}});
 	}
 	
 	/**
