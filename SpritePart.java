@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 import SpriteManipulator.SpriteManipulator;
 public final class SpritePart implements Comparable<SpritePart> {
-	
+
 	// Maps colors to an indexing that only serves this sprite part
 	// only used for initializing a map of the image
 	private final byte[][] colorMap;
@@ -18,17 +18,21 @@ public final class SpritePart implements Comparable<SpritePart> {
 	private final byte[] indexMap;
 	// default map for resetting the indices
 	private final byte[] defaultIndexMap;
-	
+
 	private final String n;
 	private final String path;
+	private final String[] colorAreas;
 	protected final int z;
 	private final byte[] raster;
 	private static final int RASTERSIZE = SpriteManipulator.INDEXEDRASTERSIZE;
-	private SpritePart(String name, String imagePath, byte[][] colorIndexMap, byte[] paletteIndexMap, int zIndex) {
+	private SpritePart(String name, String imagePath,
+			byte[][] colorIndexMap, byte[] paletteIndexMap, String[] areas,
+			int zIndex) {
 		n = name;
 		path = imagePath;
 		colorMap = colorIndexMap;
 		indexMap = paletteIndexMap;
+		colorAreas = areas;
 		// deep copy
 		defaultIndexMap = new byte[indexMap.length];
 		resetIndexMapping();		
@@ -41,6 +45,36 @@ public final class SpritePart implements Comparable<SpritePart> {
 		for (int i = 0; i < indexMap.length; i++) {
 			indexMap[i] = defaultIndexMap[i];
 		}
+	}
+
+	/**
+	 * 
+	 */
+	public String getName() {
+		return n;
+	}
+
+	/**
+	 * 
+	 */
+	public int colorCount() {
+		return indexMap.length;
+	}
+
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 */
+	public String colorName(int i) {
+		return colorAreas[i];
+	}
+
+	/**
+	 * 
+	 */
+	public byte colorIndex(int i) {
+		return indexMap[i];
 	}
 
 	/**
@@ -62,7 +96,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 			e.printStackTrace();
 			return;
 		}
-		
+
 		file = SpriteManipulator.convertToABGR(file);
 		byte[] rawRaster = SpriteManipulator.getImageRaster(file);
 
@@ -75,7 +109,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 					Byte.toUnsignedInt(colorMap[i][2])
 					);
 		}
-		
+
 		// reindex file
 		int curCol;
 		int pos;
@@ -99,7 +133,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 					curColI++;
 				}
 			} // end color test
-			
+
 			// apply mapped index
 			if (matchedColor) {
 				raster[i] = indexMap[curColI];
@@ -108,7 +142,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 			}
 		} // end raster loop
 	} // end raster creation
-	
+
 	/**
 	 * Change the assignment of Color X to a new Palette index
 	 */
@@ -125,8 +159,8 @@ public final class SpritePart implements Comparable<SpritePart> {
 	public int zIndex() {
 		return z;
 	}
-	
-	
+
+
 	private static byte[][] convertArray(int[][] c) {
 		byte[][] ret = new byte[c.length][c[0].length];
 		for (int i = 0; i < ret.length; i++) {
@@ -141,7 +175,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 	public int compareTo(SpritePart p) {
 		return z - p.z;
 	}
-	
+
 	/*
 	 * Public constants for sprite parts
 	 */
@@ -150,10 +184,11 @@ public final class SpritePart implements Comparable<SpritePart> {
 			"/SpriteMe/Images/Weird Chocolate Link.png",
 			convertArray(new int[][] { 
 						{ 40, 40, 40 }, // black outline
-						{ 80, 144, 16 }, // tunic shade
-						{ 120, 184, 32 } // tunic
+						{ 120, 184, 32 }, // tunic
+						{ 80, 144, 16 } // tunic shade
 					}),
-			new byte[] { 5, 9, 10 },
+			new byte[] { 5, 10, 9 },
+			new String[] { "Outline", "Base color", "Shading" },
 			0
 			);
 
@@ -162,13 +197,14 @@ public final class SpritePart implements Comparable<SpritePart> {
 			"/SpriteMe/Images/Weird Chocolate Link.png",
 			convertArray(new int[][] { 
 						{ 40, 40, 40 }, // black outline
-						{ 184, 104, 32}, // skin shade
-						{ 240, 160, 104 } // skin
+						{ 240, 160, 104 }, // skin
+						{ 184, 104, 32} // skin shade
 					}),
-			new byte[] { 5, 3, 4 },
+			new byte[] { 5, 4, 3 },
+			new String[] { "Outline", "Base color", "Shading" },
 			0
 			);
-	
+
 	public static final SpritePart GLASSES = new SpritePart(
 			"Glasses",
 			"/SpriteMe/Images/glasses_template.png",
@@ -177,6 +213,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 						{ 192, 128, 240 } // lens
 					}),
 			new byte[] { 5, 15 },
+			new String[] { "Frame", "Lens" },
 			100
 			);
 }
