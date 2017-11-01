@@ -238,6 +238,7 @@ public class Palette extends Container {
 		}
 		firePaletteChangeEvent();
 	}
+
 	/**
 	 * 
 	 * @param i
@@ -254,6 +255,12 @@ public class Palette extends Container {
 		return ret;
 	}
 	
+	/**
+	 * 
+	 */
+	public SpriteColor colorForMailAndIndex(int m, int i) {
+		return splotches[m][i].getColor();
+	}
 	/**
 	 * 
 	 */

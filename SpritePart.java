@@ -63,6 +63,12 @@ public final class SpritePart implements Comparable<SpritePart> {
 
 	/**
 	 * 
+	 */
+	public byte[] indexMap() {
+		return indexMap;
+	}
+	/**
+	 * 
 	 * @param i
 	 * @return
 	 */

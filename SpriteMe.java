@@ -18,11 +18,9 @@ import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import SpriteManipulator.SpriteManipulator;
-
 public class SpriteMe {
 	private static final String VERSION = "v0.0.0";
-	public static final int SPLOTCH_SIZE = 15;
+	public static final int SPLOTCH_SIZE = 16;
 	public static final Dimension SPLOTCH_DIMENSION = new Dimension(SPLOTCH_SIZE, SPLOTCH_SIZE);
 	/*
 	 * Combo box constants
@@ -108,6 +106,7 @@ public class SpriteMe {
 		icons.add(icoTask.getImage());
 		frame.setIconImages(icons);
 
+		new SpritePartEditor(pal).setVisible(true);
 		// display frame
 		frame.setPreferredSize(d);
 		frame.setMinimumSize(d);
