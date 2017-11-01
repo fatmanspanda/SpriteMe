@@ -10,16 +10,18 @@ public final class SpritePart implements Comparable<SpritePart> {
 	// Maps colors to an indexing that only serves this sprite part
 	// only used for initializing a map of the image
 	private final byte[][] colorMap;
-	
 	/* Maps indices to an index in the full palette
 	 * Such that { a, b } means :
 	 * Index 0 turns into index a of the main palette
 	 * Index 1 of this part becomes index b of the image
 	 */
 	private final byte[] indexMap;
+	// default map for resetting the indices
+	private final byte[] defaultIndexMap;
+	
 	private final String n;
 	private final String path;
-	private final int z;
+	protected final int z;
 	private final byte[] raster;
 	private static final int RASTERSIZE = SpriteManipulator.INDEXEDRASTERSIZE;
 	private SpritePart(String name, String imagePath, byte[][] colorIndexMap, byte[] paletteIndexMap, int zIndex) {
@@ -27,19 +29,20 @@ public final class SpritePart implements Comparable<SpritePart> {
 		path = imagePath;
 		colorMap = colorIndexMap;
 		indexMap = paletteIndexMap;
+		// deep copy
+		defaultIndexMap = new byte[indexMap.length];
+		resetIndexMapping();		
 		z = zIndex;
 		raster = new byte[RASTERSIZE];
 		getResourceAndRaster();
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public int getZ() {
-		return z;
+	public void resetIndexMapping() {
+		for (int i = 0; i < indexMap.length; i++) {
+			indexMap[i] = defaultIndexMap[i];
+		}
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -136,8 +139,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 
 	@Override
 	public int compareTo(SpritePart p) {
-		int z2 = p.getZ();
-		return z - z2;
+		return z - p.z;
 	}
 	
 	/*
@@ -172,9 +174,9 @@ public final class SpritePart implements Comparable<SpritePart> {
 			"/SpriteMe/Images/glasses_template.png",
 			convertArray(new int[][] { 
 						{ 40, 40, 40 }, // black outline
-						{ 80, 144, 16 } // lens
+						{ 192, 128, 240 } // lens
 					}),
-			new byte[] { 5, 9, 10 },
+			new byte[] { 5, 15 },
 			100
 			);
 }

@@ -3,6 +3,7 @@ package SpriteMe;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,14 +18,18 @@ public class IndexedSprite extends Component {
 	private byte[] raster;
 	private byte[] rasterABGR;
 	private Palette pal;
+	private int mail;
 	private BufferedImage[] sheets;
 	public IndexedSprite(Palette p) {
-		parts.add(SpritePart.TEST);
-		makeSprite();
+		parts.add(SpritePart.TEST); // Add body TODO: actual body
 		pal = p;
-		this.setPreferredSize(new Dimension(128, 448));
+		this.setPreferredSize(new Dimension(200, 448));
+		mail = 1;
 	}
 	
+	public void setMail(int m) {
+		mail = m;
+	}
 	public void makeSprite() {
 		
 	}
@@ -39,10 +44,12 @@ public class IndexedSprite extends Component {
 		// create index wrapper
 		// just paste over old values, nothing fancy
 		for (SpritePart p : parts) {
-			byte[] partRaster = p.getRaster();
-			for (int i = 0; i < IRASTERSIZE; i++) {
-				if (partRaster[i] != 0) {
-					raster[i] = partRaster[i];
+			if (p != null) {
+				byte[] partRaster = p.getRaster();
+				for (int i = 0; i < IRASTERSIZE; i++) {
+					if (partRaster[i] != 0) {
+						raster[i] = partRaster[i];
+					}
 				}
 			}
 		}
@@ -74,6 +81,16 @@ public class IndexedSprite extends Component {
 
 	public void paint(Graphics g) {
 		refreshImage();
-		g.drawImage(sheets[0], 0, 0, null);
+		// draw main sheet
+		BufferedImage cur = sheets[mail];
+		g.drawImage(cur, 0, 0, null);
+
+		// draw big preview
+		Graphics2D g2 = (Graphics2D) g;
+		g2.scale(4, 4);
+		BufferedImage body = cur.getSubimage(48, 16, 16, 16);
+		BufferedImage head = cur.getSubimage(16, 0, 16, 16);
+		g2.drawImage(body, 33, 8, null);
+		g2.drawImage(head, 33, 0, null);
 	}
 }
