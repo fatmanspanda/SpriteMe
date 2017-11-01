@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import SpriteManipulator.SpriteManipulator;
-import SpriteMe.Listeners.*;
 
 public class Palette extends Container {
 
@@ -119,7 +118,7 @@ public class Palette extends Container {
 		initializePalette();
 		initializeDisplay();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -137,7 +136,7 @@ public class Palette extends Container {
 			splotches[palN][palI] = new Splotch(vanilla);
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -161,7 +160,7 @@ public class Palette extends Container {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param m
@@ -174,7 +173,7 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
-		firePaletteChangeEvent();
+		fireSpriteChangeEvent();
 	}
 
 	/**
@@ -190,9 +189,9 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
-		firePaletteChangeEvent();
+		fireSpriteChangeEvent();
 	}
-	
+
 	/**
 	 * 
 	 * @param i
@@ -206,9 +205,9 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
-		firePaletteChangeEvent();
+		fireSpriteChangeEvent();
 	}
-	
+
 	/**
 	 * 
 	 * @param i
@@ -224,9 +223,9 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
-		firePaletteChangeEvent();
+		fireSpriteChangeEvent();
 	}
-	
+
 	/**
 	 * 
 	 * @param p
@@ -236,7 +235,7 @@ public class Palette extends Container {
 			splotches[m][4].setColor(p.color1());
 			splotches[m][3].setColor(p.color2());
 		}
-		firePaletteChangeEvent();
+		fireSpriteChangeEvent();
 	}
 
 	/**
@@ -254,7 +253,7 @@ public class Palette extends Container {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -267,7 +266,7 @@ public class Palette extends Container {
 	public void paint(Graphics g) {
 		this.paintComponents(g);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -280,7 +279,7 @@ public class Palette extends Container {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -296,21 +295,22 @@ public class Palette extends Container {
 		}
 		return ret;
 	}
+
 	/*
 	 * Change listeners
 	 */
-	private List<PaletteChangeListener> paletteListeners = new ArrayList<PaletteChangeListener>();
-	public synchronized void addPaletteChangeListener(PaletteChangeListener s) {
-		paletteListeners.add(s);
+	private List<SpriteChangeListener> spriteListeners = new ArrayList<SpriteChangeListener>();
+	public synchronized void addSpriteChangeListener(SpriteChangeListener s) {
+		spriteListeners.add(s);
 	}
 
-	public synchronized void removePaletteChangeListener(PaletteChangeListener s) {
-		paletteListeners.remove(s);
+	public synchronized void removeSpriteChangeListener(SpriteChangeListener s) {
+		spriteListeners.remove(s);
 	}
 
-	private synchronized void firePaletteChangeEvent() {
-		PaletteChangeEvent s = new PaletteChangeEvent(this);
-		Iterator<PaletteChangeListener> listening = paletteListeners.iterator();
+	private synchronized void fireSpriteChangeEvent() {
+		SpriteChangeEvent s = new SpriteChangeEvent(this);
+		Iterator<SpriteChangeListener> listening = spriteListeners.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}

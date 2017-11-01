@@ -20,16 +20,20 @@ public class IndexedSprite extends Component {
 	private Palette pal;
 	private int mail;
 	private BufferedImage[] sheets;
+	private static final Dimension d = new Dimension(200, 448);
 	public IndexedSprite(Palette p) {
 		parts.add(SpritePart.TEST); // Add body TODO: actual body
 		pal = p;
-		this.setPreferredSize(new Dimension(200, 448));
-		mail = 1;
+		this.setPreferredSize(d);
+		this.setMinimumSize(d);
+		this.setSize(d);
+		setMail(0);
 	}
 	
 	public void setMail(int m) {
 		mail = m;
 	}
+
 	public void makeSprite() {
 		
 	}

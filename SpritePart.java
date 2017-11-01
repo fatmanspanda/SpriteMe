@@ -31,10 +31,10 @@ public final class SpritePart implements Comparable<SpritePart> {
 		n = name;
 		path = imagePath;
 		colorMap = colorIndexMap;
-		indexMap = paletteIndexMap;
+		defaultIndexMap = paletteIndexMap;
+		indexMap = new byte[defaultIndexMap.length];
 		colorAreas = areas;
 		// deep copy
-		defaultIndexMap = new byte[indexMap.length];
 		resetIndexMapping();		
 		z = zIndex;
 		raster = new byte[RASTERSIZE];
@@ -50,7 +50,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 	/**
 	 * 
 	 */
-	public String getName() {
+	public String toString() {
 		return n;
 	}
 
@@ -155,9 +155,11 @@ public final class SpritePart implements Comparable<SpritePart> {
 	public void remapColor(int i, byte j) throws IndexOutOfBoundsException {
 		try {
 			indexMap[i] = j;
+			getResourceAndRaster();
 		} catch (IndexOutOfBoundsException e) {
 			throw e;
 		}
+
 	}
 	/**
 	 * Display priority

@@ -57,7 +57,7 @@ public class SpriteMe {
 		} // end Metal
 		
 		// main window
-		final Dimension d = new Dimension(500,500);
+		final Dimension d = new Dimension(1000,500);
 		final JFrame frame = new JFrame("Sprite Me " + VERSION);
 		final JPanel controls = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
@@ -65,17 +65,20 @@ public class SpriteMe {
 		w.gridy = 0;
 		controls.add(skinPick, w);
 
-		// format frame
-		final Container fullWrap = frame.getContentPane();
+		// format main wrapper
+		final Container fullWrap = new Container();
+		final Dimension cd = new Dimension(600,500);
 		SpringLayout l = new SpringLayout();
-		frame.setLayout(l);
+		fullWrap.setLayout(l);
+		fullWrap.setPreferredSize(cd);
+		fullWrap.setMinimumSize(cd);
 
 		// add controls
 		l.putConstraint(SpringLayout.EAST, controls, -5,
 				SpringLayout.EAST, fullWrap);
 		l.putConstraint(SpringLayout.NORTH, controls, 5,
 				SpringLayout.NORTH, fullWrap);
-		frame.add(controls);
+		fullWrap.add(controls);
 
 		// palette TODO: WORK THIS
 		Palette pal = new Palette();
@@ -83,7 +86,7 @@ public class SpriteMe {
 				SpringLayout.SOUTH, fullWrap);
 		l.putConstraint(SpringLayout.EAST, pal, 0,
 				SpringLayout.EAST, fullWrap);
-		frame.add(pal);
+		fullWrap.add(pal);
 		
 		// sprite appearance
 		IndexedSprite mySprite = new IndexedSprite(pal);
@@ -91,7 +94,35 @@ public class SpriteMe {
 				SpringLayout.NORTH, fullWrap);
 		l.putConstraint(SpringLayout.WEST, mySprite, 5,
 				SpringLayout.WEST, fullWrap);
-		frame.add(mySprite);
+		fullWrap.add(mySprite);
+
+		// color changer
+		SpritePartEditor editor = new SpritePartEditor(pal);
+		
+		// format frame
+		final Container framesWrap = frame.getContentPane();
+		SpringLayout f = new SpringLayout();
+		framesWrap.setLayout(f);
+		
+		f.putConstraint(SpringLayout.NORTH, fullWrap, 2,
+				SpringLayout.NORTH, framesWrap);
+		f.putConstraint(SpringLayout.SOUTH, fullWrap, -2,
+				SpringLayout.SOUTH, framesWrap);
+		f.putConstraint(SpringLayout.WEST, fullWrap, 2,
+				SpringLayout.WEST, framesWrap);
+		f.putConstraint(SpringLayout.EAST, fullWrap, -2,
+				SpringLayout.WEST, editor);
+		framesWrap.add(fullWrap);
+		
+		f.putConstraint(SpringLayout.NORTH, editor, 2,
+				SpringLayout.NORTH, framesWrap);
+		f.putConstraint(SpringLayout.SOUTH, editor, -2,
+				SpringLayout.VERTICAL_CENTER, framesWrap);
+		f.putConstraint(SpringLayout.EAST, editor, -2,
+				SpringLayout.EAST, framesWrap);
+		framesWrap.add(editor);
+		
+		
 		// TODO : Credits
 		// bazly + fish for images
 		// But what if Ganon dabs back?
@@ -106,7 +137,6 @@ public class SpriteMe {
 		icons.add(icoTask.getImage());
 		frame.setIconImages(icons);
 
-		new SpritePartEditor(pal).setVisible(true);
 		// display frame
 		frame.setPreferredSize(d);
 		frame.setMinimumSize(d);
@@ -120,8 +150,20 @@ public class SpriteMe {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				pal.setSkinColor((ColorPair) skinPick.getSelectedItem());
-				mySprite.repaint();
 			}});
+		
+		// repainting on all sprite changes
+		SpriteChangeListener repainter = new SpriteChangeListener() {
+
+			@Override
+			public void eventReceived(SpriteChangeEvent arg0) {
+				editor.refreshPalette();
+				frame.repaint();
+			}
+		};
+		
+		editor.addSpriteChangeListener(repainter);
+		pal.addSpriteChangeListener(repainter);
 	}
 	
 	/**

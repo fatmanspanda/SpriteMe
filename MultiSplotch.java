@@ -20,6 +20,7 @@ public class MultiSplotch extends JComponent {
 	private final byte index;
 	private final MiniPalette mommy;
 	private boolean selected = false;
+
 	/**
 	 * 
 	 * @param c
@@ -31,14 +32,11 @@ public class MultiSplotch extends JComponent {
 		this.setSize(SpriteMe.SPLOTCH_DIMENSION);
 		this.setMinimumSize(SpriteMe.SPLOTCH_DIMENSION);
 		this.setPreferredSize(SpriteMe.SPLOTCH_DIMENSION);
-		setToolTip();
 		addMouse();
 	}
-	/**
-	 * 
-	 */
-	private void setToolTip() {
-		this.setToolTipText(this.toString());
+
+	public void setColors(SpriteColor c1, SpriteColor c2, SpriteColor c3, SpriteColor c4) {
+		colors = new SpriteColor[] { c1, c2, c3, c4 };
 	}
 
 	/**
@@ -50,12 +48,15 @@ public class MultiSplotch extends JComponent {
 			g.setColor(colors[i].toColor());
 			g.fillRect(0, ROWSIZE * i, SIZE, ROWSIZE);
 		}
-		
+
 		// draw blue if selected
-		g.setColor(selected ? Color.BLUE : Color.BLACK);
+		g.setColor(selected ? Color.BLUE: Color.BLACK);
 		g.drawRect(0, 0, SIZE, SIZE);
+		if (selected) {
+			g.drawRect(1, 1, SIZE-2, SIZE-2);
+		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -75,7 +76,7 @@ public class MultiSplotch extends JComponent {
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-			
+
 			}
 
 			@Override
@@ -86,7 +87,7 @@ public class MultiSplotch extends JComponent {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {}
-			
+
 		});
 	}
 }
