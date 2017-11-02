@@ -163,10 +163,10 @@ public class SpriteMe {
 		f.putConstraint(SpringLayout.EAST, editor, -2,
 				SpringLayout.EAST, framesWrap);
 		framesWrap.add(editor);
-		
+
+		pal.attachEditor(colorEditor);
 		// TODO : Credits
 		// bazly + fish for images
-		// But what if Ganon dabs back?
 		ImageIcon ico = new ImageIcon(
 				SpriteMe.class.getResource("/SpriteMe/Images/Link thinking small.png")
 			);

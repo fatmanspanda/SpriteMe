@@ -6,19 +6,21 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 
-import SpriteMe.Listeners.*;
 public class Splotch extends JComponent {
 
 	private static final long serialVersionUID = -2349012926208164404L;
 	private static final int SIZE = SpriteMe.SPLOTCH_SIZE;
 	private SpriteColor color;
 	private boolean editable = true;
-	
+	private final Palette mommy;
+	private final int index;
 	/**
 	 * 
 	 * @param c
 	 */
-	public Splotch(SpriteColor c) {
+	public Splotch(Palette parent, int i, SpriteColor c) {
+		mommy = parent;
+		index = i;
 		color = c;
 		this.setForeground(color.toColor());
 		this.setBackground(color.toColor());
@@ -52,6 +54,7 @@ public class Splotch extends JComponent {
 		color = c;
 		this.setForeground(color.toColor());
 		this.setBackground(color.toColor());
+		mommy.colorChanged(this);
 		setToolTip();
 	}
 
@@ -89,7 +92,7 @@ public class Splotch extends JComponent {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Color editing maybe?
-				
+				mommy.indexClicked(index);
 			}
 
 			@Override

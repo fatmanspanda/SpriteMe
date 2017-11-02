@@ -110,8 +110,9 @@ public class Palette extends Container {
 
 	private Splotch[][] splotches = new Splotch[4][16];
 	private static final int[] UNCHANGEABLE_INDICES =
-		{ 0, 1, 2, 5, 6, 7, 13 };
-
+		{ 0, 1, 2, 3, 4, 5, 6, 7, 13 };
+	private ColorEditor editInterface;
+	private int lastSelectedIndex;
 	/**
 	 * 
 	 */
@@ -134,7 +135,7 @@ public class Palette extends Container {
 								VANILLA_PALETTE[i][0],
 								VANILLA_PALETTE[i][1],
 								VANILLA_PALETTE[i][2]);
-			splotches[palN][palI] = new Splotch(vanilla);
+			splotches[palN][palI] = new Splotch(this, palI, vanilla);
 		}
 	}
 
@@ -174,6 +175,7 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
+		refreshColorEditor(i);
 		fireColorChangeEvent();
 		fireSpriteChangeEvent();
 	}
@@ -193,6 +195,7 @@ public class Palette extends Container {
 		}
 		fireColorChangeEvent();
 		fireSpriteChangeEvent();
+		refreshColorEditor(i);
 	}
 
 	/**
@@ -210,6 +213,7 @@ public class Palette extends Container {
 		}
 		fireColorChangeEvent();
 		fireSpriteChangeEvent();
+		refreshColorEditor(i,j);
 	}
 
 	/**
@@ -229,6 +233,7 @@ public class Palette extends Container {
 		}
 		fireColorChangeEvent();
 		fireSpriteChangeEvent();
+		refreshColorEditor(i,j);
 	}
 
 	/**
@@ -242,6 +247,8 @@ public class Palette extends Container {
 		}
 		fireColorChangeEvent();
 		fireSpriteChangeEvent();
+		refreshColorEditor(3,4);
+		refreshColorEditor(3,4);
 	}
 
 	/**
@@ -282,6 +289,33 @@ public class Palette extends Container {
 
 	/**
 	 * 
+	 * @param edit
+	 */
+	public void attachEditor(ColorEditor edit) {
+		editInterface = edit;
+	}
+	
+	/**
+	 * 
+	 */
+	public void indexClicked(int i) {
+		lastSelectedIndex = i;
+		editInterface.editNewColor(i);
+		editInterface.repaint();
+	}
+
+	/**
+	 * Refreshes if the index passed has changed.
+	 */
+	public void refreshColorEditor(int... i) {
+		for (int n : i) {
+			if (n == lastSelectedIndex) {
+				editInterface.editNewColor(lastSelectedIndex);
+			}
+		}
+	}
+	/**
+	 * 
 	 */
 	public void paint(Graphics g) {
 		this.paintComponents(g);
@@ -316,6 +350,9 @@ public class Palette extends Container {
 		return ret;
 	}
 
+	public void colorChanged(Splotch child) {
+		fireSpriteChangeEvent();
+	}
 	/*
 	 * Change listeners
 	 */

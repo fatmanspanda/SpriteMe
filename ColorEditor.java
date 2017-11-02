@@ -10,9 +10,6 @@ import javax.swing.SpringLayout;
 
 public class ColorEditor extends Container {
 	private static final long serialVersionUID = -6002186857197093009L;
-
-	private byte[] originalColorMap = {};
-	private byte[] colorMap = {};
 	private Palette pal;
 	private JPanel colorArea;
 	private boolean editable;
@@ -40,8 +37,10 @@ public class ColorEditor extends Container {
 		editable = Palette.editableIndex(i);
 		blob.setEditable(editable);
 		blob.setColors(pal.splotchesForIndex(i));
+		this.revalidate();
+		repaint();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -50,7 +49,6 @@ public class ColorEditor extends Container {
 		SpringLayout l = new SpringLayout();
 		this.setLayout(l);
 
-		colorArea = new JPanel(new GridBagLayout());
 		l.putConstraint(SpringLayout.EAST, blob, 0,
 				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.SOUTH, blob, 0,
