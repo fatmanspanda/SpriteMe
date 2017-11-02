@@ -1,4 +1,4 @@
-package SpriteMe;
+package SpriteMe.Listeners;
 import java.util.EventObject;
 
 public class SpriteChangeEvent extends EventObject {
