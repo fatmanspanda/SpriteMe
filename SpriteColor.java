@@ -113,14 +113,16 @@ public class SpriteColor {
 			new SpriteColor("Black skin", 96, 48, 8);
 	
 	// THE BEST COLORS
-	public static final SpriteColor RASPBERRY =
+	public static final SpriteColor RASPBERRY = // me
 			new SpriteColor("Raspberry", 152, 0, 64);
-	public static final SpriteColor RASPBERRY_DK =
-			new SpriteColor("Raspberry shade", 112, 0, 56);
 	public static final SpriteColor MIKES_ORANGE =
 			new SpriteColor("Mike's orange", 248, 176, 0);
-	public static final SpriteColor NUMPTY_BLUE =
+	public static final SpriteColor NUMPTY_BLUE = // christos owen because he's cool
 			new SpriteColor("Numpty blue", 56, 152, 216);
+	public static final SpriteColor FEESH_PURPLE =
+			new SpriteColor("Fish's purple", 176, 0, 216);
+	public static final SpriteColor ZARBY_ORANGE =
+			new SpriteColor("Zarby's orange", 216, 80, 24);
 
 	// A beautiful rainbow
 	public static final SpriteColor BRIGHT_RED =
