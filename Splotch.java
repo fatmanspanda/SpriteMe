@@ -104,7 +104,9 @@ public class Splotch extends JComponent {
 			public void mouseExited(MouseEvent arg0) {}
 
 			@Override
-			public void mousePressed(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {
+				mommy.indexClicked(index);
+			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {}

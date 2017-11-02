@@ -123,26 +123,42 @@ public class SpriteColor {
 			new SpriteColor("Fish's purple", 176, 0, 216);
 	public static final SpriteColor ZARBY_ORANGE =
 			new SpriteColor("Zarby's orange", 216, 80, 24);
+	public static final SpriteColor SOSUKE_BLACK =
+			new SpriteColor("Sosuke's black", 16, 16, 16);
 
 	// A beautiful rainbow
-	public static final SpriteColor BRIGHT_RED =
-			new SpriteColor("Bright red", 248, 0, 0);
-	public static final SpriteColor BRIGHT_ORANGE =
-			new SpriteColor("Bright orange", 248, 128, 0);
-	public static final SpriteColor BRIGHT_YELLOW =
-			new SpriteColor("Bright yellow", 248, 248, 0);
-	public static final SpriteColor BRIGHT_GREEN =
-			new SpriteColor("Bright green", 0, 248, 0);
-	public static final SpriteColor BRIGHT_CYAN =
-			new SpriteColor("Bright cyan", 0, 248, 248);
-	public static final SpriteColor BRIGHT_BLUE =
-			new SpriteColor("Bright blue", 0, 0, 248);
-	public static final SpriteColor BRIGHT_PURPLE =
-			new SpriteColor("Bright indigo", 128, 0, 248);
+	public static final SpriteColor RED =
+			new SpriteColor("Red", 248, 0, 0);
+	public static final SpriteColor ORANGE =
+			new SpriteColor("Orange", 248, 128, 0);
+	public static final SpriteColor YELLOW =
+			new SpriteColor("Yellow", 248, 248, 0);
+	public static final SpriteColor GREEN =
+			new SpriteColor("Green", 0, 248, 0);
+	public static final SpriteColor CYAN =
+			new SpriteColor("Cyan", 0, 248, 248);
+	public static final SpriteColor BLUE =
+			new SpriteColor("Blue", 0, 0, 248);
+	public static final SpriteColor INDIGO =
+			new SpriteColor("Indigo", 128, 0, 248);
 	
 	// other colors
 	public static final SpriteColor BLACK =
 			new SpriteColor("Black", 72, 72, 72);
 	public static final SpriteColor OFFWHITE =
 			new SpriteColor("Off-white", 232, 232, 232);
+	public static final SpriteColor BROWN =
+			new SpriteColor("Brown", 128, 48, 0);
+	public static final SpriteColor GRAY =
+			new SpriteColor("Gray", 176, 176, 176);
+	public static final SpriteColor BEIGE =
+			new SpriteColor("Beige", 160, 160, 96);
+
+	// List of useable constants for main colors
+	public static final SpriteColor[] CONSTANTS = new SpriteColor[] {
+			RED, ORANGE, YELLOW, GREEN, CYAN, INDIGO,
+			BLACK, OFFWHITE, BROWN, GRAY, BEIGE,
+			RASPBERRY, MIKES_ORANGE, NUMPTY_BLUE, FEESH_PURPLE,
+			ZARBY_ORANGE, SOSUKE_BLACK
+	};
 }

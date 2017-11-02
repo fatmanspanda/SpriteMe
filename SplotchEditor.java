@@ -20,6 +20,14 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.MaskFormatter;
 
 import SpriteManipulator.SpriteManipulator;
+
+/*
+ * TODO : Lighten / darken buttons
+ * TODO : Padding and borders
+ * TODO : Fix "custom color"
+ * TODO : Labelling
+ * TODO : You cannot edit this color
+*/
 public class SplotchEditor extends Container {
 	private static final long serialVersionUID = -5665184823715239064L;
 
@@ -218,6 +226,9 @@ public class SplotchEditor extends Container {
 		for (JFormattedTextField v : vals) {
 			v.setEnabled(enabled);
 		}
+		presets.setEnabled(enabled);
+		confirm.setEnabled(enabled);
+		reset.setEnabled(enabled);
 	}
 
 	private ChangeListener slideListen() {

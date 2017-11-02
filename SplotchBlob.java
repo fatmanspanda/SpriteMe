@@ -7,6 +7,10 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
+/*
+ * TODO : Labels
+ * TODO : "use 1 color for all mails"
+ */
 public class SplotchBlob extends Container {
 	private static final long serialVersionUID = 5958661421574061169L;
 
