@@ -32,6 +32,18 @@ public class Splotch extends JComponent {
 	public SpriteColor getColor() {
 		return color;
 	}
+	
+	/**
+	 * 
+	 */
+	public int[] getColorVals() {
+		byte[] t = color.getRGB();
+		return new int[] {
+				Byte.toUnsignedInt(t[0]),
+				Byte.toUnsignedInt(t[1]),
+				Byte.toUnsignedInt(t[2]),
+		};
+	}
 	/**
 	 * 
 	 * @param c
@@ -42,6 +54,7 @@ public class Splotch extends JComponent {
 		this.setBackground(color.toColor());
 		setToolTip();
 	}
+
 	/**
 	 * 
 	 * @param x

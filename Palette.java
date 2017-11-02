@@ -174,6 +174,7 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
+		fireColorChangeEvent();
 		fireSpriteChangeEvent();
 	}
 
@@ -190,6 +191,7 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
+		fireColorChangeEvent();
 		fireSpriteChangeEvent();
 	}
 
@@ -206,6 +208,7 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
+		fireColorChangeEvent();
 		fireSpriteChangeEvent();
 	}
 
@@ -224,6 +227,7 @@ public class Palette extends Container {
 		} else {
 			return; // break out to avoid firing an event
 		}
+		fireColorChangeEvent();
 		fireSpriteChangeEvent();
 	}
 
@@ -236,6 +240,7 @@ public class Palette extends Container {
 			splotches[m][4].setColor(p.color1());
 			splotches[m][3].setColor(p.color2());
 		}
+		fireColorChangeEvent();
 		fireSpriteChangeEvent();
 	}
 
@@ -261,6 +266,20 @@ public class Palette extends Container {
 	public SpriteColor colorForMailAndIndex(int m, int i) {
 		return splotches[m][i].getColor();
 	}
+	
+	/**
+	 * 	
+	 * 
+	 */
+	public Splotch[] splotchesForIndex(int i) {
+		return new Splotch[] {
+				splotches[0][i],
+				splotches[1][i],
+				splotches[2][i],
+				splotches[3][i]
+		};
+	}
+
 	/**
 	 * 
 	 */
@@ -312,6 +331,23 @@ public class Palette extends Container {
 	private synchronized void fireSpriteChangeEvent() {
 		SpriteChangeEvent s = new SpriteChangeEvent(this);
 		Iterator<SpriteChangeListener> listening = spriteListeners.iterator();
+		while(listening.hasNext()) {
+			(listening.next()).eventReceived(s);
+		}
+	}
+	
+	private List<ColorChangeListener> colorListeners = new ArrayList<ColorChangeListener>();
+	public synchronized void addColorChangeListener(ColorChangeListener s) {
+		colorListeners.add(s);
+	}
+
+	public synchronized void removeColorChangeListener(ColorChangeListener s) {
+		colorListeners.remove(s);
+	}
+
+	private synchronized void fireColorChangeEvent() {
+		ColorChangeEvent s = new ColorChangeEvent(this);
+		Iterator<ColorChangeListener> listening = colorListeners.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}
