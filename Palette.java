@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import SpriteManipulator.SpriteManipulator;
+import SpriteMe.Listeners.*;
 
 public class Palette extends Container {
 

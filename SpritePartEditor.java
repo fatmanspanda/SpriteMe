@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+import SpriteMe.Listeners.*;
+
 public class SpritePartEditor extends Container {
 	private static final long serialVersionUID = 3880283257828608241L;
 
@@ -66,7 +68,6 @@ public class SpritePartEditor extends Container {
 	 */
 	public void initializeDisplay() {
 		// TODO : label for part name
-		final Container fullWrap = this;
 		SpringLayout l = new SpringLayout();
 		this.setLayout(l);
 
@@ -81,9 +82,9 @@ public class SpritePartEditor extends Container {
 		}
 		// add palette area
 		l.putConstraint(SpringLayout.EAST, paletteArea, 0,
-				SpringLayout.EAST, fullWrap);
+				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.SOUTH, paletteArea, 0,
-				SpringLayout.SOUTH, fullWrap);
+				SpringLayout.SOUTH, this);
 		this.add(paletteArea);
 	}
 
@@ -112,7 +113,7 @@ public class SpritePartEditor extends Container {
 		for (int i = 0; i < colors; i++) {
 			colorMap[i] = originalColorMap[i];
 		}
-		 fireSpriteChangeEvent();
+		fireSpriteChangeEvent();
 	}
 
 	/*

@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import SpriteManipulator.SpriteManipulator;
+import SpriteMe.Listeners.*;
 
 public class IndexedSprite extends Component {
 	private static final long serialVersionUID = -6792579285233025438L;
@@ -22,9 +23,16 @@ public class IndexedSprite extends Component {
 	private Palette pal;
 	private int mail;
 	private BufferedImage[] sheets;
+	// Specific body parts
+	private SpritePart head = SpritePart.TEST;
+	private SpritePart body;
+	private SpritePart hair;
+	private SpritePart acc1;
+	private SpritePart acc2;
+	private SpritePart acc3;
 	private static final Dimension d = new Dimension(200, 448);
 	public IndexedSprite(Palette p) {
-		parts.add(SpritePart.TEST); // Add body TODO: actual body
+		parts.add(head);
 		pal = p;
 		this.setPreferredSize(d);
 		this.setMinimumSize(d);
@@ -32,20 +40,61 @@ public class IndexedSprite extends Component {
 		setMail(0);
 	}
 	
+	/**
+	 * 
+	 * @param m
+	 */
 	public void setMail(int m) {
 		mail = m;
-		repaint();
+		fireSpriteChangeEvent();
 	}
 
+	/**
+	 * 
+	 */
 	public void makeSprite() {
 		
 	}
 
+	/**
+	 * 
+	 * @param hairChoice
+	 */
+	public void setHair(SpritePart hairChoice) {
+		hair = hairChoice;
+		fireSpriteChangeEvent();
+	}
+	
+	/**
+	 * 
+	 */
+	public void setAccessory(SpritePart acc, int x) {
+		switch (x) {
+			case 1 : acc1 = acc;
+				break;
+			case 2 : acc2 = acc;
+				break;
+			case 3 : acc3 = acc;
+				break;
+		}
+		fireSpriteChangeEvent();
+	}
+	/**
+	 * 
+	 */
 	private void makeRaster() {
 		byte[][] palette = pal.toArray();
 		// make raster
 		raster = new byte[IRASTERSIZE];
 		// sort by z-index
+		parts.clear();
+		parts.add(head);
+		parts.add(acc1);
+		for (Object e : parts.toArray()) {
+			if (e == null) {
+				parts.remove(e);
+			}
+		}
 		Collections.sort(parts);
 		
 		// create index wrapper

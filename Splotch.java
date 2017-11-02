@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 
+import SpriteMe.Listeners.*;
 public class Splotch extends JComponent {
 
 	private static final long serialVersionUID = -2349012926208164404L;

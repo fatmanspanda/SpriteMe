@@ -20,6 +20,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import SpriteMe.Listeners.*;
+
 public class SpriteMe {
 	private static final String VERSION = "v0.0.0";
 	public static final int SPLOTCH_SIZE = 16;
@@ -27,7 +29,7 @@ public class SpriteMe {
 	/*
 	 * Combo box constants
 	 */
-	private static final ColorPair[] SKINCOLORS = new ColorPair[] {
+	public static final ColorPair[] SKINCOLORS = new ColorPair[] {
 			ColorPair.WHITE_SKIN,
 			ColorPair.PALE_SKIN,
 			ColorPair.HISPANIC_SKIN,
@@ -37,6 +39,10 @@ public class SpriteMe {
 
 	public static final String[] MAIL_NAMES = {
 		"Green mail", "Blue mail", "Red mail", "Bunny"
+	};
+
+	public static final SpritePart[] ACCESSORIES = new SpritePart[] {
+		SpritePart.NOTHING, SpritePart.GLASSES,	
 	};
 
 	public static void main(String[] args) {
@@ -66,6 +72,7 @@ public class SpriteMe {
 
 		w.gridy = -1;
 		w.fill = GridBagConstraints.HORIZONTAL;
+
 		// mail preview
 		final JLabel mailLbl = new JLabel("Mail preview", SwingConstants.RIGHT);
 		final JComboBox<String> mailPick = new JComboBox<String>(MAIL_NAMES);
@@ -83,6 +90,15 @@ public class SpriteMe {
 		controls.add(skinLbl,w);
 		w.gridx = 1;
 		controls.add(skinPick, w);
+
+		// accessories
+		final JLabel acc1Lbl = new JLabel("Accessory 1", SwingConstants.RIGHT);
+		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(ACCESSORIES);
+		w.gridy++;
+		w.gridx = 0;
+		controls.add(acc1Lbl,w);
+		w.gridx = 1;
+		controls.add(acc1Pick, w);
 
 		// format main wrapper
 		final Container fullWrap = new Container();
@@ -189,6 +205,12 @@ public class SpriteMe {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				mySprite.setMail(mailPick.getSelectedIndex());
+			}});
+		
+		acc1Pick.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mySprite.setAccessory((SpritePart) acc1Pick.getSelectedItem(), 1);
 			}});
 	}
 	
