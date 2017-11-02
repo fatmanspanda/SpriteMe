@@ -16,7 +16,7 @@ public class ColorPreview extends Component {
 		this.setMinimumSize(D);
 		this.setMaximumSize(D);
 	}
-	
+
 	public void setColor(int[] rgb) {
 		c = new Color(rgb[0], rgb[1], rgb[2]);
 	}

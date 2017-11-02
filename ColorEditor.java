@@ -4,8 +4,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 
 public class ColorEditor extends Container {
@@ -17,7 +17,7 @@ public class ColorEditor extends Container {
 	private JPanel colorArea;
 	private boolean editable;
 	private SplotchBlob blob = new SplotchBlob();
-	private static final Dimension prefDim = new Dimension(350,200);
+	private static final Dimension prefDim = new Dimension(400,400);
 
 	/**
 	 * 
@@ -38,6 +38,7 @@ public class ColorEditor extends Container {
 	 */
 	public void editNewColor(int i) {
 		editable = Palette.editableIndex(i);
+		blob.setEditable(editable);
 		blob.setColors(pal.splotchesForIndex(i));
 	}
 	
@@ -50,10 +51,10 @@ public class ColorEditor extends Container {
 		this.setLayout(l);
 
 		colorArea = new JPanel(new GridBagLayout());
-		l.putConstraint(SpringLayout.EAST, colorArea, 0,
+		l.putConstraint(SpringLayout.EAST, blob, 0,
 				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.SOUTH, colorArea, 0,
+		l.putConstraint(SpringLayout.SOUTH, blob, 0,
 				SpringLayout.SOUTH, this);
-		this.add(colorArea);
+		this.add(blob);
 	}
 }

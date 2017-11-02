@@ -149,14 +149,20 @@ public class SpriteMe {
 				SpringLayout.WEST, editor);
 		framesWrap.add(fullWrap);
 		
-		f.putConstraint(SpringLayout.NORTH, editor, 2,
+		ColorEditor colorEditor = new ColorEditor(pal);
+		f.putConstraint(SpringLayout.NORTH, colorEditor, 2,
 				SpringLayout.NORTH, framesWrap);
+		f.putConstraint(SpringLayout.EAST, colorEditor, -2,
+				SpringLayout.EAST, framesWrap);
+		framesWrap.add(colorEditor);
+		
 		f.putConstraint(SpringLayout.SOUTH, editor, -2,
-				SpringLayout.VERTICAL_CENTER, framesWrap);
+				SpringLayout.SOUTH, framesWrap);
+		f.putConstraint(SpringLayout.NORTH, editor, 2,
+				SpringLayout.SOUTH, colorEditor);
 		f.putConstraint(SpringLayout.EAST, editor, -2,
 				SpringLayout.EAST, framesWrap);
 		framesWrap.add(editor);
-		
 		
 		// TODO : Credits
 		// bazly + fish for images
