@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,6 +21,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
 
 import SpriteMe.Listeners.*;
 
@@ -27,6 +29,7 @@ public class SpriteMe {
 	private static final String VERSION = "v0.0.0";
 	public static final int SPLOTCH_SIZE = 16;
 	public static final Dimension SPLOTCH_DIMENSION = new Dimension(SPLOTCH_SIZE, SPLOTCH_SIZE);
+	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 	/*
 	 * Combo box constants
 	 */
@@ -77,6 +80,7 @@ public class SpriteMe {
 		// mail preview
 		final JLabel mailLbl = new JLabel("Mail preview", SwingConstants.RIGHT);
 		final JComboBox<String> mailPick = new JComboBox<String>(MAIL_NAMES);
+		mailLbl.setBorder(rightPad);
 		w.gridy++;
 		w.gridx = 0;
 		controls.add(mailLbl,w);
@@ -86,6 +90,7 @@ public class SpriteMe {
 		// skin color
 		final JLabel skinLbl = new JLabel("Skin color", SwingConstants.RIGHT);
 		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(SKINCOLORS);
+		skinLbl.setBorder(rightPad);
 		w.gridy++;
 		w.gridx = 0;
 		controls.add(skinLbl,w);
@@ -96,6 +101,7 @@ public class SpriteMe {
 		final JLabel acc1Lbl = new JLabel("Accessory 1", SwingConstants.RIGHT);
 		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(ACCESSORIES);
 		final JButton acc1Edit = new JButton("Edit");
+		acc1Lbl.setBorder(rightPad);
 		w.gridy++;
 		w.gridx = 0;
 		controls.add(acc1Lbl,w);
@@ -227,7 +233,9 @@ public class SpriteMe {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				SpritePart picked = (SpritePart) acc1Pick.getSelectedItem();
-				if (picked != SpritePart.NOTHING) {
+				if (picked == SpritePart.NOTHING) {
+					indexMapEditor.editNewPart(null);
+				} else {
 					indexMapEditor.editNewPart(picked);
 				}
 			}

@@ -8,10 +8,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
+import SpriteAnimator.GUIHelpers;
 import SpriteMe.Listeners.*;
 
 public class SpritePartEditor extends Container {
@@ -27,8 +31,11 @@ public class SpritePartEditor extends Container {
 	private SpringLayout l = new SpringLayout();
 	private final JLabel partLbl = new JLabel("Nothing");
 
+	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 	private static final Dimension prefDim = new Dimension(350,200);
-
+	private static String[] INSTRUCTION_STYLE = {
+			"padding: 10px 10px 10px 0px"
+	};
 	public SpritePartEditor(Palette p) {
 		super();
 		pal = p;
@@ -61,7 +68,7 @@ public class SpritePartEditor extends Container {
 			originalColorMap[i] = p.colorIndex(i);
 			colorMap[i] = p.colorIndex(i);
 		}
-
+		partLbl.setText(p.toString());
 		setPalette();
 		newPaletteSet();
 	}
@@ -84,16 +91,31 @@ public class SpritePartEditor extends Container {
 		final JLabel editingPart = new JLabel("Editing map for : ");
 		l.putConstraint(SpringLayout.EAST, editingPart, 0,
 				SpringLayout.HORIZONTAL_CENTER, this);
-		l.putConstraint(SpringLayout.NORTH, editingPart, 0,
-				SpringLayout.NORTH, this);
+		l.putConstraint(SpringLayout.SOUTH, editingPart, 0,
+				SpringLayout.VERTICAL_CENTER, this);
 		this.add(editingPart);
 		
 		l.putConstraint(SpringLayout.WEST, partLbl, 0,
 				SpringLayout.EAST, editingPart);
-		l.putConstraint(SpringLayout.NORTH, partLbl, 0,
-				SpringLayout.NORTH, this);
+		l.putConstraint(SpringLayout.SOUTH, partLbl, 0,
+				SpringLayout.VERTICAL_CENTER, this);
 		this.add(partLbl);
 		
+		final JLabel helpText = new JLabel();
+
+		helpText.setText("<html>" +
+				"<div style=\"" + GUIHelpers.join(INSTRUCTION_STYLE, ";") + "\">" +
+				"Use this area to pick the colors of each part of an item. " +
+				"</div>" +
+				"</html>");
+		l.putConstraint(SpringLayout.WEST, helpText, 0,
+				SpringLayout.WEST, this);
+		l.putConstraint(SpringLayout.EAST, helpText, 0,
+				SpringLayout.EAST, this);
+		l.putConstraint(SpringLayout.NORTH, helpText, 0,
+				SpringLayout.NORTH, this);
+		this.add(helpText);
+	
 		newPaletteSet();
 	}
 	
@@ -103,10 +125,13 @@ public class SpritePartEditor extends Container {
 			}
 		paletteArea = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
+		w.fill = GridBagConstraints.HORIZONTAL;
 		for (int i = 0; i < colors; i++) {
 			w.gridy = i;
 			w.gridx = 0;
-			paletteArea.add(new JLabel(curPart.colorName(i)), w);
+			JLabel partColorName = new JLabel(curPart.colorName(i), SwingConstants.RIGHT);
+			partColorName.setBorder(rightPad);
+			paletteArea.add(partColorName, w);
 			w.gridx = 1;
 			paletteArea.add(palettes[i], w);
 		}
@@ -114,8 +139,8 @@ public class SpritePartEditor extends Container {
 		// add palette area
 		l.putConstraint(SpringLayout.EAST, paletteArea, 0,
 				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.SOUTH, paletteArea, 0,
-				SpringLayout.SOUTH, this);
+		l.putConstraint(SpringLayout.NORTH, paletteArea, 0,
+				SpringLayout.VERTICAL_CENTER, this);
 		this.add(paletteArea);
 		this.revalidate();
 	}

@@ -49,6 +49,7 @@ public class SplotchEditor extends Container {
 	private static final Dimension sliderD = new Dimension(120, 10);
 	private static final Dimension textD = new Dimension(40, 20);
 	private static final Dimension labelD = new Dimension(20, 20);
+	
 	public SplotchEditor(Splotch c, boolean e) {
 		presets.setSelectedItem(null);
 		victim = c;

@@ -67,9 +67,9 @@ public class ColorEditor extends Container {
 				SpringLayout.NORTH, this);
 		this.add(indexLabel);
 
-		final JLabel a = new JLabel();
+		final JLabel helpText = new JLabel();
 
-		a.setText("<html>" +
+		helpText.setText("<html>" +
 				"<div style=\"" + GUIHelpers.join(INSTRUCTION_STYLE, ";") + "\">" +
 				"Use this area to edit the colors at your selected index. " +
 				"Note that SNES colors are 15-bit, so RGB values will be rounded down to the nearest multiple of 8." +
@@ -77,17 +77,17 @@ public class ColorEditor extends Container {
 				"Checking \"Use color for all mails\" will apply the first color to every mail when selecting \"Apply\"." +
 				"</div>" +
 				"</html>");
-		l.putConstraint(SpringLayout.WEST, a, 0,
+		l.putConstraint(SpringLayout.WEST, helpText, 0,
 				SpringLayout.WEST, curEditing);
-		l.putConstraint(SpringLayout.EAST, a, 0,
+		l.putConstraint(SpringLayout.EAST, helpText, 0,
 				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.NORTH, a, 0,
+		l.putConstraint(SpringLayout.NORTH, helpText, 0,
 				SpringLayout.SOUTH, curEditing);
-		this.add(a);
+		this.add(helpText);
 
 
-		l.putConstraint(SpringLayout.WEST, blob, 0,
-				SpringLayout.WEST, this);
+		l.putConstraint(SpringLayout.EAST, blob, 0,
+				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.SOUTH, blob, -20,
 				SpringLayout.SOUTH, this);
 		this.add(blob);
