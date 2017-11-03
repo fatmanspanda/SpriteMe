@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.NumberFormat;
 import java.text.ParseException;
 
 import javax.swing.JButton;
@@ -18,7 +19,6 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.MaskFormatter;
 
 import SpriteManipulator.SpriteManipulator;
 
@@ -52,6 +52,7 @@ public class SplotchEditor extends Container {
 	private static final Dimension labelD = new Dimension(20, 20);
 	
 	public SplotchEditor(Splotch c, boolean e) {
+		NumberFormat rgbFormat = NumberFormat.getNumberInstance();
 		presets.setSelectedItem(null);
 		victim = c;
 		enabled = e;
@@ -62,14 +63,12 @@ public class SplotchEditor extends Container {
 				new JSlider(JSlider.HORIZONTAL, 0, 31, RGB[1]/8),
 				new JSlider(JSlider.HORIZONTAL, 0, 31, RGB[2]/8)
 			};
+
+		rgbFormat.setMaximumFractionDigits(3);
 		vals = new JFormattedTextField[3];
-		try {
-			vals[0] = new JFormattedTextField(new MaskFormatter("###"));
-			vals[1] = new JFormattedTextField(new MaskFormatter("###"));
-			vals[2] = new JFormattedTextField(new MaskFormatter("###"));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
+		vals[0] = new JFormattedTextField(rgbFormat);
+		vals[1] = new JFormattedTextField(rgbFormat);
+		vals[2] = new JFormattedTextField(rgbFormat);
 
 		red = sliders[0];
 		green = sliders[1];
@@ -277,6 +276,7 @@ public class SplotchEditor extends Container {
 		sliders[1].setValue(RGB[1]/8);
 		sliders[2].setValue(RGB[2]/8);
 	}
+
 	public void setEnabled(boolean e) {
 		enabled = e;
 		setEnabling();
@@ -286,9 +286,11 @@ public class SplotchEditor extends Container {
 		for (JSlider s : sliders) {
 			s.setEnabled(enabled);
 		}
+		
 		for (JFormattedTextField v : vals) {
 			v.setEnabled(enabled);
 		}
+		
 		presets.setEnabled(enabled);
 		confirm.setEnabled(enabled);
 		darker.setEnabled(enabled);
@@ -323,7 +325,7 @@ public class SplotchEditor extends Container {
 					t = blueT;
 				}
 				t.setValue(val);
-				t.setText(t+"");
+				t.setText(val+"");
 			}
 		};
 	}
@@ -344,6 +346,7 @@ public class SplotchEditor extends Container {
 			@Override
 			public void propertyChange(PropertyChangeEvent e) {
 				JFormattedTextField source = (JFormattedTextField) e.getSource();
+
 				int val = ((Number) source.getValue()).intValue();
 				if (val < 0) {
 					val = 0;
