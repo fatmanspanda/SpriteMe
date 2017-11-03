@@ -82,17 +82,20 @@ public class SpriteColor {
 	 * @return
 	 */
 	// TODO : Some formula that works better
-	public ColorPair makeShadedPair() {
+	public SpriteColor makeDarker() {
 		int r2 = Byte.toUnsignedInt(RGB[0]);
 		int g2 = Byte.toUnsignedInt(RGB[1]);
 		int b2 = Byte.toUnsignedInt(RGB[2]);
 		r2 = r2 * 6 / 8;
 		g2 = g2 * 6 / 8;
 		b2 = b2 * 6 / 8;
-		SpriteColor shade = new SpriteColor(n + "shaded",r2, g2, b2);
-		return new ColorPair(n, this, shade);
+		SpriteColor shade = new SpriteColor(n + " shaded",r2, g2, b2);
+		return shade;
 	}
 	
+	public ColorPair makeShadedPair() {
+		return new ColorPair(n, this, makeDarker());
+	}
 	/*
 	 * Some color constants
 	 */

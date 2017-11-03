@@ -22,7 +22,6 @@ public class SplotchBlob extends Container {
 
 	private Splotch[] workingSet;
 	private boolean editable = true;
-	private static final Dimension prefDim = new Dimension(350,400);
 	private static final Border padding = BorderFactory.createEmptyBorder(1,2,1,4);
 	private final JCheckBox allMails = new JCheckBox("Use color or all mails");
 	private SplotchEditor[] editors = new SplotchEditor[4];
@@ -34,8 +33,6 @@ public class SplotchBlob extends Container {
 	};
 	public SplotchBlob() {
 		this.setLayout(new GridBagLayout());
-		this.setPreferredSize(prefDim);
-		this.setMinimumSize(prefDim);
 		for (JLabel l : labels) {
 			l.setBorder(padding);
 		}

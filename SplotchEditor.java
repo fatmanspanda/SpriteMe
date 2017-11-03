@@ -22,13 +22,6 @@ import javax.swing.text.MaskFormatter;
 
 import SpriteManipulator.SpriteManipulator;
 
-/*
- * TODO : Lighten / darken buttons
- * TODO : Padding and borders
- * TODO : Fix "custom color"
- * TODO : Labelling
- * TODO : You cannot edit this color
-*/
 public class SplotchEditor extends Container {
 	private static final long serialVersionUID = -5665184823715239064L;
 
@@ -47,8 +40,9 @@ public class SplotchEditor extends Container {
 	private final JFormattedTextField redT;
 	private final JFormattedTextField greenT;
 	private final JFormattedTextField blueT;
-	private final JButton confirm = new JButton("Set color");
+	private final JButton confirm = new JButton("Apply");
 	private final JButton reset = new JButton("Reset");
+	private final JButton darker = new JButton("Darken");
 	private String colorName = "Custom color";
 	private final ColorPreview p = new ColorPreview();
 	private final JComboBox<SpriteColor> presets = new JComboBox<SpriteColor>(SpriteColor.CONSTANTS);
@@ -152,7 +146,7 @@ public class SplotchEditor extends Container {
 		this.add(greenT, l);
 
 		l.gridx = 4;
-		this.add(reset, l);
+		this.add(darker, l);
 
 		// blue
 		l.gridy = 2;
@@ -174,6 +168,10 @@ public class SplotchEditor extends Container {
 		this.add(wordPreview, l);
 		l.gridx = 2;
 		this.add(presets,l);
+		
+		l.gridwidth = 1;
+		l.gridx = 4;
+		this.add(reset, l);
 	}
 
 	private void addListeners() {
@@ -208,10 +206,14 @@ public class SplotchEditor extends Container {
 				}
 			}});
 
-		reset.addActionListener(new ActionListener() {
+		darker.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SplotchEditor.this.resetColor();
+				SplotchEditor.this.setColor((new SpriteColor(colorName,
+						RGB[0],
+						RGB[1],
+						RGB[2])
+						).makeDarker());
 			}});
 
 		presets.addActionListener(new ActionListener() {
@@ -222,6 +224,12 @@ public class SplotchEditor extends Container {
 					SplotchEditor.this.setColor(sel);
 				}
 				
+			}});
+		
+		reset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				SplotchEditor.this.resetColor();
 			}});
 	}
 
@@ -254,6 +262,7 @@ public class SplotchEditor extends Container {
 		}
 		presets.setEnabled(enabled);
 		confirm.setEnabled(enabled);
+		darker.setEnabled(enabled);
 		reset.setEnabled(enabled);
 	}
 

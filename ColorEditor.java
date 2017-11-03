@@ -4,19 +4,22 @@ import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+
+import SpriteAnimator.GUIHelpers;
 
 public class ColorEditor extends Container {
 	private static final long serialVersionUID = -6002186857197093009L;
 	private Palette pal;
-	private JPanel colorArea;
 	private boolean editable;
 	private SplotchBlob blob = new SplotchBlob();
 	private int curIndex = 0;
 	private final JLabel indexLabel = new JLabel("0");
 	private static final Dimension prefDim = new Dimension(400,600);
-
+	private static final Dimension areaDim = new Dimension(400,100);
+	private static String[] INSTRUCTION_STYLE = {
+			"padding: 10px 10px 10px 0px"
+	};
 	/**
 	 * 
 	 * @param p
@@ -51,12 +54,6 @@ public class ColorEditor extends Container {
 		// add palette area
 		SpringLayout l = new SpringLayout();
 		this.setLayout(l);
-
-		l.putConstraint(SpringLayout.EAST, blob, 0,
-				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.SOUTH, blob, 0,
-				SpringLayout.SOUTH, this);
-		this.add(blob);
 		
 		final JLabel curEditing = new JLabel("Currently editing colors at index : ");
 		l.putConstraint(SpringLayout.EAST, curEditing, 0,
@@ -70,5 +67,30 @@ public class ColorEditor extends Container {
 		l.putConstraint(SpringLayout.NORTH, indexLabel, 0,
 				SpringLayout.NORTH, this);
 		this.add(indexLabel);
+		
+		final JLabel a = new JLabel();
+
+		a.setText("<html>" +
+				"<div style=\"" + GUIHelpers.join(INSTRUCTION_STYLE, ";") + "\">" +
+				"Use this area to edit the colors at your selected index. " +
+				"Note that SNES colors are 15-bit, so RGB values will be rounded down to the nearest multiple of 8." +
+				"<br /><br />" +
+				"Checking \"Use color for all mails\" will apply the first color to every mail when selecting \"Apply\"." +
+				"</div>" +
+				"</html>");
+		l.putConstraint(SpringLayout.WEST, a, 0,
+				SpringLayout.WEST, curEditing);
+		l.putConstraint(SpringLayout.EAST, a, 0,
+				SpringLayout.EAST, this);
+		l.putConstraint(SpringLayout.NORTH, a, 0,
+				SpringLayout.SOUTH, curEditing);
+		this.add(a);
+		
+		
+		l.putConstraint(SpringLayout.WEST, blob, 0,
+				SpringLayout.WEST, this);
+		l.putConstraint(SpringLayout.SOUTH, blob, -20,
+				SpringLayout.SOUTH, this);
+		this.add(blob);
 	}
 }
