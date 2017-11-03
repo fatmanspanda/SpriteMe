@@ -39,7 +39,7 @@ public class IndexedSprite extends Component {
 		this.setSize(d);
 		setMail(0);
 	}
-	
+
 	/**
 	 * 
 	 * @param m
@@ -53,7 +53,7 @@ public class IndexedSprite extends Component {
 	 * 
 	 */
 	public void makeSprite() {
-		
+
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class IndexedSprite extends Component {
 		hair = hairChoice;
 		fireSpriteChangeEvent();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -96,7 +96,7 @@ public class IndexedSprite extends Component {
 			}
 		}
 		Collections.sort(parts);
-		
+
 		// create index wrapper
 		// just paste over old values, nothing fancy
 		for (SpritePart p : parts) {
@@ -109,7 +109,7 @@ public class IndexedSprite extends Component {
 				}
 			}
 		}
-	
+
 		// unindex the raster
 		rasterABGR = new byte[SpriteManipulator.RASTERSIZE];
 		for (int i = 0; i < IRASTERSIZE; i++) {
@@ -128,7 +128,7 @@ public class IndexedSprite extends Component {
 			rasterABGR[pos + 3] = palette[index][0]; // red
 		}
 	} // end make raster
-	
+
 	private void refreshImage() {
 		makeRaster();
 		byte[][][] ebe = SpriteManipulator.get8x8(rasterABGR, pal.toRGB9Array());
@@ -149,7 +149,7 @@ public class IndexedSprite extends Component {
 		g2.drawImage(body, 33, 8, null);
 		g2.drawImage(head, 33, 0, null);
 	}
-	
+
 	/*
 	 * Change listeners
 	 */

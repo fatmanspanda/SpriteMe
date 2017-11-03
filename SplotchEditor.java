@@ -43,6 +43,7 @@ public class SplotchEditor extends Container {
 	private final JButton confirm = new JButton("Apply");
 	private final JButton reset = new JButton("Reset");
 	private final JButton darker = new JButton("Darken");
+	private final JButton lighter = new JButton("Lighten");
 	private String colorName = "Custom color";
 	private final ColorPreview p = new ColorPreview();
 	private final JComboBox<SpriteColor> presets = new JComboBox<SpriteColor>(SpriteColor.CONSTANTS);
@@ -161,6 +162,9 @@ public class SplotchEditor extends Container {
 		l.gridx = 3;
 		this.add(blueT, l);
 
+		l.gridx = 4;
+		this.add(lighter, l);
+		
 		// preset colors
 		final JLabel wordPreview = new JLabel("Preset colors:");
 		l.gridy = 3;
@@ -210,13 +214,29 @@ public class SplotchEditor extends Container {
 		darker.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SplotchEditor.this.setColor((new SpriteColor(colorName,
-						RGB[0],
-						RGB[1],
-						RGB[2])
-						).makeDarker());
+				byte[] RGB2 = SpriteColor.darkerShade(new byte[] {
+						(byte) RGB[0],
+						(byte) RGB[1],
+						(byte) RGB[2]
+				});
+				SplotchEditor.this.setColor(
+						RGB2[0],RGB2[1],RGB2[2]
+						);
 			}});
 
+		lighter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				byte[] RGB2 = SpriteColor.lighterShade(new byte[] {
+						(byte) RGB[0],
+						(byte) RGB[1],
+						(byte) RGB[2]
+				});
+				SplotchEditor.this.setColor(
+						RGB2[0],RGB2[1],RGB2[2]
+						);
+			}});
+		
 		presets.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -239,7 +259,7 @@ public class SplotchEditor extends Container {
 		presets.setSelectedItem(null);
 	}
 
-	private  void setColor(SpriteColor c) {
+	private void setColor(SpriteColor c) {
 		byte[] t = c.getRGB();
 		RGB[0] = Byte.toUnsignedInt(t[0]);
 		RGB[1] = Byte.toUnsignedInt(t[1]);
@@ -249,6 +269,14 @@ public class SplotchEditor extends Container {
 		sliders[2].setValue(RGB[2]/8);
 	}
 
+	private void setColor(byte r, byte g, byte b) {
+		RGB[0] = Byte.toUnsignedInt(r);
+		RGB[1] = Byte.toUnsignedInt(g);
+		RGB[2] = Byte.toUnsignedInt(b);
+		sliders[0].setValue(RGB[0]/8);
+		sliders[1].setValue(RGB[1]/8);
+		sliders[2].setValue(RGB[2]/8);
+	}
 	public void setEnabled(boolean e) {
 		enabled = e;
 		setEnabling();
@@ -264,6 +292,7 @@ public class SplotchEditor extends Container {
 		presets.setEnabled(enabled);
 		confirm.setEnabled(enabled);
 		darker.setEnabled(enabled);
+		lighter.setEnabled(enabled);
 		reset.setEnabled(enabled);
 	}
 
@@ -319,7 +348,7 @@ public class SplotchEditor extends Container {
 				if (val < 0) {
 					val = 0;
 				} else if (val > 255) {
-					val = 255;
+					val = 248;
 				}
 				val = SpriteManipulator.roundVal(val);
 				JSlider s = null;
