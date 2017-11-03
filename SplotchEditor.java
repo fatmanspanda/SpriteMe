@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.MaskFormatter;
@@ -33,7 +34,9 @@ public class SplotchEditor extends Container {
 
 	private final GridBagLayout w = new GridBagLayout();
 	private final Splotch victim;
-	private final boolean enabled;
+	private Splotch[] allFourVictims;
+	private boolean isAllFour = false;
+	private boolean enabled;
 	private final int[] RGB;
 	private final SpriteColor originalColor;
 	private final JSlider[] sliders;
@@ -51,6 +54,7 @@ public class SplotchEditor extends Container {
 	private final JComboBox<SpriteColor> presets = new JComboBox<SpriteColor>(SpriteColor.CONSTANTS);
 	private static final Dimension sliderD = new Dimension(120, 10);
 	private static final Dimension textD = new Dimension(40, 20);
+	private static final Dimension labelD = new Dimension(20, 20);
 	public SplotchEditor(Splotch c, boolean e) {
 		presets.setSelectedItem(null);
 		victim = c;
@@ -122,7 +126,9 @@ public class SplotchEditor extends Container {
 		l.gridheight = 1;
 		// red
 		l.gridy = 0;
-		final JLabel lr = new JLabel("R");
+		final JLabel lr = new JLabel("R", SwingConstants.CENTER);
+		lr.setPreferredSize(labelD);
+		lr.setMinimumSize(labelD);
 		l.gridx = 1;
 		this.add(lr,l);
 		l.gridx = 2;
@@ -135,7 +141,9 @@ public class SplotchEditor extends Container {
 
 		// green
 		l.gridy = 1;
-		final JLabel lg = new JLabel("G");
+		final JLabel lg = new JLabel("G", SwingConstants.CENTER);
+		lg.setPreferredSize(labelD);
+		lg.setMinimumSize(labelD);
 		l.gridx = 1;
 		this.add(lg,l);
 		l.gridx = 2;
@@ -148,7 +156,9 @@ public class SplotchEditor extends Container {
 
 		// blue
 		l.gridy = 2;
-		final JLabel lb = new JLabel("B");
+		final JLabel lb = new JLabel("B", SwingConstants.CENTER);
+		lb.setPreferredSize(labelD);
+		lb.setMinimumSize(labelD);
 		l.gridx = 1;
 		this.add(lb,l);
 		l.gridx = 2;
@@ -157,7 +167,7 @@ public class SplotchEditor extends Container {
 		this.add(blueT, l);
 
 		// preset colors
-		final JLabel wordPreview = new JLabel("Preset colors");
+		final JLabel wordPreview = new JLabel("Preset colors:");
 		l.gridy = 3;
 		l.gridx = 0;
 		l.gridwidth = 2;
@@ -181,11 +191,21 @@ public class SplotchEditor extends Container {
 		confirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				victim.setColor(new SpriteColor(colorName,
-						RGB[0],
-						RGB[1],
-						RGB[2])
-						);
+				if (isAllFour && allFourVictims != null) {
+					for (Splotch s : allFourVictims) {
+						s.setColor(new SpriteColor(colorName,
+								RGB[0],
+								RGB[1],
+								RGB[2])
+								);
+					}
+				} else {
+					victim.setColor(new SpriteColor(colorName,
+							RGB[0],
+							RGB[1],
+							RGB[2])
+							);
+				}
 			}});
 
 		reset.addActionListener(new ActionListener() {
@@ -201,6 +221,7 @@ public class SplotchEditor extends Container {
 				if (sel != null) {
 					SplotchEditor.this.setColor(sel);
 				}
+				
 			}});
 	}
 
@@ -219,6 +240,11 @@ public class SplotchEditor extends Container {
 		sliders[2].setValue(RGB[2]/8);
 	}
 
+	public void setEnabled(boolean e) {
+		enabled = e;
+		setEnabling();
+	}
+
 	private void setEnabling() {
 		for (JSlider s : sliders) {
 			s.setEnabled(enabled);
@@ -229,6 +255,14 @@ public class SplotchEditor extends Container {
 		presets.setEnabled(enabled);
 		confirm.setEnabled(enabled);
 		reset.setEnabled(enabled);
+	}
+
+	public void editAllMails(boolean b) {
+		isAllFour = b;
+	}
+	
+	public void setFourVictims(Splotch[] allFourVictims) {
+		this.allFourVictims = allFourVictims;
 	}
 
 	private ChangeListener slideListen() {

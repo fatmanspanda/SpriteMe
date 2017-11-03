@@ -7,7 +7,7 @@ import java.awt.Graphics;
 
 public class ColorPreview extends Component {
 	private static final long serialVersionUID = -6583423770149289548L;
-	private static final int SIZE = 40;
+	public static final int SIZE = 40;
 	private static final Dimension D = new Dimension(SIZE,SIZE);
 	private Color c = new Color(0,0,0);
 	public ColorPreview() {

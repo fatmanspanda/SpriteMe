@@ -65,7 +65,7 @@ public class SpriteMe {
 		} // end Metal
 		
 		// main window
-		final Dimension d = new Dimension(1000,500);
+		final Dimension d = new Dimension(1000,700);
 		final JFrame frame = new JFrame("Sprite Me " + VERSION);
 		final JPanel controls = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
@@ -132,8 +132,10 @@ public class SpriteMe {
 		fullWrap.add(mySprite);
 
 		// color changer
-		SpritePartEditor editor = new SpritePartEditor(pal);
-		
+		ColorEditor colorEditor = new ColorEditor(pal);
+		SpritePartEditor indexMapEditor = new SpritePartEditor(pal);
+		pal.attachEditor(colorEditor);
+
 		// format frame
 		final Container framesWrap = frame.getContentPane();
 		SpringLayout f = new SpringLayout();
@@ -146,25 +148,23 @@ public class SpriteMe {
 		f.putConstraint(SpringLayout.WEST, fullWrap, 2,
 				SpringLayout.WEST, framesWrap);
 		f.putConstraint(SpringLayout.EAST, fullWrap, -2,
-				SpringLayout.WEST, editor);
+				SpringLayout.WEST, colorEditor);
 		framesWrap.add(fullWrap);
 		
-		ColorEditor colorEditor = new ColorEditor(pal);
 		f.putConstraint(SpringLayout.NORTH, colorEditor, 2,
 				SpringLayout.NORTH, framesWrap);
 		f.putConstraint(SpringLayout.EAST, colorEditor, -2,
 				SpringLayout.EAST, framesWrap);
 		framesWrap.add(colorEditor);
 		
-		f.putConstraint(SpringLayout.SOUTH, editor, -2,
+		f.putConstraint(SpringLayout.SOUTH, indexMapEditor, -2,
 				SpringLayout.SOUTH, framesWrap);
-		f.putConstraint(SpringLayout.NORTH, editor, 2,
+		f.putConstraint(SpringLayout.NORTH, indexMapEditor, 2,
 				SpringLayout.SOUTH, colorEditor);
-		f.putConstraint(SpringLayout.EAST, editor, -2,
+		f.putConstraint(SpringLayout.EAST, indexMapEditor, -2,
 				SpringLayout.EAST, framesWrap);
-		framesWrap.add(editor);
+		framesWrap.add(indexMapEditor);
 
-		pal.attachEditor(colorEditor);
 		// TODO : Credits
 		// bazly + fish for images
 		ImageIcon ico = new ImageIcon(
@@ -183,7 +183,7 @@ public class SpriteMe {
 		frame.setMinimumSize(d);
 		setAllSizes(frame, d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocation(200, 200);
+		frame.setLocation(200, 100);
 		frame.setVisible(true);
 		
 		// repainting on all sprite changes
@@ -191,12 +191,12 @@ public class SpriteMe {
 
 			@Override
 			public void eventReceived(SpriteChangeEvent arg0) {
-				editor.refreshPalette();
+				indexMapEditor.refreshPalette();
 				frame.repaint();
 			}
 		};
 		
-		editor.addSpriteChangeListener(repainter);
+		indexMapEditor.addSpriteChangeListener(repainter);
 		pal.addSpriteChangeListener(repainter);
 		mySprite.addSpriteChangeListener(repainter);
 	
