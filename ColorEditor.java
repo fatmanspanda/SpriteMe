@@ -15,8 +15,7 @@ public class ColorEditor extends Container {
 	private SplotchBlob blob = new SplotchBlob();
 	private int curIndex = 0;
 	private final JLabel indexLabel = new JLabel("0");
-	private static final Dimension prefDim = new Dimension(400,600);
-	private static final Dimension areaDim = new Dimension(400,100);
+	private static final Dimension prefDim = new Dimension(400,550);
 	private static String[] INSTRUCTION_STYLE = {
 			"padding: 10px 10px 10px 0px"
 	};
@@ -32,7 +31,7 @@ public class ColorEditor extends Container {
 		editNewColor(curIndex);
 		initializeDisplay();
 	}
-	
+
 	/**
 	 * 
 	 * @param i
@@ -54,20 +53,20 @@ public class ColorEditor extends Container {
 		// add palette area
 		SpringLayout l = new SpringLayout();
 		this.setLayout(l);
-		
+
 		final JLabel curEditing = new JLabel("Currently editing colors at index : ");
 		l.putConstraint(SpringLayout.EAST, curEditing, 0,
 				SpringLayout.HORIZONTAL_CENTER, this);
 		l.putConstraint(SpringLayout.NORTH, curEditing, 0,
 				SpringLayout.NORTH, this);
 		this.add(curEditing);
-		
+
 		l.putConstraint(SpringLayout.WEST, indexLabel, 0,
 				SpringLayout.EAST, curEditing);
 		l.putConstraint(SpringLayout.NORTH, indexLabel, 0,
 				SpringLayout.NORTH, this);
 		this.add(indexLabel);
-		
+
 		final JLabel a = new JLabel();
 
 		a.setText("<html>" +
@@ -85,8 +84,8 @@ public class ColorEditor extends Container {
 		l.putConstraint(SpringLayout.NORTH, a, 0,
 				SpringLayout.SOUTH, curEditing);
 		this.add(a);
-		
-		
+
+
 		l.putConstraint(SpringLayout.WEST, blob, 0,
 				SpringLayout.WEST, this);
 		l.putConstraint(SpringLayout.SOUTH, blob, -20,

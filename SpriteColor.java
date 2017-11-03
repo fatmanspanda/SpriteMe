@@ -5,7 +5,7 @@ import java.awt.Color;
 import SpriteManipulator.SpriteManipulator;
 
 public class SpriteColor {
-	
+
 	private String n;
 	private byte[] RGB;
 	private Color c;
@@ -26,7 +26,7 @@ public class SpriteColor {
 					Byte.toUnsignedInt(RGB[2])
 				);
 	}
-	
+
 	/**
 	 * Makes a new color with a name and 3 RGB values, but with integers to allow unsigned values.
 	 * @param name
@@ -54,14 +54,14 @@ public class SpriteColor {
 		RGB[1] = (byte) SpriteManipulator.roundVal(RGB[1]);
 		RGB[2] = (byte) SpriteManipulator.roundVal(RGB[2]);
 	}
-	
+
 	/**
 	 * 
 	 */
 	public String toString() {
 		return n;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -92,7 +92,7 @@ public class SpriteColor {
 		SpriteColor shade = new SpriteColor(n + " shaded",r2, g2, b2);
 		return shade;
 	}
-	
+
 	public ColorPair makeShadedPair() {
 		return new ColorPair(n, this, makeDarker());
 	}
@@ -114,7 +114,7 @@ public class SpriteColor {
 			new SpriteColor("Brown skin", 168, 88, 24);
 	public static final SpriteColor BLACK_SKIN =
 			new SpriteColor("Black skin", 96, 48, 8);
-	
+
 	// THE BEST COLORS
 	public static final SpriteColor RASPBERRY = // me
 			new SpriteColor("Raspberry", 152, 0, 64);
@@ -144,7 +144,7 @@ public class SpriteColor {
 			new SpriteColor("Blue", 0, 0, 248);
 	public static final SpriteColor INDIGO =
 			new SpriteColor("Indigo", 128, 0, 248);
-	
+
 	// other colors
 	public static final SpriteColor BLACK =
 			new SpriteColor("Black", 72, 72, 72);

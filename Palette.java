@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import SpriteManipulator.SpriteManipulator;
 import SpriteMe.Listeners.*;
@@ -113,6 +115,7 @@ public class Palette extends Container {
 		{ 0, 1, 2, 3, 4, 5, 6, 7, 13 };
 	private ColorEditor editInterface;
 	private int lastSelectedIndex;
+	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 	/**
 	 * 
 	 */
@@ -145,13 +148,24 @@ public class Palette extends Container {
 	private void initializeDisplay() {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
-
+		w.fill = GridBagConstraints.HORIZONTAL;
 		w.gridy = 0;
+		JLabel indexWord = new JLabel("Index #", SwingConstants.RIGHT);
+		indexWord.setBorder(rightPad);
+		this.add(indexWord, w);
+		w.gridx = 1;
+		for (int i = 0; i < 16; i++, w.gridx++) {
+			this.add(new JLabel(i+"", SwingConstants.CENTER), w);
+		}
+
+		w.gridy = 1;
 		for (int i = 0; i < 4; i++, w.gridy++) {
 			w.gridx = 0;
-			// TODO fix alignment?????
+			JLabel mailName = new JLabel(SpriteMe.MAIL_NAMES[i], SwingConstants.RIGHT);
+			mailName.setBorder(rightPad);
+
 			this.add(
-					new JLabel(SpriteMe.MAIL_NAMES[i], SwingConstants.RIGHT),
+					mailName,
 					w);
 			w.gridx++;
 			for (int j = 0; j < 16; j++, w.gridx++) {

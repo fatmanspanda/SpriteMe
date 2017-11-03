@@ -30,11 +30,11 @@ public class Splotch extends JComponent {
 		setToolTip();
 		addMouse();
 	}
-	
+
 	public SpriteColor getColor() {
 		return color;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -75,7 +75,7 @@ public class Splotch extends JComponent {
 				" - This color cannot be edited.";
 		this.setToolTipText(this.toString() + changeable);
 	}
-	
+
 	public String toString() {
 		return color.toFullString();
 	}
@@ -85,7 +85,7 @@ public class Splotch extends JComponent {
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, SIZE, SIZE);
 	}
-	
+
 	private void addMouse() {
 		this.addMouseListener(new MouseListener() {
 
@@ -97,7 +97,7 @@ public class Splotch extends JComponent {
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-			
+
 			}
 
 			@Override
@@ -110,7 +110,7 @@ public class Splotch extends JComponent {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {}
-			
+
 		});
 	}
 }

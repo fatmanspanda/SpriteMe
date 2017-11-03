@@ -187,6 +187,14 @@ public final class SpritePart implements Comparable<SpritePart> {
 	/*
 	 * Public constants for sprite parts
 	 */
+	public static final SpritePart NOTHING = new SpritePart(
+			"Nothing",
+			"/SpriteMe/Images/Nothing.png",
+			new byte[][] { {1,1,1} },
+			new byte[] { 0 },
+			new String[] {},
+			0
+			);
 	public static final SpritePart BODY = new SpritePart(
 			"Body",
 			"/SpriteMe/Images/Weird Chocolate Link.png",

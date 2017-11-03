@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -94,11 +95,19 @@ public class SpriteMe {
 		// accessories
 		final JLabel acc1Lbl = new JLabel("Accessory 1", SwingConstants.RIGHT);
 		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(ACCESSORIES);
+		final JButton acc1Edit = new JButton("Edit");
 		w.gridy++;
 		w.gridx = 0;
 		controls.add(acc1Lbl,w);
 		w.gridx = 1;
 		controls.add(acc1Pick, w);
+		w.gridx = 2;
+		controls.add(acc1Edit, w);
+
+		// format frame
+		final Container framesWrap = frame.getContentPane();
+		SpringLayout f = new SpringLayout();
+		framesWrap.setLayout(f);
 
 		// format main wrapper
 		final Container fullWrap = new Container();
@@ -115,13 +124,13 @@ public class SpriteMe {
 				SpringLayout.NORTH, fullWrap);
 		fullWrap.add(controls);
 
-		// palette TODO: WORK THIS
+		// palette
 		Palette pal = new Palette();
-		l.putConstraint(SpringLayout.SOUTH, pal, 0,
-				SpringLayout.SOUTH, fullWrap);
-		l.putConstraint(SpringLayout.EAST, pal, 0,
-				SpringLayout.EAST, fullWrap);
-		fullWrap.add(pal);
+		f.putConstraint(SpringLayout.NORTH, pal, 0,
+				SpringLayout.NORTH, framesWrap);
+		f.putConstraint(SpringLayout.EAST, pal, 0,
+				SpringLayout.EAST, framesWrap);
+		framesWrap.add(pal);
 		
 		// sprite appearance
 		IndexedSprite mySprite = new IndexedSprite(pal);
@@ -135,35 +144,29 @@ public class SpriteMe {
 		ColorEditor colorEditor = new ColorEditor(pal);
 		SpritePartEditor indexMapEditor = new SpritePartEditor(pal);
 		pal.attachEditor(colorEditor);
-
-		// format frame
-		final Container framesWrap = frame.getContentPane();
-		SpringLayout f = new SpringLayout();
-		framesWrap.setLayout(f);
 		
+		// wrapper frame
 		f.putConstraint(SpringLayout.NORTH, fullWrap, 2,
 				SpringLayout.NORTH, framesWrap);
 		f.putConstraint(SpringLayout.SOUTH, fullWrap, -2,
 				SpringLayout.SOUTH, framesWrap);
 		f.putConstraint(SpringLayout.WEST, fullWrap, 2,
 				SpringLayout.WEST, framesWrap);
-		f.putConstraint(SpringLayout.EAST, fullWrap, -2,
-				SpringLayout.WEST, colorEditor);
 		framesWrap.add(fullWrap);
 		
+		// color editor
 		f.putConstraint(SpringLayout.NORTH, colorEditor, 2,
-				SpringLayout.NORTH, framesWrap);
+				SpringLayout.SOUTH, pal);
 		f.putConstraint(SpringLayout.EAST, colorEditor, -2,
 				SpringLayout.EAST, framesWrap);
 		framesWrap.add(colorEditor);
 		
-		f.putConstraint(SpringLayout.SOUTH, indexMapEditor, -2,
-				SpringLayout.SOUTH, framesWrap);
-		f.putConstraint(SpringLayout.NORTH, indexMapEditor, 2,
-				SpringLayout.SOUTH, colorEditor);
-		f.putConstraint(SpringLayout.EAST, indexMapEditor, -2,
-				SpringLayout.EAST, framesWrap);
-		framesWrap.add(indexMapEditor);
+		// index map
+		l.putConstraint(SpringLayout.SOUTH, indexMapEditor, -2,
+				SpringLayout.SOUTH, fullWrap);
+		l.putConstraint(SpringLayout.EAST, indexMapEditor, -2,
+				SpringLayout.EAST, fullWrap);
+		fullWrap.add(indexMapEditor);
 
 		// TODO : Credits
 		// bazly + fish for images
@@ -218,6 +221,18 @@ public class SpriteMe {
 			public void actionPerformed(ActionEvent arg0) {
 				mySprite.setAccessory((SpritePart) acc1Pick.getSelectedItem(), 1);
 			}});
+		
+		acc1Edit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				SpritePart picked = (SpritePart) acc1Pick.getSelectedItem();
+				if (picked != SpritePart.NOTHING) {
+					indexMapEditor.editNewPart(picked);
+				}
+			}
+			
+		});
 	}
 	
 	/**

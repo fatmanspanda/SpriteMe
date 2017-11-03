@@ -1,7 +1,6 @@
 package SpriteMe;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.beans.PropertyChangeEvent;
@@ -73,7 +72,7 @@ public class SplotchBlob extends Container {
 		}
 		editors[0].setFourVictims(workingSet);
 	}
-	
+
 	private PropertyChangeListener checkListen() {
 		return new PropertyChangeListener() {
 			@Override

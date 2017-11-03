@@ -24,14 +24,20 @@ public class SpritePartEditor extends Container {
 	private int colors = 0;
 	private MiniPalette[] palettes;
 	private JPanel paletteArea;
+	private SpringLayout l = new SpringLayout();
+	private final JLabel partLbl = new JLabel("Nothing");
+
 	private static final Dimension prefDim = new Dimension(350,200);
 
 	public SpritePartEditor(Palette p) {
 		super();
 		pal = p;
+		this.setLayout(l);
 		this.setPreferredSize(prefDim);
 		this.setMinimumSize(prefDim);
-		editNewPart(SpritePart.TEST);
+		setPalette();
+		newPaletteSet();
+		editNewPart(null);
 		initializeDisplay();
 	}
 
@@ -40,6 +46,13 @@ public class SpritePartEditor extends Container {
 	 * @param p
 	 */
 	public void editNewPart(SpritePart p) {
+		if (p == null) { // remove null parts
+			partLbl.setText("Nothing");
+			this.remove(paletteArea);
+			this.revalidate();
+			this.repaint();
+			return;
+		}
 		curPart = p;
 		colors = p.colorCount();
 		originalColorMap = new byte[colors];
@@ -50,6 +63,7 @@ public class SpritePartEditor extends Container {
 		}
 
 		setPalette();
+		newPaletteSet();
 	}
 
 	/**
@@ -67,10 +81,26 @@ public class SpritePartEditor extends Container {
 	 * 
 	 */
 	public void initializeDisplay() {
-		// TODO : label for part name
-		SpringLayout l = new SpringLayout();
-		this.setLayout(l);
-
+		final JLabel editingPart = new JLabel("Editing map for : ");
+		l.putConstraint(SpringLayout.EAST, editingPart, 0,
+				SpringLayout.HORIZONTAL_CENTER, this);
+		l.putConstraint(SpringLayout.NORTH, editingPart, 0,
+				SpringLayout.NORTH, this);
+		this.add(editingPart);
+		
+		l.putConstraint(SpringLayout.WEST, partLbl, 0,
+				SpringLayout.EAST, editingPart);
+		l.putConstraint(SpringLayout.NORTH, partLbl, 0,
+				SpringLayout.NORTH, this);
+		this.add(partLbl);
+		
+		newPaletteSet();
+	}
+	
+	public void newPaletteSet() {
+		if (paletteArea != null) {
+				this.remove(paletteArea);
+			}
 		paletteArea = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
 		for (int i = 0; i < colors; i++) {
@@ -80,12 +110,14 @@ public class SpritePartEditor extends Container {
 			w.gridx = 1;
 			paletteArea.add(palettes[i], w);
 		}
+
 		// add palette area
 		l.putConstraint(SpringLayout.EAST, paletteArea, 0,
 				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.SOUTH, paletteArea, 0,
 				SpringLayout.SOUTH, this);
 		this.add(paletteArea);
+		this.revalidate();
 	}
 
 	/**
@@ -102,9 +134,11 @@ public class SpritePartEditor extends Container {
 	 * 
 	 */
 	public void refreshPalette() {
-		for (MiniPalette m : palettes) {
-			m.refreshPalette();
-		}
+		try {
+			for (MiniPalette m : palettes) {
+				m.refreshPalette();
+			}
+		} catch (Exception e) {}
 	}
 	/**
 	 * 
