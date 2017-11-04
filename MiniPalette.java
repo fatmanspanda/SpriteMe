@@ -1,11 +1,19 @@
 package SpriteMe;
 
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JComponent;
 
 public class MiniPalette extends Container {
 	private static final long serialVersionUID = 4303748895061447018L;
+	private static final int SIZE = SpriteMe.SPLOTCH_SIZE; // used for multi splotches
+	private static final int ROWSIZE = SIZE/4;
 
 	// local vars
 	private final int parentIndex;
@@ -77,4 +85,72 @@ public class MiniPalette extends Container {
 				this.add(splotches[i], w);
 		}
 	}
-}
+
+	/**
+	 * Like the {@link Splotch} class, but displays multiple colors at once and
+	 * with 0 functionality for actually changing colors.
+	 *
+	 */
+	private static class MultiSplotch extends JComponent {
+		private static final long serialVersionUID = -2349012926208164404L;
+
+		// local vars
+		private SpriteColor[] colors;
+		private final byte index;
+		private final MiniPalette mommy;
+		private boolean selected = false;
+
+		public MultiSplotch(MiniPalette parent, byte i, SpriteColor c1, SpriteColor c2, SpriteColor c3, SpriteColor c4) {
+			mommy = parent;
+			index = i;
+			colors = new SpriteColor[] { c1, c2, c3, c4 };
+			this.setSize(SpriteMe.SPLOTCH_DIMENSION);
+			this.setMinimumSize(SpriteMe.SPLOTCH_DIMENSION);
+			this.setPreferredSize(SpriteMe.SPLOTCH_DIMENSION);
+			addMouse();
+		}
+
+		public void setColors(SpriteColor c1, SpriteColor c2, SpriteColor c3, SpriteColor c4) {
+			colors = new SpriteColor[] { c1, c2, c3, c4 };
+		}
+
+		public void paint(Graphics g) {
+			// fill all colors evenly
+			for (int i = 0; i < 4; i++) {
+				g.setColor(colors[i].toColor());
+				g.fillRect(0, ROWSIZE * i, SIZE, ROWSIZE);
+			}
+
+			// draw blue if selected
+			g.setColor(selected ? Color.BLUE: Color.BLACK);
+			g.drawRect(0, 0, SIZE, SIZE);
+			if (selected) {
+				g.drawRect(1, 1, SIZE-2, SIZE-2);
+			}
+		}
+
+		/**
+		 * Sets the selection status of this object.
+		 * @param b
+		 */
+		public void setSelected(boolean b) {
+			selected = b;
+		}
+
+		private void addMouse() {
+			this.addMouseListener(new MouseListener() {
+
+				public void mouseClicked(MouseEvent arg0) {
+					mommy.setIndex(index);
+				}
+				public void mousePressed(MouseEvent arg0) {
+					mommy.setIndex(index);
+				}
+
+				public void mouseEntered(MouseEvent arg0) {}
+				public void mouseExited(MouseEvent arg0) {}
+				public void mouseReleased(MouseEvent arg0) {}
+			});
+		} // end addMouse()
+	} // end MultiSplotch class
+} // end MiniPalette
