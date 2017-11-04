@@ -203,6 +203,19 @@ public class SpriteMe {
 		final JMenu fileMenu = new JMenu("File");
 		menu.add(fileMenu);
 
+		// File load
+		final JMenuItem loadSpr = new JMenuItem("Open");
+		ImageIcon compass = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Compass.png")
+			);
+		loadSpr.setAccelerator(KeyStroke.getKeyStroke(
+			KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+		loadSpr.setIcon(compass);
+		fileMenu.add(loadSpr);
+
+		// separator
+		fileMenu.addSeparator();
+
 		// File quicksave
 		final JMenuItem saveSpr = new JMenuItem("Save");
 		ImageIcon book = new ImageIcon(
@@ -214,15 +227,20 @@ public class SpriteMe {
 		fileMenu.add(saveSpr);
 
 		// File save
-		final JMenuItem saveSprTo = new JMenuItem("Save as");
+		final JMenuItem saveSprTo = new JMenuItem("Save as...");
+		ImageIcon bookAs = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Book as.png")
+			);
 		saveSprTo.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+		saveSprTo.setIcon(bookAs);
 		fileMenu.add(saveSprTo);
 
+		// separator
 		fileMenu.addSeparator();
 
 		// SPR quicksave
-		final JMenuItem expSpr = new JMenuItem("Export as SPR");
+		final JMenuItem expSpr = new JMenuItem("Export to SPR");
 		ImageIcon smallKey = new ImageIcon(
 				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Small key.png")
 			);
@@ -232,11 +250,16 @@ public class SpriteMe {
 		fileMenu.add(expSpr);
 
 		// SPR save
-		final JMenuItem expSprTo = new JMenuItem("Export as SPR to...");
+		final JMenuItem expSprTo = new JMenuItem("Export to SPR as...");
+		ImageIcon smallKeyAs = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Small key as.png")
+			);
 		expSprTo.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_E, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+		expSprTo.setIcon(smallKeyAs);
 		fileMenu.add(expSprTo);
 
+		// separator
 		fileMenu.addSeparator();
 
 		// SPR save
@@ -249,7 +272,9 @@ public class SpriteMe {
 		patchRom.setIcon(bigKey);
 		fileMenu.add(patchRom);
 
+		// separator
 		fileMenu.addSeparator();
+
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
 		ImageIcon mirror = new ImageIcon(
