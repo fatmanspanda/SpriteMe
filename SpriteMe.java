@@ -270,15 +270,16 @@ public class SpriteMe {
 			}
 		};
 
-		explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
+		// TODO Uncomment this for exports
+		// explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
 
 		// set filters
 		FileNameExtensionFilter smeFilter =
-				new FileNameExtensionFilter("SpriteMe files", SPRITE_ME_EXTS);
+				new FileNameExtensionFilter("SpriteMe files (.sme)", SPRITE_ME_EXTS);
 		FileNameExtensionFilter sprFilter =
-				new FileNameExtensionFilter("ALttP Sprite files", EXPORT_EXTS);
+				new FileNameExtensionFilter("ALttP Sprite files (.spr)", EXPORT_EXTS);
 		FileNameExtensionFilter romFilter =
-				new FileNameExtensionFilter("ROM files", ROM_EXTS);
+				new FileNameExtensionFilter("ROM files (.sfc)", ROM_EXTS);
 
 		explorer.setAcceptAllFileFilterUsed(false);
 
@@ -344,7 +345,7 @@ public class SpriteMe {
 			});
 
 		// Action listeners for menu
-		// save spr
+		// save spr as sme file
 		saveSpr.addActionListener(
 				arg0 -> {
 					if (lastSavePath.isSet()) {
@@ -390,6 +391,7 @@ public class SpriteMe {
 						saveSpr.doClick();
 					}
 				});
+
 		// sprite exporting
 		expSpr.addActionListener(
 				arg0 -> {
@@ -480,7 +482,11 @@ public class SpriteMe {
 		aboutFrame.setLocation(150,150);
 		aboutFrame.setResizable(false);
 	}
-	
+
+	/**
+	 * Objects must be final in actionlisteners
+	 * Use a wrapper that's final for a string we're allowed to change
+	 */
 	private static class FakeString {
 		private String s;
 		public FakeString(String s) {
