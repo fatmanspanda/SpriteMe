@@ -100,7 +100,8 @@ public class MiniPalette extends Container {
 		private final MiniPalette mommy;
 		private boolean selected = false;
 
-		public MultiSplotch(MiniPalette parent, byte i, SpriteColor c1, SpriteColor c2, SpriteColor c3, SpriteColor c4) {
+		public MultiSplotch(MiniPalette parent, byte i,
+				SpriteColor c1, SpriteColor c2, SpriteColor c3, SpriteColor c4) {
 			mommy = parent;
 			index = i;
 			colors = new SpriteColor[] { c1, c2, c3, c4 };

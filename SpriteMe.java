@@ -196,53 +196,40 @@ public class SpriteMe {
 		frame.setVisible(true);
 		
 		// repainting on all sprite changes
-		SpriteChangeListener repainter = new SpriteChangeListener() {
-
-			@Override
-			public void eventReceived(SpriteChangeEvent arg0) {
-				indexMapEditor.refreshPalette();
-				frame.repaint();
-			}
-		};
+		SpriteChangeListener repainter =
+				arg0 -> {
+					indexMapEditor.refreshPalette();
+					frame.repaint();
+				};
 		
 		indexMapEditor.addSpriteChangeListener(repainter);
 		pal.addSpriteChangeListener(repainter);
 		mySprite.addSpriteChangeListener(repainter);
-	
+
 		// Action listeners for controls
-		skinPick.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				pal.setSkinColor((ColorPair) skinPick.getSelectedItem());
-			}});
+		skinPick.addActionListener(
+				arg0 -> pal.setSkinColor((ColorPair) skinPick.getSelectedItem())
+			);
 
-		mailPick.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				mySprite.setMail(mailPick.getSelectedIndex());
-			}});
-		
-		acc1Pick.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				mySprite.setAccessory((SpritePart) acc1Pick.getSelectedItem(), 1);
-			}});
-		
-		acc1Edit.addActionListener(new ActionListener() {
+		mailPick.addActionListener(
+				arg0 -> mySprite.setMail(mailPick.getSelectedIndex())
+			);
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+		acc1Pick.addActionListener(
+				arg0 -> mySprite.setAccessory((SpritePart) acc1Pick.getSelectedItem(), 1)
+			);
+
+		acc1Edit.addActionListener(
+			arg0 ->	{
 				SpritePart picked = (SpritePart) acc1Pick.getSelectedItem();
 				if (picked == SpritePart.NOTHING) {
 					indexMapEditor.editNewPart(null);
 				} else {
 					indexMapEditor.editNewPart(picked);
 				}
-			}
-			
-		});
+			});
 	}
-	
+
 	/**
 	 * Set min max and preferred size for a component
 	 * @param c

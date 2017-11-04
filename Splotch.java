@@ -114,14 +114,12 @@ public class Splotch extends JComponent {
 				mommy.indexClicked(index);
 			}
 
-			public void mouseEntered(MouseEvent arg0) {}
-
-			public void mouseExited(MouseEvent arg0) {}
-
 			public void mousePressed(MouseEvent arg0) {
 				mommy.indexClicked(index);
 			}
 
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
 			public void mouseReleased(MouseEvent arg0) {}
 		});
 	} // end addMouse

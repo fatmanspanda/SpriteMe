@@ -294,7 +294,7 @@ public class Palette extends Container {
 						Byte.toUnsignedInt(temp[i][0]),
 						Byte.toUnsignedInt(temp[i][1]),
 						Byte.toUnsignedInt(temp[i][2])
-						);
+					);
 		}
 		return ret;
 	}

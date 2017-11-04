@@ -229,8 +229,9 @@ public class SplotchEditor extends Container {
 		}
 
 		// buttons
-		confirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		// apply color
+		confirm.addActionListener(
+			arg0 -> {
 				if (isAllFour && allFourVictims != null) {
 					for (Splotch s : allFourVictims) {
 						s.setColor(new SpriteColor(colorName,
@@ -246,10 +247,11 @@ public class SplotchEditor extends Container {
 							RGB[2]
 							));
 				}
-			}});
+			}); // end listener
 
-		darker.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		// darker button
+		darker.addActionListener(
+			arg0 -> {
 				byte[] RGB2 = SpriteColor.darkerShade(new byte[] {
 						(byte) RGB[0],
 						(byte) RGB[1],
@@ -258,11 +260,12 @@ public class SplotchEditor extends Container {
 
 				SplotchEditor.this.setColor(
 						RGB2[0],RGB2[1],RGB2[2]
-						);
-			}});
+					);
+			}); // end listener
 
-		lighter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		// lighter button
+		lighter.addActionListener(
+			arg0 -> {
 				byte[] RGB2 = SpriteColor.lighterShade(new byte[] {
 						(byte) RGB[0],
 						(byte) RGB[1],
@@ -273,21 +276,22 @@ public class SplotchEditor extends Container {
 						RGB2[0],
 						RGB2[1],
 						RGB2[2]
-						);
-			}});
-		
-		presets.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+					);
+			}); // end listener
+
+		// preset colors list
+		presets.addActionListener(
+			arg0 -> {
 				SpriteColor sel = (SpriteColor) presets.getSelectedItem();
 				if (sel != null) {
 					SplotchEditor.this.setColor(sel);
 				}
-			}});
-		
-		reset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SplotchEditor.this.resetColor();
-			}});
+			}); // end listener
+
+		// reset button
+		reset.addActionListener(
+				arg0 -> SplotchEditor.this.resetColor()
+			); // end listener
 	} // end Listeners
 
 	/**
@@ -358,7 +362,7 @@ public class SplotchEditor extends Container {
 	public void editAllMails(boolean b) {
 		isAllFour = b;
 	}
-	
+
 	/**
 	 * Sets object references to all four splotches at this color's index.
 	 * @param allFourVictims
@@ -399,7 +403,6 @@ public class SplotchEditor extends Container {
 	 */
 	private ChangeListener repaintListen() {
 		return new ChangeListener() {
-			@Override
 			public void stateChanged(ChangeEvent e) {
 				p.setColor(RGB);
 				p.repaint();
@@ -414,7 +417,6 @@ public class SplotchEditor extends Container {
 	 */
 	private PropertyChangeListener textListen() {
 		return new PropertyChangeListener() {
-			@Override
 			public void propertyChange(PropertyChangeEvent e) {
 				JFormattedTextField source = (JFormattedTextField) e.getSource();
 
