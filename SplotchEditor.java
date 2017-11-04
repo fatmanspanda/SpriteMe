@@ -241,9 +241,9 @@ public class SplotchEditor extends Container {
 					}
 				} else {
 					victim.setColor(new SpriteColor(colorName,
-							(byte) RGB[0],
-							(byte) RGB[1],
-							(byte) RGB[2]
+							RGB[0],
+							RGB[1],
+							RGB[2]
 							));
 				}
 			}});
@@ -268,7 +268,7 @@ public class SplotchEditor extends Container {
 						(byte) RGB[1],
 						(byte) RGB[2]
 					});
-				System.out.println(RGB[0] + " " + (byte) RGB[0] + " " + Byte.toUnsignedInt((byte) RGB[0]));
+
 				SplotchEditor.this.setColor(
 						RGB2[0],
 						RGB2[1],
