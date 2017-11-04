@@ -88,7 +88,7 @@ public class SpriteMe {
 		} // end Metal
 
 		// main window
-		final Dimension d = new Dimension(1000,700);
+		final Dimension d = new Dimension(1000,720);
 		final JFrame frame = new JFrame("Sprite Me " + VERSION);
 		final JPanel controls = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
@@ -205,8 +205,12 @@ public class SpriteMe {
 
 		// File quicksave
 		final JMenuItem saveSpr = new JMenuItem("Save");
+		ImageIcon book = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Book.png")
+			);
 		saveSpr.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		saveSpr.setIcon(book);
 		fileMenu.add(saveSpr);
 
 		// File save
@@ -215,10 +219,16 @@ public class SpriteMe {
 			KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
 		fileMenu.add(saveSprTo);
 
+		fileMenu.addSeparator();
+
 		// SPR quicksave
 		final JMenuItem expSpr = new JMenuItem("Export as SPR");
+		ImageIcon smallKey = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Small key.png")
+			);
 		expSpr.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+		expSpr.setIcon(smallKey);
 		fileMenu.add(expSpr);
 
 		// SPR save
@@ -229,15 +239,42 @@ public class SpriteMe {
 
 		fileMenu.addSeparator();
 
+		// SPR save
+		final JMenuItem patchRom = new JMenuItem("Patch to ROM");
+		ImageIcon bigKey = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Big key.png")
+			);
+		patchRom.setAccelerator(KeyStroke.getKeyStroke(
+			KeyEvent.VK_R, ActionEvent.CTRL_MASK));
+		patchRom.setIcon(bigKey);
+		fileMenu.add(patchRom);
+
+		fileMenu.addSeparator();
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
+		ImageIcon mirror = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Mirror.png")
+			);
+		exit.setIcon(mirror);
 		fileMenu.add(exit);
 		exit.addActionListener(arg0 -> System.exit(0));
 		// end file menu
 
 		// help menu
 		final JMenu helpMenu = new JMenu("Help");
+		
+		// Acknowledgements
+		final JMenuItem peeps = new JMenuItem("About");
+		ImageIcon mapIcon = new ImageIcon(
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Map.png")
+			);
+		peeps.setIcon(mapIcon);
+		buildAbout();
+		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true)); // do it here because short
+		helpMenu.add(peeps);
+
 		menu.add(helpMenu);
+		// end help menu
 
 		// saved names used for quick saving/exporting
 		FakeString lastSavePath = new FakeString(null);
@@ -283,19 +320,12 @@ public class SpriteMe {
 
 		explorer.setAcceptAllFileFilterUsed(false);
 
-		// Acknowledgements
-		final JMenuItem peeps = new JMenuItem("About");
-		helpMenu.add(peeps);
-		buildAbout();
-		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true)); // do it here because short
-		// end help menu
-
 		// icon
 		ImageIcon ico = new ImageIcon(
-				SpriteMe.class.getResource("/SpriteMe/Images/Link thinking small.png")
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Link thinking small.png")
 			);
 		ImageIcon icoTask = new ImageIcon(
-				SpriteMe.class.getResource("/SpriteMe/Images/Link thinking.png")
+				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Link thinking.png")
 			);
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());
