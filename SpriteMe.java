@@ -23,8 +23,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 
-import SpriteMe.Listeners.*;
-
 public class SpriteMe {
 	private static final String VERSION = "v0.0.0";
 	public static final int SPLOTCH_SIZE = 16;

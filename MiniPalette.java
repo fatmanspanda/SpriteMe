@@ -7,13 +7,15 @@ import java.awt.GridBagLayout;
 public class MiniPalette extends Container {
 	private static final long serialVersionUID = 4303748895061447018L;
 
+	// local vars
 	private final int parentIndex;
-	private byte curIndex;
 	private final SpritePartEditor mommy;
-	private MultiSplotch[] splotches;
 	private final Palette pal;
+	private byte curIndex;
+	private MultiSplotch[] splotches;
+
 	/**
-	 * 
+	 * Creates a new {@code MiniPalette}.
 	 * @param parent
 	 * @param p
 	 * @param index
@@ -35,7 +37,7 @@ public class MiniPalette extends Container {
 	}
 
 	/**
-	 * 
+	 * Set the selected index and unselect the previously selected one.
 	 * @param i
 	 */
 	public void setIndex(byte i) {
@@ -49,7 +51,7 @@ public class MiniPalette extends Container {
 	}
 
 	/**
-	 * 
+	 * Revalidates the colors of the palette.
 	 */
 	public void refreshPalette() {
 		for (int i = 0; i < 16; i++) {
@@ -60,8 +62,9 @@ public class MiniPalette extends Container {
 			splotches[i].setColors(c1, c2, c3, c4);
 		}
 	}
+
 	/**
-	 * 
+	 * Sets up GUI.
 	 */
 	private void initializeDisplay() {
 		this.setLayout(new GridBagLayout());

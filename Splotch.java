@@ -7,16 +7,23 @@ import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 
 public class Splotch extends JComponent {
-
 	private static final long serialVersionUID = -2349012926208164404L;
 	private static final int SIZE = SpriteMe.SPLOTCH_SIZE;
+
+	// locals
 	private SpriteColor color;
 	private boolean editable = true;
 	private final Palette mommy;
 	private final int index;
+
 	/**
-	 * 
-	 * @param c
+	 * Creates a new {@code Splotch} connected to
+	 * a {@code Palette object},
+	 * at index {@code i},
+	 * and set to hold a {@code SpriteColor}.
+	 * @param parent - {@code Palette} object
+	 * @param i - index
+	 * @param c - {@code SpriteColor} object
 	 */
 	public Splotch(Palette parent, int i, SpriteColor c) {
 		mommy = parent;
@@ -31,12 +38,15 @@ public class Splotch extends JComponent {
 		addMouse();
 	}
 
+	/**
+	 * @return The {@code SpriteColor} object currently associated with this splotch.
+	 */
 	public SpriteColor getColor() {
 		return color;
 	}
 
 	/**
-	 * 
+	 * @return The RGB coordinates currently associated with this splotch.
 	 */
 	public int[] getColorVals() {
 		byte[] t = color.getRGB();
@@ -46,9 +56,10 @@ public class Splotch extends JComponent {
 				Byte.toUnsignedInt(t[2]),
 		};
 	}
+
 	/**
-	 * 
-	 * @param c
+	 * Sets the splotch's reference to a new color.
+	 * @param c - new {@code SpriteColor
 	 */
 	public void setColor(SpriteColor c) {
 		color = c;
@@ -60,14 +71,15 @@ public class Splotch extends JComponent {
 
 	/**
 	 * 
-	 * @param x
 	 */
-	public void setEditable(boolean x) {
-		editable = x;
+	public void setEnabled(boolean e) {
+		editable = e;
 		setToolTip();
 	}
+
 	/**
-	 * 
+	 * Self-use function to set a tooltip that may also indicate
+	 * that the color index cannot be edited.
 	 */
 	private void setToolTip() {
 		String changeable = editable ?
@@ -76,41 +88,41 @@ public class Splotch extends JComponent {
 		this.setToolTipText(this.toString() + changeable);
 	}
 
+	/**
+	 * 
+	 */
 	public String toString() {
 		return color.toFullString();
 	}
 
+	/**
+	 * 
+	 */
 	public void paint(Graphics g) {
 		g.fillRect(0, 0, SIZE, SIZE);
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, SIZE, SIZE);
 	}
 
+	/**
+	 * Used to add mouse listeners
+	 */
 	private void addMouse() {
 		this.addMouseListener(new MouseListener() {
 
-			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Color editing maybe?
 				mommy.indexClicked(index);
 			}
 
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
+			public void mouseEntered(MouseEvent arg0) {}
 
-			}
-
-			@Override
 			public void mouseExited(MouseEvent arg0) {}
 
-			@Override
 			public void mousePressed(MouseEvent arg0) {
 				mommy.indexClicked(index);
 			}
 
-			@Override
 			public void mouseReleased(MouseEvent arg0) {}
-
 		});
-	}
+	} // end addMouse
 }

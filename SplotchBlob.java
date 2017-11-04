@@ -12,24 +12,26 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-/*
- * TODO : Labels
- * TODO : "use 1 color for all mails"
- */
 public class SplotchBlob extends Container {
+	// class constants
 	private static final long serialVersionUID = 5958661421574061169L;
-
-	private Splotch[] workingSet;
-	private boolean editable = true;
 	private static final Border padding = BorderFactory.createEmptyBorder(1,2,1,4);
-	private final JCheckBox allMails = new JCheckBox("Use color or all mails");
-	private SplotchEditor[] editors = new SplotchEditor[4];
 	private final JLabel[] labels = new JLabel[] {
 			new JLabel("Green mail", SwingConstants.RIGHT),
 			new JLabel("Blue mail", SwingConstants.RIGHT),
 			new JLabel("Red mail", SwingConstants.RIGHT),
 			new JLabel("Bunny", SwingConstants.RIGHT)
 	};
+
+	// local vars
+	private Splotch[] workingSet;
+	private boolean editable = true;
+	private final JCheckBox allMails = new JCheckBox("Use color or all mails");
+	private SplotchEditor[] editors = new SplotchEditor[4];
+
+	/**
+	 * Creates a new {@code SplotchBlob}
+	 */
 	public SplotchBlob() {
 		this.setLayout(new GridBagLayout());
 		for (JLabel l : labels) {
@@ -38,18 +40,28 @@ public class SplotchBlob extends Container {
 		allMails.addPropertyChangeListener(checkListen());
 	}
 
+	/**
+	 * Sets the blob to edit a new set of {@code Splotch} objects.
+	 * @param set
+	 */
 	public void setColors(Splotch[] set) {
 		workingSet = set;
 		resetEditArea();
 		repaint();
 	}
 
-	public void setEditable(boolean e) {
+	/**
+	 * 
+	 */
+	public void setEnabled(boolean e) {
 		editable = e;
 		allMails.setEnabled(e);
 		allMails.setSelected(!e);
 	}
 
+	/**
+	 * Resets all {@code SplotchEditor} objects and revalidates the GUI.
+	 */
 	private void resetEditArea() {
 		this.removeAll();
 		GridBagConstraints l = new GridBagConstraints();
@@ -73,9 +85,12 @@ public class SplotchBlob extends Container {
 		editors[0].setFourVictims(workingSet);
 	}
 
+	/**
+	 * @return A {@link PropertyChangeListener} for the "all mails" button
+	 * that enables/disables the latter 3 editors appropriately.
+	 */
 	private PropertyChangeListener checkListen() {
 		return new PropertyChangeListener() {
-			@Override
 			public void propertyChange(PropertyChangeEvent e) {
 				JCheckBox source = (JCheckBox) e.getSource();
 				boolean all = source.isSelected();

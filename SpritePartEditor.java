@@ -16,11 +16,18 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import SpriteAnimator.GUIHelpers;
-import SpriteMe.Listeners.*;
 
+// TODO: Revert all changes
 public class SpritePartEditor extends Container {
+	// class constants
 	private static final long serialVersionUID = 3880283257828608241L;
+	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
+	private static final Dimension prefDim = new Dimension(350,200);
+	private static String[] INSTRUCTION_STYLE = {
+			"padding: 10px 10px 10px 0px"
+	};
 
+	// local vars
 	private byte[] originalColorMap = {};
 	private byte[] colorMap = {};
 	private Palette pal;
@@ -31,11 +38,11 @@ public class SpritePartEditor extends Container {
 	private SpringLayout l = new SpringLayout();
 	private final JLabel partLbl = new JLabel("Nothing");
 
-	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
-	private static final Dimension prefDim = new Dimension(350,200);
-	private static String[] INSTRUCTION_STYLE = {
-			"padding: 10px 10px 10px 0px"
-	};
+	/**
+	 * Creates a new {@code SpritePartEditor}
+	 * attached to a {@link Palette} for communication.
+	 * @param p
+	 */
 	public SpritePartEditor(Palette p) {
 		super();
 		pal = p;
@@ -49,7 +56,7 @@ public class SpritePartEditor extends Container {
 	}
 
 	/**
-	 * 
+	 * Attaches a new {@code SpritePart} to edit.
 	 * @param p
 	 */
 	public void editNewPart(SpritePart p) {
@@ -74,7 +81,8 @@ public class SpritePartEditor extends Container {
 	}
 
 	/**
-	 * 
+	 * Sets a new array of {@link MiniPalette} objects to be used
+	 * to remap {@code SpritePart} indices.
 	 */
 	public void setPalette() {
 		palettes = new MiniPalette[colors];
@@ -85,7 +93,7 @@ public class SpritePartEditor extends Container {
 	}
 
 	/**
-	 * 
+	 * Sets up GUI.
 	 */
 	public void initializeDisplay() {
 		final JLabel editingPart = new JLabel("Editing map for : ");
@@ -117,9 +125,12 @@ public class SpritePartEditor extends Container {
 		this.add(helpText);
 	
 		newPaletteSet();
-	}
-	
-	public void newPaletteSet() {
+	} // end display initialization
+
+	/**
+	 * Creates a new palette area in the GUI for user control.
+	 */
+	private void newPaletteSet() {
 		if (paletteArea != null) {
 				this.remove(paletteArea);
 			}
@@ -146,7 +157,7 @@ public class SpritePartEditor extends Container {
 	}
 
 	/**
-	 * 
+	 * Remaps a {@code SpritePart} color to a color in the main palette.
 	 * @param palX
 	 * @param palI
 	 */
@@ -156,7 +167,7 @@ public class SpritePartEditor extends Container {
 	}
 
 	/**
-	 * 
+	 * Refreshes each individual {@code MiniPalette}.
 	 */
 	public void refreshPalette() {
 		try {
@@ -165,8 +176,9 @@ public class SpritePartEditor extends Container {
 			}
 		} catch (Exception e) {}
 	}
+
 	/**
-	 * 
+	 * Reverts all remappings to the default indices of the object.
 	 */
 	private void revertAllChanges() {
 		for (int i = 0; i < colors; i++) {

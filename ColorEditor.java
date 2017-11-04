@@ -10,17 +10,21 @@ import SpriteAnimator.GUIHelpers;
 
 public class ColorEditor extends Container {
 	private static final long serialVersionUID = -6002186857197093009L;
-	private Palette pal;
-	private boolean editable;
-	private SplotchBlob blob = new SplotchBlob();
-	private int curIndex = 0;
-	private final JLabel indexLabel = new JLabel("0");
+
 	private static final Dimension prefDim = new Dimension(400,550);
-	private static String[] INSTRUCTION_STYLE = {
+	private static final String[] INSTRUCTION_STYLE = {
 			"padding: 10px 10px 10px 0px"
 	};
+
+	// locals
+	private Palette pal;
+	private boolean editable;
+	private int curIndex = 0;
+	private final JLabel indexLabel = new JLabel("0");
+	private SplotchBlob blob = new SplotchBlob();
+
 	/**
-	 * 
+	 * Creates a new editor attached to a palette.
 	 * @param p
 	 */
 	public ColorEditor(Palette p) {
@@ -33,13 +37,13 @@ public class ColorEditor extends Container {
 	}
 
 	/**
-	 * 
+	 * Sets a new index to edit.
 	 * @param i
 	 */
 	public void editNewColor(int i) {
 		curIndex = i;
 		editable = Palette.editableIndex(i);
-		blob.setEditable(editable);
+		blob.setEnabled(editable);
 		blob.setColors(pal.splotchesForIndex(i));
 		indexLabel.setText(i+"");
 		this.revalidate();
@@ -47,7 +51,7 @@ public class ColorEditor extends Container {
 	}
 
 	/**
-	 * 
+	 * Sets up child components.
 	 */
 	private void initializeDisplay() {
 		// add palette area
@@ -91,5 +95,5 @@ public class ColorEditor extends Container {
 		l.putConstraint(SpringLayout.SOUTH, blob, -20,
 				SpringLayout.SOUTH, this);
 		this.add(blob);
-	}
+	} // end display initialization
 }

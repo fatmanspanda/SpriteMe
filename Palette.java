@@ -14,10 +14,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import SpriteManipulator.SpriteManipulator;
-import SpriteMe.Listeners.*;
 
 public class Palette extends Container {
-
+	// class constants
 	private static final long serialVersionUID = 9036341073446768809L;
 
 	private static final String[] VANILLA_PALETTE_NAMES = {
@@ -110,14 +109,17 @@ public class Palette extends Container {
 			{ (byte) 192, (byte) 128, (byte) 240 }
 		};
 
-	private Splotch[][] splotches = new Splotch[4][16];
+	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 	private static final int[] UNCHANGEABLE_INDICES =
-		{ 0, 1, 2, 3, 4, 5, 6, 7, 13 };
+			{ 0, 1, 2, 3, 4, 5, 6, 7, 13 };
+
+	// local vars
+	private Splotch[][] splotches = new Splotch[4][16];
 	private ColorEditor editInterface;
 	private int lastSelectedIndex;
-	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
+
 	/**
-	 * 
+	 * Makes a new palette with Link's vanilla colors.
 	 */
 	public Palette() {
 		initializePalette();
@@ -125,7 +127,7 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * 
+	 * Sets the palette to Link's vanilla colors.
 	 */
 	private void initializePalette() {
 		int palN;
@@ -143,7 +145,7 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * 
+	 * Sets up GUI.
 	 */
 	private void initializeDisplay() {
 		this.setLayout(new GridBagLayout());
@@ -170,7 +172,7 @@ public class Palette extends Container {
 			w.gridx++;
 			for (int j = 0; j < 16; j++, w.gridx++) {
 					if (!editableIndex(j)) {
-						splotches[i][j].setEditable(false);
+						splotches[i][j].setEnabled(false);
 					}
 				this.add(splotches[i][j], w);
 			}
@@ -178,80 +180,8 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * 
-	 * @param m
-	 * @param i
-	 * @param c
-	 */
-	public void setColorOneMail(int m, int i, SpriteColor c) {
-		if (editableIndex(i)) {
-			splotches[m][i].setColor(c);
-		} else {
-			return; // break out to avoid firing an event
-		}
-		refreshColorEditor(i);
-		fireColorChangeEvent();
-		fireSpriteChangeEvent();
-	}
-
-	/**
-	 * 
-	 * @param i
-	 * @param c
-	 */
-	public void setColorAllMails(int i, SpriteColor c) {
-		if (editableIndex(i)) {
-			for (int m = 0; m < 4; m++) {
-				splotches[m][i].setColor(c);
-			}
-		} else {
-			return; // break out to avoid firing an event
-		}
-		fireColorChangeEvent();
-		fireSpriteChangeEvent();
-		refreshColorEditor(i);
-	}
-
-	/**
-	 * 
-	 * @param i
-	 * @param j
-	 * @param p
-	 */
-	public void setTwoColorsOneMail(int m, int i, int j, ColorPair p) {
-		if (editableIndex(i) && editableIndex(j)) {
-			splotches[m][i].setColor(p.color1());
-			splotches[m][j].setColor(p.color2());
-		} else {
-			return; // break out to avoid firing an event
-		}
-		fireColorChangeEvent();
-		fireSpriteChangeEvent();
-		refreshColorEditor(i,j);
-	}
-
-	/**
-	 * 
-	 * @param i
-	 * @param j
-	 * @param p
-	 */
-	public void setTwoColorsAllMails(int i, int j, ColorPair p) {
-		if (editableIndex(i) && editableIndex(j)) {
-			for (int m = 0; m < 4; m++) {
-				splotches[m][i].setColor(p.color1());
-				splotches[m][j].setColor(p.color2());
-			}
-		} else {
-			return; // break out to avoid firing an event
-		}
-		fireColorChangeEvent();
-		fireSpriteChangeEvent();
-		refreshColorEditor(i,j);
-	}
-
-	/**
-	 * 
+	 * Sets indices 3 and 4 to the shaded and base colors, respectively,
+	 * of a desired skin color.
 	 * @param p
 	 */
 	public void setSkinColor(ColorPair p) {
@@ -259,16 +189,14 @@ public class Palette extends Container {
 			splotches[m][4].setColor(p.color1());
 			splotches[m][3].setColor(p.color2());
 		}
-		fireColorChangeEvent();
 		fireSpriteChangeEvent();
 		refreshColorEditor(3,4);
 		refreshColorEditor(3,4);
 	}
 
 	/**
-	 * 
-	 * @param i
-	 * @return
+	 * @param i - index to check
+	 * @return Whether or not the index can be edited directly by the user.
 	 */
 	public static boolean editableIndex(int i) {
 		boolean ret = true;
@@ -282,15 +210,17 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * 
+	 * @param m - Palette set
+	 * @param i - Color index
+	 * @return The current {@code SpriteColor} object for the {@code Splotch} desired.
 	 */
 	public SpriteColor colorForMailAndIndex(int m, int i) {
 		return splotches[m][i].getColor();
 	}
 	
 	/**
-	 * 	
-	 * 
+	 * @param i
+	 * @return An array of all {@code Splotch} objects at desired index.
 	 */
 	public Splotch[] splotchesForIndex(int i) {
 		return new Splotch[] {
@@ -302,15 +232,17 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * 
-	 * @param edit
+	 * Attaches a {@link ColorEditor} for communication.
+	 * @param edit - {@code ColorEditor}
 	 */
 	public void attachEditor(ColorEditor edit) {
 		editInterface = edit;
 	}
-	
+
 	/**
-	 * 
+	 * Notifies this {@code Palette} that an index has been selected.
+	 * To be called by a child {@code Splotch} component.
+	 * @param i
 	 */
 	public void indexClicked(int i) {
 		lastSelectedIndex = i;
@@ -319,7 +251,9 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * Refreshes if the index passed has changed.
+	 * Refreshes the palette for the attached {@code ColorEditor}
+	 * if any index passed has been changed and is selected.
+	 * @param i
 	 */
 	public void refreshColorEditor(int... i) {
 		for (int n : i) {
@@ -328,6 +262,7 @@ public class Palette extends Container {
 			}
 		}
 	}
+
 	/**
 	 * 
 	 */
@@ -336,7 +271,7 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * 
+	 * @return A 2 dimension {@code byte} of all colors in this palette as RGB values.
 	 */
 	public byte[][] toArray() {
 		byte[][] ret = new byte[64][3];
@@ -349,7 +284,7 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * 
+	 * @return All colors as an array of integers formatted with digits RRRGGGBBB.
 	 */
 	public int[] toRGB9Array() {
 		byte[][] temp = toArray();
@@ -364,9 +299,15 @@ public class Palette extends Container {
 		return ret;
 	}
 
+	/**
+	 * Informs this palette that a specific {@code Splotch} has been updated.
+	 * @param child - {@code Splotch} firing the event.
+	 */
+	// TODO : Validate child
 	public void colorChanged(Splotch child) {
 		fireSpriteChangeEvent();
 	}
+
 	/*
 	 * Change listeners
 	 */
@@ -382,23 +323,6 @@ public class Palette extends Container {
 	private synchronized void fireSpriteChangeEvent() {
 		SpriteChangeEvent s = new SpriteChangeEvent(this);
 		Iterator<SpriteChangeListener> listening = spriteListeners.iterator();
-		while(listening.hasNext()) {
-			(listening.next()).eventReceived(s);
-		}
-	}
-	
-	private List<ColorChangeListener> colorListeners = new ArrayList<ColorChangeListener>();
-	public synchronized void addColorChangeListener(ColorChangeListener s) {
-		colorListeners.add(s);
-	}
-
-	public synchronized void removeColorChangeListener(ColorChangeListener s) {
-		colorListeners.remove(s);
-	}
-
-	private synchronized void fireColorChangeEvent() {
-		ColorChangeEvent s = new ColorChangeEvent(this);
-		Iterator<ColorChangeListener> listening = colorListeners.iterator();
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}

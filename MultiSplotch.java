@@ -12,18 +12,25 @@ import javax.swing.JComponent;
  *
  */
 public class MultiSplotch extends JComponent {
-
+	// Class constants
 	private static final long serialVersionUID = -2349012926208164404L;
 	private static final int SIZE = SpriteMe.SPLOTCH_SIZE;
 	private static final int ROWSIZE = SIZE/4;
+
+	// local vars
 	private SpriteColor[] colors;
 	private final byte index;
 	private final MiniPalette mommy;
 	private boolean selected = false;
 
 	/**
-	 * 
-	 * @param c
+	 * Creates a new {@code MultiSplotch}.
+	 * @param parent - {@code MiniPalette} holding this splotch
+	 * @param i - Index of this spotch
+	 * @param c1 - Palette 1 color
+	 * @param c2 - Palette 2 color
+	 * @param c3 - Palette 3 color
+	 * @param c4 - Palette 4 color
 	 */
 	public MultiSplotch(MiniPalette parent, byte i, SpriteColor c1, SpriteColor c2, SpriteColor c3, SpriteColor c4) {
 		mommy = parent;
@@ -35,6 +42,13 @@ public class MultiSplotch extends JComponent {
 		addMouse();
 	}
 
+	/**
+	 * Sets four colors for this splotch.
+	 * @param c1
+	 * @param c2
+	 * @param c3
+	 * @param c4
+	 */
 	public void setColors(SpriteColor c1, SpriteColor c2, SpriteColor c3, SpriteColor c4) {
 		colors = new SpriteColor[] { c1, c2, c3, c4 };
 	}
@@ -58,36 +72,31 @@ public class MultiSplotch extends JComponent {
 	}
 
 	/**
-	 * 
+	 * Sets the selection status of this object.
+	 * @param b
 	 */
-	public void setSelected(boolean s) {
-		selected = s;
+	public void setSelected(boolean b) {
+		selected = b;
 	}
+
 	/**
-	 * 
+	 * Adds mouse listeners.
 	 */
 	private void addMouse() {
 		this.addMouseListener(new MouseListener() {
 
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent arg0) {}
+
+			public void mouseEntered(MouseEvent arg0) {}
+
+			public void mouseExited(MouseEvent arg0) {}
+
+			public void mousePressed(MouseEvent arg0) {
 				mommy.setIndex(index);
 			}
 
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent arg0) {}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {}
-
-			@Override
 			public void mouseReleased(MouseEvent arg0) {}
 
 		});
-	}
+	} // end addMouse()
 }
