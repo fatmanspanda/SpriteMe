@@ -26,7 +26,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 	private final byte[] raster;
 
 	// invariable size
-	private static final int RASTERSIZE = SpriteManipulator.INDEXEDRASTERSIZE;
+	private static final int RASTERSIZE = SpriteManipulator.INDEXED_RASTER_SIZE;
 
 	/**
 	 * Creates a new {@code SpritePart}.
