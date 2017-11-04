@@ -230,22 +230,21 @@ public class SplotchEditor extends Container {
 
 		// buttons
 		confirm.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (isAllFour && allFourVictims != null) {
 					for (Splotch s : allFourVictims) {
 						s.setColor(new SpriteColor(colorName,
 								RGB[0],
 								RGB[1],
-								RGB[2])
-								);
+								RGB[2]
+								));
 					}
 				} else {
 					victim.setColor(new SpriteColor(colorName,
-							RGB[0],
-							RGB[1],
-							RGB[2])
-							);
+							(byte) RGB[0],
+							(byte) RGB[1],
+							(byte) RGB[2]
+							));
 				}
 			}});
 
@@ -269,9 +268,11 @@ public class SplotchEditor extends Container {
 						(byte) RGB[1],
 						(byte) RGB[2]
 					});
-
+				System.out.println(RGB[0] + " " + (byte) RGB[0] + " " + Byte.toUnsignedInt((byte) RGB[0]));
 				SplotchEditor.this.setColor(
-						RGB2[0],RGB2[1],RGB2[2]
+						RGB2[0],
+						RGB2[1],
+						RGB2[2]
 						);
 			}});
 		
@@ -420,7 +421,7 @@ public class SplotchEditor extends Container {
 				int val = ((Number) source.getValue()).intValue();
 				if (val < 0) {
 					val = 0;
-				} else if (val > 255) {
+				} else if (val > 248) {
 					val = 248;
 				}
 				val = SpriteManipulator.roundVal(val);

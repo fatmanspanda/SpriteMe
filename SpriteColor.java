@@ -129,9 +129,9 @@ public class SpriteColor {
 		r2 = r2 * 8 / 7;
 		g2 = g2 * 8 / 7;
 		b2 = b2 * 8 / 7;
-		if (r2 >= 255) { r2 = 255; }
-		if (g2 >= 255) { g2 = 255; }
-		if (b2 >= 255) { b2 = 255; }
+		if (r2 > 248) { r2 = 248; }
+		if (g2 > 248) { g2 = 248; }
+		if (b2 > 248) { b2 = 248; }
 		return new byte[] {
 				(byte) r2,
 				(byte) g2,
@@ -145,6 +145,7 @@ public class SpriteColor {
 	public ColorPair makeShadedPair() {
 		return new ColorPair(n, this, makeDarker(n, this));
 	}
+
 	/*
 	 * Some color constants
 	 */
