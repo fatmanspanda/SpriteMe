@@ -306,31 +306,7 @@ public class SpriteMe {
 		FakeString lastSpritePath = new FakeString(null);
 
 		// file explorer
-		final JFileChooser explorer = new JFileChooser() {
-			private static final long serialVersionUID = -7581065406880416887L;
-			public void approveSelection() {
-				File f = getSelectedFile();
-				if(f.exists() && getDialogType() == SAVE_DIALOG){
-					int result = JOptionPane.showConfirmDialog(
-							this,
-							"The file \"" + f.getName() + "\" already exists. Save anyway?",
-							"Existing file",
-							JOptionPane.YES_NO_CANCEL_OPTION);
-					switch(result){
-						case JOptionPane.YES_OPTION :
-							super.approveSelection();
-							return;
-						case JOptionPane.NO_OPTION :
-						case JOptionPane.CLOSED_OPTION :
-							return;
-						case JOptionPane.CANCEL_OPTION:
-							cancelSelection();
-							return;
-					}
-				}
-				super.approveSelection();
-			}
-		};
+		final BetterJFileChooser explorer = new BetterJFileChooser();
 
 		// TODO Uncomment this for exports
 		// explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
@@ -420,6 +396,7 @@ public class SpriteMe {
 
 		saveSprTo.addActionListener(
 				arg0 -> {
+					explorer.setROMStatus(false);
 					removeFilters(explorer);
 					explorer.setFileFilter(smeFilter);
 					int option = explorer.showSaveDialog(frame);
@@ -468,6 +445,7 @@ public class SpriteMe {
 
 		expSprTo.addActionListener(
 				arg0 -> {
+					explorer.setROMStatus(false);
 					removeFilters(explorer);
 					explorer.setFileFilter(sprFilter);
 					int option = explorer.showSaveDialog(frame);
@@ -492,6 +470,43 @@ public class SpriteMe {
 						// if we have a file name, set it then click export
 						lastSpritePath.changeString(n);
 						expSpr.doClick();
+					}
+				});
+
+		// ROM patching
+		patchRom.addActionListener(
+				arg0 -> {
+					explorer.setROMStatus(true);
+					removeFilters(explorer);
+					explorer.setFileFilter(romFilter);
+					int option = explorer.showSaveDialog(frame);
+
+					if (option == JFileChooser.CANCEL_OPTION) {
+						return;
+					}
+
+					String n = "";
+					try {
+						n = explorer.getSelectedFile().getPath();
+					} catch (NullPointerException e) {
+						JOptionPane.showMessageDialog(frame,
+								"No ROM file found",
+								"HOLY COW",
+								JOptionPane.WARNING_MESSAGE);
+						e.printStackTrace();
+						return;
+					}
+					
+					byte[] data = mySprite.makeSprite();
+					try {
+						SpriteManipulator.patchRom(data, n);
+					} catch (IOException e) {
+						JOptionPane.showMessageDialog(frame,
+								"Error patching rom",
+								"UH-OH SPAGHETTI-Os",
+								JOptionPane.WARNING_MESSAGE);
+						e.printStackTrace();
+						return;
 					}
 				});
 	}
@@ -557,4 +572,48 @@ public class SpriteMe {
 			return this.s != null;
 		}
 	}
+	/**
+	 * Need alternating Confirm messages
+	 */
+	private static class BetterJFileChooser extends JFileChooser {
+		private static final long serialVersionUID = -7581065406880416887L;
+		private boolean patchingROM;
+		public void approveSelection() {
+			File f = getSelectedFile();
+			if(f.exists() && getDialogType() == SAVE_DIALOG){
+				String warning;
+				String warningHeader;
+				if (patchingROM) {
+					warning =
+							"Are you sure you want to patch \"" + f.getName() + "\"?\n"+
+							"This cannot be undone.";
+					warningHeader = "This is a ROM";
+				} else {
+					warning = "The file \"" + f.getName() + "\" already exists. Save anyway?";
+					warningHeader = "Existing file";
+				}
+				int result = JOptionPane.showConfirmDialog(
+						this,
+						warning,
+						warningHeader,
+						JOptionPane.YES_NO_CANCEL_OPTION);
+				switch(result){
+					case JOptionPane.YES_OPTION :
+						super.approveSelection();
+						return;
+					case JOptionPane.NO_OPTION :
+					case JOptionPane.CLOSED_OPTION :
+						return;
+					case JOptionPane.CANCEL_OPTION:
+						cancelSelection();
+						return;
+				}
+			}
+			super.approveSelection();
+		}
+		
+		public void setROMStatus(boolean b) {
+			patchingROM = b;
+		}
+	};
 }
