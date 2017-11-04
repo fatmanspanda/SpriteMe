@@ -161,6 +161,8 @@ public class SpriteMe {
 		// color editor
 		f.putConstraint(SpringLayout.NORTH, colorEditor, 2,
 				SpringLayout.SOUTH, pal);
+		f.putConstraint(SpringLayout.SOUTH, colorEditor, 2,
+				SpringLayout.SOUTH, framesWrap);
 		f.putConstraint(SpringLayout.EAST, colorEditor, -2,
 				SpringLayout.EAST, framesWrap);
 		framesWrap.add(colorEditor);

@@ -16,11 +16,15 @@ public class ColorEditor extends Container {
 			"padding: 10px 10px 10px 0px"
 	};
 
+	private static final String CANNOT = "This color index cannot be edited.";
+	private static final String CAN = "";
+
 	// locals
 	private Palette pal;
 	private boolean editable;
 	private int curIndex = 0;
 	private final JLabel indexLabel = new JLabel("0");
+	private final JLabel editableText = new JLabel("");
 	private SplotchBlob blob = new SplotchBlob();
 
 	/**
@@ -45,6 +49,7 @@ public class ColorEditor extends Container {
 		editable = Palette.editableIndex(i);
 		blob.setEnabled(editable);
 		blob.setColors(pal.splotchesForIndex(i));
+		editableText.setText(editable ? CAN : CANNOT);
 		indexLabel.setText(i+"");
 		this.revalidate();
 		repaint();
@@ -89,10 +94,17 @@ public class ColorEditor extends Container {
 				SpringLayout.SOUTH, curEditing);
 		this.add(helpText);
 
+		l.putConstraint(SpringLayout.WEST, editableText, 0,
+				SpringLayout.WEST, curEditing);
+		l.putConstraint(SpringLayout.EAST, editableText, 0,
+				SpringLayout.EAST, this);
+		l.putConstraint(SpringLayout.NORTH, editableText, 10,
+				SpringLayout.SOUTH, helpText);
+		this.add(editableText);
 
 		l.putConstraint(SpringLayout.EAST, blob, 0,
 				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.SOUTH, blob, -20,
+		l.putConstraint(SpringLayout.SOUTH, blob, 0,
 				SpringLayout.SOUTH, this);
 		this.add(blob);
 	} // end display initialization
