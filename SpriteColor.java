@@ -5,12 +5,12 @@ import java.awt.Color;
 import SpriteManipulator.SpriteManipulator;
 
 public class SpriteColor {
-
 	private String n;
 	private byte[] RGB;
 	private Color c;
+
 	/**
-	 * Makes a new color with a name and 3 RGB values.
+	 * Makes a new {@code SpriteColor} with a name and 3 RGB values.
 	 * @param name
 	 * @param r
 	 * @param g
@@ -28,7 +28,7 @@ public class SpriteColor {
 	}
 
 	/**
-	 * Makes a new color with a name and 3 RGB values, as an array.
+	 * Makes a new {@code SpriteColor} with a name and 3 RGB values, as an array.
 	 * @param name
 	 * @param rgb
 	 */
@@ -37,7 +37,7 @@ public class SpriteColor {
 	}
 
 	/**
-	 * Makes a new color with a name and 3 RGB values, but with integers to allow unsigned values.
+	 * Makes a new {@code SpriteColor} with a name and 3 RGB values, but with integers to allow unsigned values.
 	 * @param name
 	 * @param r
 	 * @param g
@@ -48,15 +48,14 @@ public class SpriteColor {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return {@link Color} object associated with this SpriteColor.
 	 */
 	public Color toColor() {
 		return c;
 	}
 
 	/**
-	 * 
+	 * Rounds each value down to the nearest multiple of 8.
 	 */
 	private void roundSelf() {
 		RGB[0] = (byte) SpriteManipulator.roundVal(RGB[0]);
@@ -65,15 +64,15 @@ public class SpriteColor {
 	}
 
 	/**
-	 * 
+	 * @return The {@code SpriteColor}'s name.
 	 */
+	
 	public String toString() {
 		return n;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return The {@code SpriteColor}'s name and RGB coordinates.
 	 */
 	public String toFullString() {
 		return String.format("%s (RGB{%s,%s,%s})",
@@ -83,12 +82,17 @@ public class SpriteColor {
 				Byte.toUnsignedInt(RGB[2]));
 	}
 
+	/**
+	 * @return Color's RGB values in a byte array.
+	 */
 	public byte[] getRGB() {
 		return new byte[] { RGB[0], RGB[1], RGB[2] };
 	}
+
 	/**
-	 * 
-	 * @return
+	 * @param name
+	 * @param s - Lighter {@code SpriteColor}
+	 * @return A new {@code SpriteColor} with a darker shade and named "{@code n < shaded>}".
 	 */
 	public static SpriteColor makeDarker(String name, SpriteColor s) {
 		byte[] RGB = darkerShade(s.getRGB());
@@ -97,9 +101,8 @@ public class SpriteColor {
 	}
 
 	/**
-	 * 
 	 * @param rgb
-	 * @return
+	 * @return A {@code byte} array for a darker shade of the color array passed.
 	 */
 	public static byte[] darkerShade(byte[] rgb) {
 		int r2 = Byte.toUnsignedInt(rgb[0]);
@@ -116,9 +119,8 @@ public class SpriteColor {
 	}
 
 	/**
-	 * 
 	 * @param rgb
-	 * @return
+	 * @return A {@code byte} array for a lighter shade of the color array passed.
 	 */
 	public static byte[] lighterShade(byte[] rgb) {
 		int r2 = Byte.toUnsignedInt(rgb[0]);
@@ -137,6 +139,9 @@ public class SpriteColor {
 		};
 	}
 
+	/**
+	 * @return A {@link ColorPair} consisting of this color and a darker shade.
+	 */
 	public ColorPair makeShadedPair() {
 		return new ColorPair(n, this, makeDarker(n, this));
 	}

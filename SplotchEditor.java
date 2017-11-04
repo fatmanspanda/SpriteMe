@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
-import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,32 +24,53 @@ import SpriteManipulator.SpriteManipulator;
 public class SplotchEditor extends Container {
 	private static final long serialVersionUID = -5665184823715239064L;
 
-	private final GridBagLayout w = new GridBagLayout();
+	// dimension constants
+	private static final Dimension sliderD = new Dimension(120, 10);
+	private static final Dimension textD = new Dimension(40, 20);
+	private static final Dimension labelD = new Dimension(20, 20);
+
+	// local vars
+	// color and splotch information
 	private final Splotch victim;
-	private Splotch[] allFourVictims;
+	private final SpriteColor originalColor;
 	private boolean isAllFour = false;
+	private Splotch[] allFourVictims;
 	private boolean enabled;
 	private final int[] RGB;
-	private final SpriteColor originalColor;
+	private String colorName = "Custom color";
+
+	// GUI vars
+	private final GridBagLayout w = new GridBagLayout();
+
+	// sliders
 	private final JSlider[] sliders;
-	private final JFormattedTextField[] vals;
 	private final JSlider red;
 	private final JSlider green;
 	private final JSlider blue;
+
+	// text input
+	private final JFormattedTextField[] vals;
 	private final JFormattedTextField redT;
 	private final JFormattedTextField greenT;
 	private final JFormattedTextField blueT;
+
+	// buttons
 	private final JButton confirm = new JButton("Apply");
 	private final JButton reset = new JButton("Reset");
 	private final JButton darker = new JButton("Darken");
 	private final JButton lighter = new JButton("Lighten");
-	private String colorName = "Custom color";
+
+	// color preview
 	private final ColorPreview p = new ColorPreview();
+
+	// preset colors
 	private final JComboBox<SpriteColor> presets = new JComboBox<SpriteColor>(SpriteColor.CONSTANTS);
-	private static final Dimension sliderD = new Dimension(120, 10);
-	private static final Dimension textD = new Dimension(40, 20);
-	private static final Dimension labelD = new Dimension(20, 20);
-	
+
+	/**
+	 * 
+	 * @param c - Splotch to apply color edits to.
+	 * @param e - Enable/Disabled
+	 */
 	public SplotchEditor(Splotch c, boolean e) {
 		NumberFormat rgbFormat = NumberFormat.getNumberInstance();
 		presets.setSelectedItem(null);
@@ -76,12 +96,6 @@ public class SplotchEditor extends Container {
 		redT = vals[0];
 		greenT = vals[1];
 		blueT = vals[2];
-		red.setMaximumSize(sliderD);
-		red.setPreferredSize(sliderD);
-		green.setMaximumSize(sliderD);
-		green.setPreferredSize(sliderD);
-		blue.setMaximumSize(sliderD);
-		blue.setPreferredSize(sliderD);
 		redT.setValue(RGB[0]);
 		greenT.setValue(RGB[1]);
 		blueT.setValue(RGB[2]);
@@ -90,12 +104,12 @@ public class SplotchEditor extends Container {
 		addListeners();
 	}
 
+	/**
+	 * Sets up child {@code Components}.
+	 */
 	private void initializeDisplay() {
 		this.setLayout(w);
 		setEnabling();
-		// red
-		GridBagConstraints l = new GridBagConstraints();
-		l.fill = GridBagConstraints.HORIZONTAL;
 
 		// sizes
 		red.setMaximumSize(sliderD);
@@ -105,6 +119,20 @@ public class SplotchEditor extends Container {
 		blue.setMaximumSize(sliderD);
 		blue.setPreferredSize(sliderD);
 
+		// red
+		GridBagConstraints l = new GridBagConstraints();
+		l.fill = GridBagConstraints.HORIZONTAL;
+
+		// sizes
+		// sliders
+		red.setMaximumSize(sliderD);
+		red.setPreferredSize(sliderD);
+		green.setMaximumSize(sliderD);
+		green.setPreferredSize(sliderD);
+		blue.setMaximumSize(sliderD);
+		blue.setPreferredSize(sliderD);
+
+		// text fields
 		redT.setMaximumSize(textD);
 		redT.setPreferredSize(textD);
 		greenT.setMaximumSize(textD);
@@ -119,6 +147,7 @@ public class SplotchEditor extends Container {
 		this.add(p, l);
 
 		l.gridheight = 1;
+
 		// red
 		l.gridy = 0;
 		final JLabel lr = new JLabel("R", SwingConstants.CENTER);
@@ -176,20 +205,27 @@ public class SplotchEditor extends Container {
 		l.gridwidth = 1;
 		l.gridx = 4;
 		this.add(reset, l);
-	}
+	} // end display initialization
 
+	/**
+	 * Adds various listeners to sliders, fields, and buttons.
+	 */
 	private void addListeners() {
+		// sliders
 		ChangeListener slideListener = slideListen();
 		ChangeListener repaintListener = repaintListen();
 		for (JSlider s : sliders) {
 			s.addChangeListener(slideListener);
 			s.addChangeListener(repaintListener);
 		}
+
+		// text fields
 		PropertyChangeListener textListener = textListen();
 		for (JFormattedTextField v : vals) {
 			v.addPropertyChangeListener(textListener);
 		}
 
+		// buttons
 		confirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -211,53 +247,57 @@ public class SplotchEditor extends Container {
 			}});
 
 		darker.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				byte[] RGB2 = SpriteColor.darkerShade(new byte[] {
 						(byte) RGB[0],
 						(byte) RGB[1],
 						(byte) RGB[2]
-				});
+					});
+
 				SplotchEditor.this.setColor(
 						RGB2[0],RGB2[1],RGB2[2]
 						);
 			}});
 
 		lighter.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				byte[] RGB2 = SpriteColor.lighterShade(new byte[] {
 						(byte) RGB[0],
 						(byte) RGB[1],
 						(byte) RGB[2]
-				});
+					});
+
 				SplotchEditor.this.setColor(
 						RGB2[0],RGB2[1],RGB2[2]
 						);
 			}});
 		
 		presets.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				SpriteColor sel = (SpriteColor) presets.getSelectedItem();
 				if (sel != null) {
 					SplotchEditor.this.setColor(sel);
 				}
-				
 			}});
 		
 		reset.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				SplotchEditor.this.resetColor();
 			}});
-	}
+	} // end Listeners
 
+	/**
+	 * Sets color back to original before any editing.
+	 */
 	private void resetColor() {
 		setColor(originalColor);
 		presets.setSelectedItem(null);
 	}
 
+	/**
+	 * Copies a {@code SpriteColor} and adjusts GUI inputs.
+	 * @param c - {@link SpriteColor} to copy
+	 */
 	private void setColor(SpriteColor c) {
 		byte[] t = c.getRGB();
 		RGB[0] = Byte.toUnsignedInt(t[0]);
@@ -268,6 +308,9 @@ public class SplotchEditor extends Container {
 		sliders[2].setValue(RGB[2]/8);
 	}
 
+	/**
+	 * Copies color and adjusts GUI inputs.
+	 */
 	private void setColor(byte r, byte g, byte b) {
 		RGB[0] = Byte.toUnsignedInt(r);
 		RGB[1] = Byte.toUnsignedInt(g);
@@ -277,11 +320,17 @@ public class SplotchEditor extends Container {
 		sliders[2].setValue(RGB[2]/8);
 	}
 
+	/**
+	 * 
+	 */
 	public void setEnabled(boolean e) {
 		enabled = e;
 		setEnabling();
 	}
 
+	/**
+	 * Adjusts child components based on enable status.
+	 */
 	private void setEnabling() {
 		for (JSlider s : sliders) {
 			s.setEnabled(enabled);
@@ -298,14 +347,25 @@ public class SplotchEditor extends Container {
 		reset.setEnabled(enabled);
 	}
 
+	/**
+	 * Determines if this editor applies its color to all mails or just 1.
+	 * @param b
+	 */
 	public void editAllMails(boolean b) {
 		isAllFour = b;
 	}
 	
+	/**
+	 * Sets object references to all four splotches at this color's index.
+	 * @param allFourVictims
+	 */
 	public void setFourVictims(Splotch[] allFourVictims) {
 		this.allFourVictims = allFourVictims;
 	}
 
+	/**
+	 * Creates a {@link ChangeListener} that adjusts the respective {@code JFormattedTextField}.
+	 */
 	private ChangeListener slideListen() {
 		return new ChangeListener() {
 			@Override
@@ -330,6 +390,9 @@ public class SplotchEditor extends Container {
 		};
 	}
 
+	/**
+	 * Creates a {@link ChangeListener} that tells the {@link ColorPreview} to update itself.
+	 */
 	private ChangeListener repaintListen() {
 		return new ChangeListener() {
 			@Override
@@ -341,6 +404,10 @@ public class SplotchEditor extends Container {
 		};
 	}
 
+	/**
+	 * Creates a {@link PropertyChangeListener} that validates the text field and
+	 * adjusts the respective {@code JSlider}.
+	 */
 	private PropertyChangeListener textListen() {
 		return new PropertyChangeListener() {
 			@Override

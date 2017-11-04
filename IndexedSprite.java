@@ -23,6 +23,7 @@ public class IndexedSprite extends Component {
 	private Palette pal;
 	private int mail;
 	private BufferedImage[] sheets;
+
 	// Specific body parts
 	private SpritePart head = SpritePart.TEST;
 	private SpritePart body;
@@ -31,6 +32,11 @@ public class IndexedSprite extends Component {
 	private SpritePart acc2;
 	private SpritePart acc3;
 	private static final Dimension d = new Dimension(200, 448);
+
+	/**
+	 * Creates a new editable sprite object connected to a palette.
+	 * @param p - Palette
+	 */
 	public IndexedSprite(Palette p) {
 		parts.add(head);
 		pal = p;
@@ -41,8 +47,7 @@ public class IndexedSprite extends Component {
 	}
 
 	/**
-	 * 
-	 * @param m
+	 * @param m - Palette level to use
 	 */
 	public void setMail(int m) {
 		mail = m;
@@ -57,8 +62,7 @@ public class IndexedSprite extends Component {
 	}
 
 	/**
-	 * 
-	 * @param hairChoice
+	 * @param hairChoice - hair object
 	 */
 	public void setHair(SpritePart hairChoice) {
 		hair = hairChoice;
@@ -66,7 +70,8 @@ public class IndexedSprite extends Component {
 	}
 
 	/**
-	 * 
+	 * @param acc - accessory object
+	 * @param x - accessory spot
 	 */
 	public void setAccessory(SpritePart acc, int x) {
 		switch (x) {
@@ -79,8 +84,9 @@ public class IndexedSprite extends Component {
 		}
 		fireSpriteChangeEvent();
 	}
+
 	/**
-	 * 
+	 * Set raster based on each parts' index mapping
 	 */
 	private void makeRaster() {
 		byte[][] palette = pal.toArray();
@@ -129,12 +135,18 @@ public class IndexedSprite extends Component {
 		}
 	} // end make raster
 
+	/**
+	 * Remakes the raster and images.
+	 */
 	private void refreshImage() {
 		makeRaster();
 		byte[][][] ebe = SpriteManipulator.get8x8(rasterABGR, pal.toRGB9Array());
 		sheets = SpriteManipulator.makeAllMails(ebe, pal.toArray());
 	}
 
+	/**
+	 * 
+	 */
 	public void paint(Graphics g) {
 		refreshImage();
 		// draw main sheet

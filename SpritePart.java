@@ -24,10 +24,23 @@ public final class SpritePart implements Comparable<SpritePart> {
 	private final String[] colorAreas;
 	protected final int z;
 	private final byte[] raster;
+
+	// invariable size
 	private static final int RASTERSIZE = SpriteManipulator.INDEXEDRASTERSIZE;
-	private SpritePart(String name, String imagePath,
-			byte[][] colorIndexMap, byte[] paletteIndexMap, String[] areas,
-			int zIndex) {
+
+	/**
+	 * Creates a new {@code SpritePart}.
+	 * All allowable parts are defined as constants within this file, and,
+	 * as such, this constructor is hidden.
+	 * @param name - Name of the part. To be used in {@code toString()}
+	 * @param imagePath - File path to the {@code PNG} file for this sprite's data.
+	 * @param colorIndexMap - Custom indexing of the file based on its default color values.
+	 * @param paletteIndexMap - Maps this image's indices to indices on Link's palette.
+	 * @param areas - {@code String} names for each color index.
+	 * @param zIndex - Display priority of the part, relative to all other parts. Higher values are drawn last.
+	 */
+	private SpritePart(String name, String imagePath, byte[][] colorIndexMap,
+						byte[] paletteIndexMap, String[] areas, int zIndex) {
 		n = name;
 		path = imagePath;
 		colorMap = colorIndexMap;
@@ -41,6 +54,9 @@ public final class SpritePart implements Comparable<SpritePart> {
 		getResourceAndRaster();
 	}
 
+	/**
+	 * Undoes all custom indexing performed by the user.
+	 */
 	public void resetIndexMapping() {
 		for (int i = 0; i < indexMap.length; i++) {
 			indexMap[i] = defaultIndexMap[i];
@@ -55,49 +71,52 @@ public final class SpritePart implements Comparable<SpritePart> {
 	}
 
 	/**
-	 * 
+	 * @return The number of unique color indices for this part.
 	 */
 	public int colorCount() {
 		return indexMap.length;
 	}
 
 	/**
-	 * 
+	 * @return A {@code byte[]} map containing
+	 * which color index is mapped to which Link palette index,
+	 * such that {@code indexMap[0]} refers to color index 0 of this part.
 	 */
 	public byte[] indexMap() {
 		return indexMap;
 	}
+
 	/**
-	 * 
 	 * @param i
-	 * @return
+	 * @return The {@code String} name given to desired index {@code i}.
 	 */
 	public String colorName(int i) {
 		return colorAreas[i];
 	}
 
 	/**
-	 * 
+	 * @param i
+	 * @return The Link palette index mapped to desired index {@code i}.
 	 */
 	public byte colorIndex(int i) {
 		return indexMap[i];
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return A full raster of indices for the part,
+	 * where the indices used are that of Link's palette.
 	 */
 	public byte[] getRaster() {
 		return raster;
 	}
+
 	/**
-	 * 
+	 * Fetches the file's resource and creates a raster based on the part's indexing.
 	 */
 	private void getResourceAndRaster() {
 		BufferedImage file;
 		try {
-			file =
-				ImageIO.read(SpritePart.class.getResourceAsStream(path));
+			file = ImageIO.read(SpritePart.class.getResourceAsStream(path));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -121,6 +140,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 		int pos;
 		int curColI;
 		boolean matchedColor;
+
 		for (int i = 0; i < RASTERSIZE; i++) {
 			pos = 4 * i;
 			curCol = SpriteManipulator.RGB9(
@@ -159,16 +179,22 @@ public final class SpritePart implements Comparable<SpritePart> {
 		} catch (IndexOutOfBoundsException e) {
 			throw e;
 		}
-
 	}
+
 	/**
-	 * Display priority
+	 * @return This part's display priority.
 	 */
 	public int zIndex() {
 		return z;
 	}
 
-
+	/**
+	 * Private function that converts an array of {@code int} values
+	 * into an array of {@code byte} values.
+	 * 
+	 * Only used for cleaner hard coding of inputs.
+	 * @param c
+	 */
 	private static byte[][] convertArray(int[][] c) {
 		byte[][] ret = new byte[c.length][c[0].length];
 		for (int i = 0; i < ret.length; i++) {
@@ -179,13 +205,18 @@ public final class SpritePart implements Comparable<SpritePart> {
 		return ret;
 	}
 
-	@Override
+	/**
+	 * 
+	 */
 	public int compareTo(SpritePart p) {
 		return z - p.z;
 	}
 
 	/*
 	 * Public constants for sprite parts
+	 */
+	/**
+	 * Default placeholder object. Contains no data.
 	 */
 	public static final SpritePart NOTHING = new SpritePart(
 			"Nothing",
@@ -195,6 +226,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new String[] {},
 			0
 			);
+
 	public static final SpritePart BODY = new SpritePart(
 			"Body",
 			"/SpriteMe/Images/Weird Chocolate Link.png",
