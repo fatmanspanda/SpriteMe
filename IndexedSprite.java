@@ -54,10 +54,14 @@ public class IndexedSprite extends Component {
 	}
 
 	/**
-	 * 
+	 * Makes an SPR data file
 	 */
-	public void makeSprite() {
-
+	public byte[] makeSprite() {
+		makeRaster();
+		byte[][][] ebe = SpriteManipulator.get8x8(raster);
+		int[] RGB9 = pal.toRGB9Array();
+		byte[] palData = SpriteManipulator.palDataFromArray(RGB9);
+		return SpriteManipulator.exportToSPR(ebe, palData);
 	}
 
 	/**
@@ -139,7 +143,7 @@ public class IndexedSprite extends Component {
 	 */
 	private void refreshImage() {
 		makeRaster();
-		byte[][][] ebe = SpriteManipulator.get8x8(rasterABGR, pal.toRGB9Array());
+		byte[][][] ebe = SpriteManipulator.indexAnd8x8(rasterABGR, pal.toRGB9Array());
 		sheets = SpriteManipulator.makeAllMails(ebe, pal.toArray());
 	}
 
