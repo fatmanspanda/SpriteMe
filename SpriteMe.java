@@ -69,6 +69,15 @@ public class SpriteMe {
 
 	// main
 	public static void main(String[] args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				doTheGUI();
+			}
+		});
+	}
+
+	// GUI
+	public static void doTheGUI() {
 		//try to set LaF
 		try {
 			UIManager.setLookAndFeel("metal");
@@ -202,7 +211,6 @@ public class SpriteMe {
 		// file menu
 		final JMenu fileMenu = new JMenu("File");
 		menu.add(fileMenu);
-
 		// File load
 		final JMenuItem loadSpr = new JMenuItem("Open");
 		ImageIcon compass = new ImageIcon(
@@ -339,7 +347,6 @@ public class SpriteMe {
 		setAllSizes(frame, d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(200, 100);
-		frame.setVisible(true);
 
 		// repainting on all sprite changes
 		SpriteChangeListener repainter =
@@ -509,6 +516,10 @@ public class SpriteMe {
 						return;
 					}
 				});
+		
+		// Display frame
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	/**
