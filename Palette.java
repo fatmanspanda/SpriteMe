@@ -257,7 +257,7 @@ public class Palette extends Container {
 	 */
 	public void indexClicked(int i) {
 		lastSelectedIndex = i;
-		editInterface.editNewColor(i);		
+		editInterface.editNewColor(i);
 		editInterface.repaint();
 	}
 

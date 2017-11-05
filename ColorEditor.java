@@ -51,9 +51,8 @@ public class ColorEditor extends Container {
 	public void editNewColor(int i) {
 		curIndex = i;
 		editable = Palette.editableIndex(i);
-		blob.setEnabled(editable);
-
 		blob.setColors(pal.splotchesForIndex(i));
+		blob.setEnabled(editable);
 		switch (i) {
 			case 16 :
 				editableText.setText(GLOVES_EDIT_TEXT);

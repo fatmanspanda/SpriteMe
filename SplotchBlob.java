@@ -1,5 +1,6 @@
 package SpriteMe;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -65,6 +66,9 @@ public class SplotchBlob extends Container {
 		editable = b;
 		allMails.setEnabled(b);
 		allMails.setSelected(!b);
+		for (Component c : this.getComponents()) {
+			c.setEnabled(b);
+		}
 	}
 
 	/**
