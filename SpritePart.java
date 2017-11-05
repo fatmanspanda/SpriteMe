@@ -128,7 +128,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 		// convert pal for easier comparison
 		int[] RGB9Pal = new int[colorMap.length];
 		for (int i = 0; i < colorMap.length; i++) {
-			RGB9Pal[i] = SpriteManipulator.RGB9(
+			RGB9Pal[i] = SpriteManipulator.toRGB9(
 					Byte.toUnsignedInt(colorMap[i][0]),
 					Byte.toUnsignedInt(colorMap[i][1]),
 					Byte.toUnsignedInt(colorMap[i][2])
@@ -143,7 +143,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 
 		for (int i = 0; i < RASTERSIZE; i++) {
 			pos = 4 * i;
-			curCol = SpriteManipulator.RGB9(
+			curCol = SpriteManipulator.toRGB9(
 					Byte.toUnsignedInt(rawRaster[pos+3]), // blue comes first in raster
 					Byte.toUnsignedInt(rawRaster[pos+2]),
 					Byte.toUnsignedInt(rawRaster[pos+1])

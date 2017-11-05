@@ -290,7 +290,7 @@ public class Palette extends Container {
 		byte[][] temp = toArray();
 		int[] ret = new int[64];
 		for (int i = 0; i < 64; i++) {
-			ret[i] = SpriteManipulator.RGB9(
+			ret[i] = SpriteManipulator.toRGB9(
 						Byte.toUnsignedInt(temp[i][0]),
 						Byte.toUnsignedInt(temp[i][1]),
 						Byte.toUnsignedInt(temp[i][2])

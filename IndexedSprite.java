@@ -60,7 +60,7 @@ public class IndexedSprite extends Component {
 		makeRaster();
 		byte[][][] ebe = SpriteManipulator.get8x8(raster);
 		int[] RGB9 = pal.toRGB9Array();
-		byte[] palData = SpriteManipulator.palDataFromArray(RGB9);
+		byte[] palData = SpriteManipulator.getPalDataFromArray(RGB9);
 		return SpriteManipulator.exportToSPR(ebe, palData);
 	}
 
