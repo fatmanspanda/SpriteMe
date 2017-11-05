@@ -293,6 +293,12 @@ public class SplotchEditor extends Container {
 	} // end Listeners
 
 	/**
+	 * Clicks the apply button
+	 */
+	public void apply() {
+		confirm.doClick();
+	}
+	/**
 	 * Sets color back to original before any editing.
 	 */
 	private void resetColor() {

@@ -8,6 +8,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -28,6 +30,8 @@ public class SplotchBlob extends Container {
 	private Splotch[] workingSet;
 	private boolean editable = true;
 	private final JCheckBox allMails = new JCheckBox("Use color or all mails");
+	private final JButton applyAll = new JButton("Apply all");
+	private boolean allMailsBool = false;
 	private SplotchEditor[] editors = new SplotchEditor[4];
 
 	/**
@@ -39,6 +43,17 @@ public class SplotchBlob extends Container {
 			l.setBorder(padding);
 		}
 		allMails.addPropertyChangeListener(checkListen());
+
+		// clicks apply button for all mails
+		// or just first mail if we're using 1 color for all mails
+		applyAll.addActionListener(
+				arg0 -> {
+					int maxClick = allMailsBool ? 1 : 4;
+					for (int i = 0; i < maxClick; i++) {
+						editors[i].apply();
+					}
+				}
+			);
 	}
 
 	/**
@@ -78,17 +93,26 @@ public class SplotchBlob extends Container {
 		this.removeAll();
 		GridBagConstraints l = new GridBagConstraints();
 		this.revalidate();
+		l.fill = GridBagConstraints.HORIZONTAL;
+		l.gridx = 0;
 		l.gridy = 0;
 		l.gridwidth = 2;
+		l.weightx = 20;
 		this.add(allMails,l);
+		l.gridx = 2;
+		l.gridwidth = 1;
+		l.weightx = 0;
+		this.add(applyAll,l);
 		l.gridy = 1;
 		l.ipady = 10;
 		l.gridwidth = 1;
 		int i = 0;
 		for (Splotch s : workingSet) {
 			l.gridx = 0;
+			l.gridwidth = 1;
 			this.add(labels[i],l);
 			l.gridx = 1;
+			l.gridwidth = 2;
 			editors[i] = new SplotchEditor(s,editable);
 			this.add(editors[i],l);
 			l.gridy++;
@@ -108,6 +132,7 @@ public class SplotchBlob extends Container {
 				boolean all = source.isSelected();
 				try {
 					editors[0].editAllMails(all);
+					allMailsBool = all;
 				} catch (Exception e1) { return; }
 				for (int i = 1; i < 4; i++) {
 					editors[i].setEnabled(!all);
