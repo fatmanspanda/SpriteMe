@@ -338,19 +338,9 @@ public class SplotchEditor extends Container {
 	 * Adjusts child components based on enable status.
 	 */
 	private void setEnabling() {
-		for (JSlider s : sliders) {
-			s.setEnabled(enabled);
+		for (Component c : this.getComponents()) {
+			c.setEnabled(enabled);
 		}
-		
-		for (JFormattedTextField v : vals) {
-			v.setEnabled(enabled);
-		}
-		
-		presets.setEnabled(enabled);
-		confirm.setEnabled(enabled);
-		darker.setEnabled(enabled);
-		lighter.setEnabled(enabled);
-		reset.setEnabled(enabled);
 	}
 
 	/**
@@ -446,9 +436,14 @@ public class SplotchEditor extends Container {
 		private static final long serialVersionUID = -6583423770149289548L;
 		public static final int SIZE = 40;
 		static final Dimension D = new Dimension(SIZE,SIZE);
-
+		private static final Color BLACK = Color.BLACK;
+		private static final Color BLACK_OFF = new Color(0,0,0,50);
+		private boolean enabled = true;
 		// locals
 		private Color c = new Color(0,0,0);
+		private Color cOff = new Color(0,0,0,50);
+		private Color curColor;
+		private Color curOutline;
 		public ColorPreview() {
 			this.setSize(D);
 			this.setPreferredSize(D);
@@ -462,15 +457,28 @@ public class SplotchEditor extends Container {
 		 */
 		public void setColor(int[] rgb) {
 			c = new Color(rgb[0], rgb[1], rgb[2]);
+			cOff = new Color(rgb[0], rgb[1], rgb[2], 50);
+			curColor = c;
+			curOutline = BLACK;
 		}
 
+		public void setEnabled(boolean b) {
+			enabled = b;
+			if (enabled) {
+				curColor = c;
+				curOutline = BLACK;
+			} else {
+				curColor = cOff;
+				curOutline = BLACK_OFF;
+			}
+		}
 		/**
 		 * 
 		 */
 		public void paint(Graphics g) {
-			g.setColor(c);
+			g.setColor(curColor);
 			g.fillRect(0, 0, SIZE, SIZE);
-			g.setColor(Color.BLACK);
+			g.setColor(curOutline);
 			g.drawRect(0, 0, SIZE-1, SIZE-1);
 		}
 	} // end ColorPreview

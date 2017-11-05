@@ -29,7 +29,6 @@ public class ColorEditor extends Container {
 	private int curIndex = 0;
 	private final JLabel indexLabel = new JLabel("0");
 	private final JLabel editableText = new JLabel("");
-	private final JLabel glovesText = new JLabel("");
 	private SplotchBlob blob = new SplotchBlob();
 
 	/**

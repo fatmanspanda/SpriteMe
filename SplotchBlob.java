@@ -61,10 +61,10 @@ public class SplotchBlob extends Container {
 	/**
 	 * 
 	 */
-	public void setEnabled(boolean e) {
-		editable = e;
-		allMails.setEnabled(e);
-		allMails.setSelected(!e);
+	public void setEnabled(boolean b) {
+		editable = b;
+		allMails.setEnabled(b);
+		allMails.setSelected(!b);
 	}
 
 	/**
@@ -107,6 +107,7 @@ public class SplotchBlob extends Container {
 				} catch (Exception e1) { return; }
 				for (int i = 1; i < 4; i++) {
 					editors[i].setEnabled(!all);
+					labels[i].setEnabled(!all);
 				}
 			}
 		};
