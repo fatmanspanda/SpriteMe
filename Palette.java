@@ -112,7 +112,7 @@ public class Palette extends Container {
 	private static final SpriteColor MITTS = new SpriteColor("Mitts", 181, 219, 0);
 	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 	private static final int[] UNCHANGEABLE_INDICES =
-			{ 0, 1, 2, 3, 4, 5, 6, 7, 13 };
+			{ 0, 1, 2, 3, 4, 5, 6, 7 };
 
 	// local vars
 	private Splotch[][] splotches = new Splotch[4][18];
