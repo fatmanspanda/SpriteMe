@@ -22,7 +22,7 @@ public class SpritePartEditor extends Container {
 	// class constants
 	private static final long serialVersionUID = 3880283257828608241L;
 	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
-	private static final Dimension prefDim = new Dimension(350,200);
+	private static final Dimension prefDim = new Dimension(400,200);
 	private static String[] INSTRUCTION_STYLE = {
 			"padding: 10px 10px 10px 0px"
 	};

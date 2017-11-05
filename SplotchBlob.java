@@ -51,6 +51,14 @@ public class SplotchBlob extends Container {
 	}
 
 	/**
+	 * Disable the all toggle for gloves
+	 */
+	public void setGloveMode() {
+		allMails.setSelected(true);
+		allMails.setEnabled(false);
+	}
+
+	/**
 	 * 
 	 */
 	public void setEnabled(boolean e) {

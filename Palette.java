@@ -108,13 +108,14 @@ public class Palette extends Container {
 			{ (byte) 144, (byte)  24, (byte)  48 },
 			{ (byte) 192, (byte) 128, (byte) 240 }
 		};
-
+	private static final SpriteColor GLOVES = new SpriteColor("Gloves", 181, 186, 165);
+	private static final SpriteColor MITTS = new SpriteColor("Mitts", 181, 219, 0);
 	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 	private static final int[] UNCHANGEABLE_INDICES =
 			{ 0, 1, 2, 3, 4, 5, 6, 7, 13 };
 
 	// local vars
-	private Splotch[][] splotches = new Splotch[4][16];
+	private Splotch[][] splotches = new Splotch[4][18];
 	private ColorEditor editInterface;
 	private int lastSelectedIndex;
 
@@ -142,6 +143,11 @@ public class Palette extends Container {
 								VANILLA_PALETTE[i][2]);
 			splotches[palN][palI] = new Splotch(this, palI, vanilla);
 		}
+		// set gloves and mitts
+		for (int i = 0; i < 4; i++) {
+			splotches[i][16] = new Splotch(this, 16, GLOVES);
+			splotches[i][17] = new Splotch(this, 17, MITTS);
+		}
 	}
 
 	/**
@@ -160,6 +166,11 @@ public class Palette extends Container {
 			this.add(new JLabel(i+"", SwingConstants.CENTER), w);
 		}
 
+		// gloves and mitts
+		this.add(new JLabel("G", SwingConstants.CENTER), w);
+		w.gridx++;
+		this.add(new JLabel("M", SwingConstants.CENTER), w);
+
 		w.gridy = 1;
 		for (int i = 0; i < 4; i++, w.gridy++) {
 			w.gridx = 0;
@@ -170,7 +181,7 @@ public class Palette extends Container {
 					mailName,
 					w);
 			w.gridx++;
-			for (int j = 0; j < 16; j++, w.gridx++) {
+			for (int j = 0; j < 18; j++, w.gridx++) {
 					if (!editableIndex(j)) {
 						splotches[i][j].setEnabled(false);
 					}
@@ -246,7 +257,7 @@ public class Palette extends Container {
 	 */
 	public void indexClicked(int i) {
 		lastSelectedIndex = i;
-		editInterface.editNewColor(i);
+		editInterface.editNewColor(i);		
 		editInterface.repaint();
 	}
 
@@ -274,12 +285,17 @@ public class Palette extends Container {
 	 * @return A 2 dimension {@code byte} of all colors in this palette as RGB values.
 	 */
 	public byte[][] toArray() {
-		byte[][] ret = new byte[64][3];
+		byte[][] ret = new byte[66][3];
 		for (int i = 0; i < 64; i++) {
 			int mailI = i / 16;
 			int colI = i % 16;
 			ret[i] = splotches[mailI][colI].getColor().getRGB();
 		}
+
+		// set gloves and mitts to palette
+		ret[64] = splotches[0][16].getColor().getRGB();
+		ret[65] = splotches[0][17].getColor().getRGB();
+
 		return ret;
 	}
 
@@ -288,8 +304,8 @@ public class Palette extends Container {
 	 */
 	public int[] toRGB9Array() {
 		byte[][] temp = toArray();
-		int[] ret = new int[64];
-		for (int i = 0; i < 64; i++) {
+		int[] ret = new int[66];
+		for (int i = 0; i < 66; i++) {
 			ret[i] = SpriteManipulator.toRGB9(
 						Byte.toUnsignedInt(temp[i][0]),
 						Byte.toUnsignedInt(temp[i][1]),

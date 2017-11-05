@@ -18,6 +18,10 @@ public class ColorEditor extends Container {
 
 	private static final String CANNOT = "This color index cannot be edited.";
 	private static final String CAN = "";
+	private static final String GLOVES_TEMPLATE =
+			"This color overrides index 13 when Link has obtained the %s.";
+	private static final String GLOVES_EDIT_TEXT = String.format(GLOVES_TEMPLATE, "power gloves");
+	private static final String MITTS_EDIT_TEXT = String.format(GLOVES_TEMPLATE, "mitts");
 
 	// locals
 	private Palette pal;
@@ -25,6 +29,7 @@ public class ColorEditor extends Container {
 	private int curIndex = 0;
 	private final JLabel indexLabel = new JLabel("0");
 	private final JLabel editableText = new JLabel("");
+	private final JLabel glovesText = new JLabel("");
 	private SplotchBlob blob = new SplotchBlob();
 
 	/**
@@ -48,13 +53,28 @@ public class ColorEditor extends Container {
 		curIndex = i;
 		editable = Palette.editableIndex(i);
 		blob.setEnabled(editable);
+
 		blob.setColors(pal.splotchesForIndex(i));
-		editableText.setText(editable ? CAN : CANNOT);
-		indexLabel.setText(i+"");
+		switch (i) {
+			case 16 :
+				editableText.setText(GLOVES_EDIT_TEXT);
+				blob.setGloveMode();
+				indexLabel.setText("G");
+				break;
+			case 17 :
+				editableText.setText(MITTS_EDIT_TEXT);
+				blob.setGloveMode();
+				indexLabel.setText("M");
+				break;
+			default :
+				editableText.setText(editable ? CAN : CANNOT);
+				indexLabel.setText(i+"");
+				break;
+		}
+		
 		this.revalidate();
 		repaint();
 	}
-
 	/**
 	 * Sets up child components.
 	 */
