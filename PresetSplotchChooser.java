@@ -19,14 +19,13 @@ import javax.swing.SwingConstants;
 
 public class PresetSplotchChooser extends JDialog {
 	private static final long serialVersionUID = -7435126379055131184L;
-	private static final Dimension D = new Dimension(270,300);
+	private static final Dimension D = new Dimension(270,250);
 	private static final int SPLOTCH_SIZE = 30;
 	private static final Dimension SPLOTCH_D = new Dimension(SPLOTCH_SIZE,SPLOTCH_SIZE);
 	private static final int COLUMN_COUNT = 7;
 
 	// locals
 	private final PresetCategory[] presetList;
-	private final SplotchPreset ORIGINAL;
 	private final JComboBox<PresetCategory> CATEGORY_CHOOSER;
 	private PresetCategory curCat;
 	private SplotchEditor partner;
@@ -38,7 +37,7 @@ public class PresetSplotchChooser extends JDialog {
 		this.setMaximumSize(D);
 		this.setMinimumSize(D);
 		this.setResizable(false);
-		ORIGINAL = new SplotchPreset(SpriteColor.GRAY, this);
+
 		presetList = new PresetCategory[] {
 				new PresetCategory(this, "Vanilla classics", SpriteColor.VANILLA_FAVORITES),
 				new PresetCategory(this, "Dev favorites", SpriteColor.DEV_FAVORITES),
@@ -53,7 +52,6 @@ public class PresetSplotchChooser extends JDialog {
 
 	public void setPartner(SplotchEditor e) {
 		partner = e;
-		ORIGINAL.setColor(e.getColor());
 		this.revalidate();
 		repaint();
 	}
@@ -76,7 +74,6 @@ public class PresetSplotchChooser extends JDialog {
 		wrap.setMinimumSize(D);
 		wrap.setLayout(l);
 
-		JLabel origLbl = new JLabel("Original color", SwingConstants.RIGHT);
 		l.putConstraint(SpringLayout.NORTH, CATEGORY_CHOOSER, 2,
 				SpringLayout.NORTH, wrap);
 		l.putConstraint(SpringLayout.EAST, CATEGORY_CHOOSER, -4,
@@ -84,20 +81,6 @@ public class PresetSplotchChooser extends JDialog {
 		l.putConstraint(SpringLayout.WEST, CATEGORY_CHOOSER, 4,
 				SpringLayout.WEST, wrap);
 		wrap.add(CATEGORY_CHOOSER);
-
-		l.putConstraint(SpringLayout.SOUTH, ORIGINAL, -2,
-				SpringLayout.SOUTH, wrap);
-		l.putConstraint(SpringLayout.EAST, ORIGINAL, -4,
-				SpringLayout.EAST, wrap);
-		wrap.add(ORIGINAL);
-
-		l.putConstraint(SpringLayout.SOUTH, origLbl, 0,
-				SpringLayout.SOUTH, ORIGINAL);		
-		l.putConstraint(SpringLayout.NORTH, origLbl, 0,
-				SpringLayout.NORTH, ORIGINAL);
-		l.putConstraint(SpringLayout.EAST, origLbl, -4,
-				SpringLayout.WEST, ORIGINAL);
-		wrap.add(origLbl);
 
 		l.putConstraint(SpringLayout.NORTH, curCat, 2,
 				SpringLayout.SOUTH, CATEGORY_CHOOSER);
@@ -223,7 +206,6 @@ public class PresetSplotchChooser extends JDialog {
 					this.add(colorSet[colorCount], w);
 				}
 			}
-			this.revalidate();
 		}
 
 		public String toString() {
