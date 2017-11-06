@@ -346,6 +346,7 @@ public class SpriteMe {
 		icons.add(ico.getImage());
 		icons.add(icoTask.getImage());
 		frame.setIconImages(icons);
+		aboutFrame.setIconImages(icons);
 
 		// display frame
 		frame.setPreferredSize(d);
@@ -449,7 +450,6 @@ public class SpriteMe {
 									"Error exporting to a SPR file.",
 									"WOW",
 									JOptionPane.WARNING_MESSAGE);
-							e.printStackTrace();
 						}
 					} else { // if nowhere to export, click "export to" to prompt a file selection
 						expSprTo.doClick();
@@ -506,7 +506,6 @@ public class SpriteMe {
 								"No ROM file found",
 								"HOLY COW",
 								JOptionPane.WARNING_MESSAGE);
-						e.printStackTrace();
 						return;
 					}
 					
@@ -515,10 +514,9 @@ public class SpriteMe {
 						SpriteManipulator.patchRom(data, n);
 					} catch (IOException e) {
 						JOptionPane.showMessageDialog(frame,
-								"Error patching rom",
+								"No ROM found",
 								"UH-OH SPAGHETTI-Os",
 								JOptionPane.WARNING_MESSAGE);
-						e.printStackTrace();
 						return;
 					}
 				});
