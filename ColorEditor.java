@@ -16,10 +16,13 @@ public class ColorEditor extends Container {
 			"padding: 10px 10px 10px 0px"
 	};
 
-	private static final String CANNOT = "This color index cannot be edited.";
+	private static final String CANNOT =
+			"This color index cannot be edited, as it is heavily used by other sprites.";
 	private static final String CAN = "";
+	private static final String ARE_GLOVES =
+			"This color index is ovewritten when Link receives glove upgrades.";
 	private static final String GLOVES_TEMPLATE =
-			"This color overrides index 13 when Link has obtained the %s.";
+			"This color overwrites index 13 when Link has obtained the %s.";
 	private static final String GLOVES_EDIT_TEXT = String.format(GLOVES_TEMPLATE, "power gloves");
 	private static final String MITTS_EDIT_TEXT = String.format(GLOVES_TEMPLATE, "mitts");
 
@@ -54,6 +57,10 @@ public class ColorEditor extends Container {
 		blob.setColors(pal.splotchesForIndex(i));
 		blob.setEnabled(editable);
 		switch (i) {
+			case 13 :
+				editableText.setText(ARE_GLOVES);
+				indexLabel.setText(i+"");
+				break;
 			case 16 :
 				editableText.setText(GLOVES_EDIT_TEXT);
 				blob.setGloveMode();
