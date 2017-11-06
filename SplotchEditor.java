@@ -12,7 +12,6 @@ import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JSlider;

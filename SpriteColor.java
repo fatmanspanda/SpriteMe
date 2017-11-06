@@ -219,7 +219,7 @@ public class SpriteColor {
 			new SpriteColor("Beige", 160, 160, 96);
 
 	public static final SpriteColor[] RAINBOW = new SpriteColor[] {
-			RED, ORANGE, YELLOW, GREEN, CYAN, INDIGO,
+			RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, INDIGO,
 			BLACK, OFFWHITE, BROWN, GRAY, BEIGE
 	};
 
