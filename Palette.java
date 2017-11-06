@@ -114,6 +114,11 @@ public class Palette extends Container {
 	private static final int[] UNCHANGEABLE_INDICES =
 			{ 0, 1, 2, 3, 4, 5, 6, 7 };
 
+	public static final String[] INDEX_NAMES =  new String[] {
+		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+		"10", "11", "12", "13", "14", "15", "G", "M"
+	};
+
 	// local vars
 	private Splotch[][] splotches = new Splotch[4][18];
 	private ColorEditor editInterface;
@@ -162,14 +167,9 @@ public class Palette extends Container {
 		indexWord.setBorder(rightPad);
 		this.add(indexWord, w);
 		w.gridx = 1;
-		for (int i = 0; i < 16; i++, w.gridx++) {
-			this.add(new JLabel(i+"", SwingConstants.CENTER), w);
+		for (int i = 0; i < 18; i++, w.gridx++) {
+			this.add(new JLabel(INDEX_NAMES[i], SwingConstants.CENTER), w);
 		}
-
-		// gloves and mitts
-		this.add(new JLabel("G", SwingConstants.CENTER), w);
-		w.gridx++;
-		this.add(new JLabel("M", SwingConstants.CENTER), w);
 
 		w.gridy = 1;
 		for (int i = 0; i < 4; i++, w.gridy++) {

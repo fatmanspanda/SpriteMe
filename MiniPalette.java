@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class MiniPalette extends Container {
 	private static final long serialVersionUID = 4303748895061447018L;
@@ -79,8 +81,16 @@ public class MiniPalette extends Container {
 		GridBagConstraints w = new GridBagConstraints();
 		w.gridy = 0;
 		w.gridx = 0;
-		w.ipadx = 2;
+		// index labels for first palette
+		if (parentIndex == 0) {
+			for (int i = 0; i < 16; i++, w.gridx++) {
+				this.add(new JLabel(Palette.INDEX_NAMES[i], SwingConstants.CENTER), w);
+			}
+			w.gridx = 0;
+			w.gridy++;
+		}
 		w.ipady = 2;
+		w.ipadx = 2;
 		for (int i = 0; i < 16; i++, w.gridx++) {
 				this.add(splotches[i], w);
 		}

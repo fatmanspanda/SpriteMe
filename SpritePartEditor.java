@@ -22,9 +22,10 @@ public class SpritePartEditor extends Container {
 	// class constants
 	private static final long serialVersionUID = 3880283257828608241L;
 	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
-	private static final Dimension prefDim = new Dimension(400,200);
+	private static final Dimension prefDim = new Dimension(400,250);
 	private static String[] INSTRUCTION_STYLE = {
-			"padding: 10px 10px 10px 0px"
+			"padding: 10px 10px 10px 0px",
+			"width: 230px"
 	};
 
 	// local vars
@@ -114,10 +115,14 @@ public class SpritePartEditor extends Container {
 		helpText.setText("<html>" +
 				"<div style=\"" + GUIHelpers.join(INSTRUCTION_STYLE, ";") + "\">" +
 				"Use this area to pick the colors of each part of an item. " +
+				"<br /><br />" +
+				"Note that anything mapped to index 13 may change when gloves or mitts are obtained." +
+				"<br />" +
+				"Anything mapped to index 0 will be fully transparent." +
 				"</div>" +
 				"</html>");
-		l.putConstraint(SpringLayout.WEST, helpText, 0,
-				SpringLayout.WEST, this);
+//		l.putConstraint(SpringLayout.WEST, helpText, 0,
+//				SpringLayout.WEST, this);
 		l.putConstraint(SpringLayout.EAST, helpText, 0,
 				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.NORTH, helpText, 0,
@@ -137,14 +142,25 @@ public class SpritePartEditor extends Container {
 		paletteArea = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
 		w.fill = GridBagConstraints.HORIZONTAL;
-		for (int i = 0; i < colors; i++) {
-			w.gridy = i;
+		w.gridy = 0;
+		w.gridx = 0;
+		if (colors > 0) {
+			JLabel indexWord = new JLabel("Index", SwingConstants.RIGHT);
+			indexWord.setBorder(rightPad);
+			paletteArea.add(indexWord, w);
+		}
+		w.gridheight = 2;
+		for (int i = 0; i < colors; i++, w.gridy++) {
+			w.gridx = 1;
+			paletteArea.add(palettes[i], w);
+			if (i == 0) { // extra jump for the next part
+				w.gridy++;
+				w.gridheight = 1;
+			}
 			w.gridx = 0;
 			JLabel partColorName = new JLabel(curPart.colorName(i), SwingConstants.RIGHT);
 			partColorName.setBorder(rightPad);
 			paletteArea.add(partColorName, w);
-			w.gridx = 1;
-			paletteArea.add(palettes[i], w);
 		}
 
 		// add palette area
