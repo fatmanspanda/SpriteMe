@@ -89,21 +89,9 @@ public class ColorEditor extends Container {
 		SpringLayout l = new SpringLayout();
 		this.setLayout(l);
 
-		final JLabel curEditing = new JLabel("Currently editing colors at index : ");
-		l.putConstraint(SpringLayout.EAST, curEditing, 0,
-				SpringLayout.HORIZONTAL_CENTER, this);
-		l.putConstraint(SpringLayout.NORTH, curEditing, 0,
-				SpringLayout.NORTH, this);
-		this.add(curEditing);
-
-		l.putConstraint(SpringLayout.WEST, indexLabel, 0,
-				SpringLayout.EAST, curEditing);
-		l.putConstraint(SpringLayout.NORTH, indexLabel, 0,
-				SpringLayout.NORTH, this);
-		this.add(indexLabel);
-
 		final JLabel helpText = new JLabel();
-
+		final JLabel curEditing = new JLabel("Currently editing colors at index : ");
+		
 		helpText.setText("<html>" +
 				"<div style=\"" + GUIHelpers.join(INSTRUCTION_STYLE, ";") + "\">" +
 				"Use this area to edit the colors at your selected index. " +
@@ -117,7 +105,7 @@ public class ColorEditor extends Container {
 		l.putConstraint(SpringLayout.EAST, helpText, 0,
 				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.NORTH, helpText, 0,
-				SpringLayout.SOUTH, curEditing);
+				SpringLayout.NORTH, this);
 		this.add(helpText);
 
 		l.putConstraint(SpringLayout.WEST, editableText, 0,
@@ -128,6 +116,18 @@ public class ColorEditor extends Container {
 				SpringLayout.SOUTH, helpText);
 		this.add(editableText);
 
+		l.putConstraint(SpringLayout.EAST, curEditing, 0,
+				SpringLayout.HORIZONTAL_CENTER, this);
+		l.putConstraint(SpringLayout.SOUTH, curEditing, -10,
+				SpringLayout.NORTH, blob);
+		this.add(curEditing);
+
+		l.putConstraint(SpringLayout.WEST, indexLabel, 0,
+				SpringLayout.EAST, curEditing);
+		l.putConstraint(SpringLayout.SOUTH, indexLabel, -10,
+				SpringLayout.NORTH, blob);
+		this.add(indexLabel);
+		
 		l.putConstraint(SpringLayout.EAST, blob, 0,
 				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.SOUTH, blob, 0,
