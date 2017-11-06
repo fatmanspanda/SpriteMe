@@ -33,7 +33,7 @@ public class Palette extends Container {
 			"Tunic",
 			"Hat shade",
 			"Hat",
-			"Gloves",
+			"Hands",
 			"Sleeves",
 			"Water"
 	};
@@ -172,6 +172,8 @@ public class Palette extends Container {
 		}
 
 		w.gridy = 1;
+		w.ipadx=2;
+		w.ipady=2;
 		for (int i = 0; i < 4; i++, w.gridy++) {
 			w.gridx = 0;
 			JLabel mailName = new JLabel(SpriteMe.MAIL_NAMES[i], SwingConstants.RIGHT);

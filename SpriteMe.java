@@ -102,7 +102,7 @@ public class SpriteMe {
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 
 		// main window
-		final Dimension d = new Dimension(1000,720);
+		final Dimension d = new Dimension(1000,750);
 		final JFrame frame = new JFrame("Sprite Me " + VERSION);
 		final JPanel controls = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
@@ -352,7 +352,7 @@ public class SpriteMe {
 		frame.setMinimumSize(d);
 		setAllSizes(frame, d);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocation(200, 100);
+		frame.setLocation(200, 70);
 
 		// repainting on all sprite changes
 		SpriteChangeListener repainter =

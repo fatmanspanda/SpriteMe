@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
@@ -196,11 +197,8 @@ public class SplotchEditor extends Container {
 		this.add(lighter, l);
 
 		// preset colors
-		final JLabel wordPreview = new JLabel("Preset colors:");
 		l.gridy = 3;
-		l.gridx = 0;
 		l.gridwidth = 2;
-		this.add(wordPreview, l);
 		l.gridx = 2;
 		this.add(presets,l);
 
@@ -276,7 +274,8 @@ public class SplotchEditor extends Container {
 				PRESETS.setPartner(this);
 				if (!PRESETS.isVisible()) {
 					PRESETS.setVisible(true);
-					PRESETS.setLocation(mommy.getLocationOnScreen());
+					Point t = mommy.getLocationOnScreen();
+					PRESETS.setLocation((int) t.getX()+120, (int) t.getY());
 				}
 				PRESETS.requestFocus();
 			}); // end listener
