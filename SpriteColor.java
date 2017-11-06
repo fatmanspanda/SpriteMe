@@ -310,9 +310,9 @@ public class SpriteColor {
 	public static final SpriteColor LANMOLAS_BURROW_BROWN =
 			new SpriteColor("Lanmolas' burrow brown", 72, 64, 24);
 	public static final SpriteColor MOLDORM_YELLOW =
-			new SpriteColor("Moldorm yellow", 200, 84, 24);
-	public static final SpriteColor MOLDORMS_EYES_ORANGE =
-			new SpriteColor("Moldorm's buggy eyes orange", 248, 168, 40);
+			new SpriteColor("Moldorm yellow", 168, 152, 24);
+	public static final SpriteColor MOLDORMS_EYES_RED =
+			new SpriteColor("Moldorm's buggy eyes red", 232, 128, 104);
 	public static final SpriteColor AGAHNIM_ROBE_GREEN =
 			new SpriteColor("Agahnim's robe green", 144, 208, 56);
 	public static final SpriteColor AGAHNIM_ROBE_PURPLE =
@@ -363,7 +363,7 @@ public class SpriteColor {
 	public static final SpriteColor[] BOSS_COLORS = new SpriteColor[] {
 			ARMOS_KNIGHT_BLUE, ANGRY_ARMOS_KNIGHT_RED, ARMOS_SHIELD_BRONZE,
 			LANMOLAS_GREEN, LANMOLAS_BURROW_BROWN,
-			MOLDORM_YELLOW, MOLDORMS_EYES_ORANGE,
+			MOLDORM_YELLOW, MOLDORMS_EYES_RED,
 			AGAHNIM_ROBE_GREEN, AGAHNIM_ROBE_PURPLE, BLUE_BALL_BLUE,
 			HELMASAUR_ORANGE, HELMASAUR_MASK_BLUE,
 			ARRGHUS_RED, ARRGHUS_PUFF_ORANGE,
