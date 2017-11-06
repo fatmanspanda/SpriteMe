@@ -80,6 +80,7 @@ public class ColorEditor extends Container {
 		this.revalidate();
 		repaint();
 	}
+
 	/**
 	 * Sets up child components.
 	 */

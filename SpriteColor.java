@@ -184,10 +184,12 @@ public class SpriteColor {
 			new SpriteColor("Sosuke's black", 16, 16, 16);
 	public static final SpriteColor BAZLY_CORAL =
 			new SpriteColor("Bazly's coral", 248, 128, 80);
+	public static final SpriteColor VT_GREEN =
+			new SpriteColor("Veetorp's green", 72, 208, 112);
 
 	public static final SpriteColor[] DEV_FAVORITES = new SpriteColor[] {
 			RASPBERRY, MIKES_ORANGE, NUMPTY_BLUE, FEESH_PURPLE,
-			ZARBY_ORANGE, SOSUKE_BLACK, BAZLY_CORAL
+			ZARBY_ORANGE, SOSUKE_BLACK, BAZLY_CORAL, VT_GREEN
 	};
 
 	/*
