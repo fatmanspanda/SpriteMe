@@ -40,9 +40,10 @@ public class PresetSplotchChooser extends JDialog {
 		this.setResizable(false);
 		ORIGINAL = new SplotchPreset(SpriteColor.GRAY, this);
 		presetList = new PresetCategory[] {
-				new PresetCategory(this, "Vanilla Classics", SpriteColor.VANILLA_FAVORITES),
+				new PresetCategory(this, "Vanilla classics", SpriteColor.VANILLA_FAVORITES),
 				new PresetCategory(this, "Dev favorites", SpriteColor.DEV_FAVORITES),
-				new PresetCategory(this, "Rainbow", SpriteColor.RAINBOW)
+				new PresetCategory(this, "Rainbow", SpriteColor.RAINBOW),
+				new PresetCategory(this, "Bossy colors", SpriteColor.BOSS_COLORS)
 		};
 		curCat = presetList[0];
 		CATEGORY_CHOOSER = new JComboBox<PresetCategory>(presetList);

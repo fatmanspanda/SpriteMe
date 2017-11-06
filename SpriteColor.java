@@ -146,7 +146,7 @@ public class SpriteColor {
 	}
 
 	/*
-	 * Some color constants
+	 * Color constants
 	 */
 
 	/*
@@ -278,6 +278,10 @@ public class SpriteColor {
 			new SpriteColor("Vanilla red mail sleeves", 56, 136, 64);
 	public static final SpriteColor VANILLA_BUNNY_SKIN =
 			new SpriteColor("Vanilla bunny skin", 144, 24, 48);
+	public static final SpriteColor VANILLA_GLOVES =
+			new SpriteColor("Vanilla power gloves", 181, 186, 165);
+	public static final SpriteColor VANILLA_MITTS =
+			new SpriteColor("Vanilla mitts", 181, 219, 0);
 
 	public static final SpriteColor[] VANILLA_FAVORITES = new SpriteColor[] {
 			VANILLA_WHITE, VANILLA_YELLOW, VANILLA_SKIN_DK, VANILLA_SKIN, VANILLA_OUTLINE,
@@ -287,6 +291,85 @@ public class SpriteColor {
 			VANILLA_BLUE_MAIL_HAT_DK, VANILLA_BLUE_MAIL_HAT, VANILLA_BLUE_MAIL_SLEEVES,
 			VANILLA_RED_MAIL_TUNIC_DK, VANILLA_RED_MAIL_TUNIC,
 			VANILLA_RED_MAIL_HAT_DK, VANILLA_RED_MAIL_HAT, VANILLA_RED_MAIL_SLEEVES,
-			VANILLA_BUNNY_SKIN,
+			VANILLA_BUNNY_SKIN, VANILLA_GLOVES, VANILLA_MITTS
+	};
+
+	/*
+	 * Boss colors
+	*/
+	public static final SpriteColor ARMOS_KNIGHT_BLUE =
+			new SpriteColor("Armos Knight blue", 80, 112, 200);
+	public static final SpriteColor ANGRY_ARMOS_KNIGHT_RED =
+			new SpriteColor("Angry Armos Knight red", 184, 64, 72);
+	public static final SpriteColor ARMOS_SHIELD_BRONZE =
+			new SpriteColor("Armos' shield bronze", 176, 96, 40);
+	public static final SpriteColor LANMOLAS_GREEN =
+			new SpriteColor("Lanmolas green", 64, 136, 88);
+	public static final SpriteColor LANMOLAS_BURROW_BROWN =
+			new SpriteColor("Lanmolas' burrow brown", 72, 64, 24);
+	public static final SpriteColor MOLDORM_YELLOW =
+			new SpriteColor("Moldorm yellow", 200, 84, 24);
+	public static final SpriteColor MOLDORMS_EYES_ORANGE =
+			new SpriteColor("Moldorm's buggy eyes orange", 248, 168, 40);
+	public static final SpriteColor AGAHNIM_ROBE_GREEN =
+			new SpriteColor("Agahnim's robe green", 144, 208, 56);
+	public static final SpriteColor AGAHNIM_ROBE_PURPLE =
+			new SpriteColor("Agahnim's robe trim purple", 192, 64, 128);
+	public static final SpriteColor BLUE_BALL_BLUE =
+			new SpriteColor("Blue ball blue", 120, 144, 248);
+	public static final SpriteColor HELMASAUR_ORANGE =
+			new SpriteColor("Helmasaur orange", 208, 56, 40);
+	public static final SpriteColor HELMASAUR_MASK_BLUE =
+			new SpriteColor("Helmasaur's mask blue", 120, 112, 232);
+	public static final SpriteColor ARRGHUS_RED =
+			new SpriteColor("Arrghus red", 176, 64, 56);
+	public static final SpriteColor ARRGHUS_PUFF_ORANGE =
+			new SpriteColor("Arrghus puff orange", 216, 88, 0);
+	public static final SpriteColor MOTHULA_BLUE =
+			new SpriteColor("Mothula blue", 120, 112, 232);
+	public static final SpriteColor MOTHULA_ORANGE =
+			new SpriteColor("Mothula orange", 216, 88, 32);
+	public static final SpriteColor BLIND_RED =
+			new SpriteColor("Blind red", 144, 48, 24);
+	public static final SpriteColor BLIND_LASER_ORANGE =
+			new SpriteColor("Blind laser orange", 248, 112, 48);
+	public static final SpriteColor KHOLDSTARE_PINK =
+			new SpriteColor("Kholdstare pink", 240, 160, 216);
+	public static final SpriteColor KHOLDSTARE_SHELL_BLUE =
+			new SpriteColor("Kholdstare's shell blue", 88, 176, 232);
+	public static final SpriteColor FALLING_ICE_BLUE =
+			new SpriteColor("Falling ice blue", 160, 200, 248);
+	public static final SpriteColor VITREOUS_GREEN =
+			new SpriteColor("Vitreous green", 80, 192, 144);
+	public static final SpriteColor VITREOUS_GOO_GREEN =
+			new SpriteColor("Vitreous goo green", 72, 152, 88);
+	public static final SpriteColor FIRE_NEXX_RED =
+			new SpriteColor("Fire nexx red", 160, 0, 40);
+	public static final SpriteColor ICE_NEX_BLUE =
+			new SpriteColor("Ice nexx blue", 72, 80, 208);
+	public static final SpriteColor STONE_NEX_GRAY =
+			new SpriteColor("Stone nexx gray", 120, 136, 144);
+	public static final SpriteColor GANON_BLUE =
+			new SpriteColor("Ganon blue", 80, 136, 168);
+	public static final SpriteColor GANON_CAPE_RED =
+			new SpriteColor("Ganon cape red", 184, 48, 16);
+	public static final SpriteColor GANON_TUNIC_BROWN =
+			new SpriteColor("Ganon tunic brown", 136, 96, 8);
+	public static final SpriteColor GANON_STUN_BLUE =
+			new SpriteColor("Ganon's stunning blue", 96, 184, 192);
+
+	public static final SpriteColor[] BOSS_COLORS = new SpriteColor[] {
+			ARMOS_KNIGHT_BLUE, ANGRY_ARMOS_KNIGHT_RED, ARMOS_SHIELD_BRONZE,
+			LANMOLAS_GREEN, LANMOLAS_BURROW_BROWN,
+			MOLDORM_YELLOW, MOLDORMS_EYES_ORANGE,
+			AGAHNIM_ROBE_GREEN, AGAHNIM_ROBE_PURPLE, BLUE_BALL_BLUE,
+			HELMASAUR_ORANGE, HELMASAUR_MASK_BLUE,
+			ARRGHUS_RED, ARRGHUS_PUFF_ORANGE,
+			MOTHULA_BLUE, MOTHULA_ORANGE,
+			BLIND_RED, BLIND_LASER_ORANGE,
+			KHOLDSTARE_PINK, KHOLDSTARE_SHELL_BLUE, FALLING_ICE_BLUE,
+			VITREOUS_GREEN, VITREOUS_GOO_GREEN,
+			FIRE_NEXX_RED, ICE_NEX_BLUE, STONE_NEX_GRAY,
+			GANON_BLUE, GANON_CAPE_RED, GANON_TUNIC_BROWN, GANON_STUN_BLUE
 	};
 }

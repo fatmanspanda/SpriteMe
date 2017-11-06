@@ -228,7 +228,7 @@ public class Palette extends Container {
 	public SpriteColor colorForMailAndIndex(int m, int i) {
 		return splotches[m][i].getColor();
 	}
-	
+
 	/**
 	 * @param i
 	 * @return An array of all {@code Splotch} objects at desired index.
