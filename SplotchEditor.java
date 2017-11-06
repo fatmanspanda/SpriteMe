@@ -60,21 +60,21 @@ public class SplotchEditor extends Container {
 	private final JButton reset = new JButton("Reset");
 	private final JButton darker = new JButton("Darken");
 	private final JButton lighter = new JButton("Lighten");
+	private final JButton presets = new JButton("Choose a preset color");
 
 	// color preview
 	private final ColorPreview p = new ColorPreview();
+	private final PresetSplotchChooser PRESETS = PresetSplotchChooser.PRESETS;
 
-	// preset colors
-	private final JComboBox<SpriteColor> presets = new JComboBox<SpriteColor>(SpriteColor.CONSTANTS);
-
+	// for location
+	private final SplotchBlob mommy;
 	/**
 	 * 
 	 * @param c - Splotch to apply color edits to.
 	 * @param e - Enable/Disabled
 	 */
-	public SplotchEditor(Splotch c, boolean e) {
-		NumberFormat rgbFormat = NumberFormat.getNumberInstance();
-		presets.setSelectedItem(null);
+	public SplotchEditor(SplotchBlob parent, Splotch c, boolean e) {
+		mommy = parent;
 		victim = c;
 		enabled = e;
 		RGB = c.getColorVals();
@@ -85,8 +85,9 @@ public class SplotchEditor extends Container {
 				new JSlider(JSlider.HORIZONTAL, 0, 31, RGB[2]/8)
 			};
 
-		rgbFormat.setMaximumFractionDigits(3);
 		vals = new JFormattedTextField[3];
+		NumberFormat rgbFormat = NumberFormat.getNumberInstance();
+		rgbFormat.setMaximumFractionDigits(3);
 		vals[0] = new JFormattedTextField(rgbFormat);
 		vals[1] = new JFormattedTextField(rgbFormat);
 		vals[2] = new JFormattedTextField(rgbFormat);
@@ -193,7 +194,7 @@ public class SplotchEditor extends Container {
 
 		l.gridx = 4;
 		this.add(lighter, l);
-		
+
 		// preset colors
 		final JLabel wordPreview = new JLabel("Preset colors:");
 		l.gridy = 3;
@@ -202,7 +203,7 @@ public class SplotchEditor extends Container {
 		this.add(wordPreview, l);
 		l.gridx = 2;
 		this.add(presets,l);
-		
+
 		l.gridwidth = 1;
 		l.gridx = 4;
 		this.add(reset, l);
@@ -232,18 +233,10 @@ public class SplotchEditor extends Container {
 			arg0 -> {
 				if (isAllFour && allFourVictims != null) {
 					for (Splotch s : allFourVictims) {
-						s.setColor(new SpriteColor(colorName,
-								RGB[0],
-								RGB[1],
-								RGB[2]
-								));
+						s.setColor(getColor());
 					}
 				} else {
-					victim.setColor(new SpriteColor(colorName,
-							RGB[0],
-							RGB[1],
-							RGB[2]
-							));
+					victim.setColor(getColor());
 				}
 			}); // end listener
 
@@ -280,10 +273,12 @@ public class SplotchEditor extends Container {
 		// preset colors list
 		presets.addActionListener(
 			arg0 -> {
-				SpriteColor sel = (SpriteColor) presets.getSelectedItem();
-				if (sel != null) {
-					SplotchEditor.this.setColor(sel);
+				PRESETS.setPartner(this);
+				if (!PRESETS.isVisible()) {
+					PRESETS.setVisible(true);
+					PRESETS.setLocation(mommy.getLocationOnScreen());
 				}
+				PRESETS.requestFocus();
 			}); // end listener
 
 		// reset button
@@ -303,14 +298,13 @@ public class SplotchEditor extends Container {
 	 */
 	private void resetColor() {
 		setColor(originalColor);
-		presets.setSelectedItem(null);
 	}
 
 	/**
 	 * Copies a {@code SpriteColor} and adjusts GUI inputs.
 	 * @param c - {@link SpriteColor} to copy
 	 */
-	private void setColor(SpriteColor c) {
+	public void setColor(SpriteColor c) {
 		byte[] t = c.getRGB();
 		RGB[0] = Byte.toUnsignedInt(t[0]);
 		RGB[1] = Byte.toUnsignedInt(t[1]);
@@ -332,11 +326,22 @@ public class SplotchEditor extends Container {
 		sliders[2].setValue(RGB[2]/8);
 	}
 
+	public SpriteColor getColor() {
+		return new SpriteColor(colorName,
+				RGB[0],
+				RGB[1],
+				RGB[2]
+				);
+	}
 	/**
 	 * 
 	 */
 	public void setEnabled(boolean e) {
 		enabled = e;
+		// hide the Preset Chooser if disabled
+		if (!e && PRESETS.checkPartner(this)) {
+			PRESETS.setVisible(false);
+		}
 		setEnabling();
 	}
 
@@ -370,7 +375,6 @@ public class SplotchEditor extends Container {
 	 */
 	private ChangeListener slideListen() {
 		return new ChangeListener() {
-			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider) e.getSource();
 				int val = source.getValue();

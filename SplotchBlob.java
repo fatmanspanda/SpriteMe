@@ -113,7 +113,7 @@ public class SplotchBlob extends Container {
 			this.add(labels[i],l);
 			l.gridx = 1;
 			l.gridwidth = 2;
-			editors[i] = new SplotchEditor(s,editable);
+			editors[i] = new SplotchEditor(this,s,editable);
 			this.add(editors[i],l);
 			l.gridy++;
 			i++;

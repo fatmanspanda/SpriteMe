@@ -278,6 +278,7 @@ public class SpriteMe {
 		patchRom.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_R, ActionEvent.CTRL_MASK));
 		patchRom.setIcon(bigKey);
+		
 		fileMenu.add(patchRom);
 
 		// separator
@@ -516,7 +517,7 @@ public class SpriteMe {
 						return;
 					}
 				});
-		
+
 		// Display frame
 		frame.pack();
 		frame.setVisible(true);
