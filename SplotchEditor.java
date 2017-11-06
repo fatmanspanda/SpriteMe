@@ -311,6 +311,7 @@ public class SplotchEditor extends Container {
 		sliders[0].setValue(RGB[0]/8);
 		sliders[1].setValue(RGB[1]/8);
 		sliders[2].setValue(RGB[2]/8);
+		colorName = c.toString();
 	}
 
 	/**
@@ -323,6 +324,7 @@ public class SplotchEditor extends Container {
 		sliders[0].setValue(RGB[0]/8);
 		sliders[1].setValue(RGB[1]/8);
 		sliders[2].setValue(RGB[2]/8);
+		colorName = "Custom color";
 	}
 
 	public SpriteColor getColor() {
@@ -332,6 +334,7 @@ public class SplotchEditor extends Container {
 				RGB[2]
 				);
 	}
+
 	/**
 	 * 
 	 */
@@ -403,7 +406,6 @@ public class SplotchEditor extends Container {
 			public void stateChanged(ChangeEvent e) {
 				p.setColor(RGB);
 				p.repaint();
-				colorName = "Custom color";
 			}
 		};
 	}
