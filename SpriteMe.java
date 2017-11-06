@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
@@ -95,6 +96,10 @@ public class SpriteMe {
 					// do nothing
 			} //end System
 		} // end Metal
+
+		// fast and long-lasting tooltips
+		ToolTipManager.sharedInstance().setInitialDelay(100);
+		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 
 		// main window
 		final Dimension d = new Dimension(1000,720);
@@ -361,15 +366,15 @@ public class SpriteMe {
 		mySprite.addSpriteChangeListener(repainter);
 
 		// Action listeners for controls
-		skinPick.addActionListener(
+		skinPick.addItemListener(
 				arg0 -> pal.setSkinColor((ColorPair) skinPick.getSelectedItem())
 			);
 
-		mailPick.addActionListener(
+		mailPick.addItemListener(
 				arg0 -> mySprite.setMail(mailPick.getSelectedIndex())
 			);
 
-		acc1Pick.addActionListener(
+		acc1Pick.addItemListener(
 				arg0 -> mySprite.setAccessory((SpritePart) acc1Pick.getSelectedItem(), 1)
 			);
 
