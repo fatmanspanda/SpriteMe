@@ -227,16 +227,23 @@ public final class SpritePart implements Comparable<SpritePart> {
 			0
 			);
 
+	/*
+	 * Main template
+	 */
 	public static final SpritePart BODY = new SpritePart(
 			"Body",
-			"/SpriteMe/Images/Weird Chocolate Link.png",
+			"/SpriteMe/Images/Dummy Link.png",
 			convertArray(new int[][] { 
 						{ 40, 40, 40 }, // black outline
-						{ 120, 184, 32 }, // tunic
-						{ 80, 144, 16 } // tunic shade
+						{ 248, 248, 248 }, // eyes and water
+						{ 240, 216, 64 }, // yellow
+						{ 240, 160, 104 }, // skin
+						{ 184, 104, 32 }, // skin shade
+						{ 194, 24, 32 }, // mouth
+						{ 192, 128, 240 } // water
 					}),
-			new byte[] { 5, 10, 9 },
-			new String[] { "Outline", "Base color", "Shading" },
+			new byte[] { 5, 1, 2, 4, 3, 7, 15 },
+			new String[] { "","","","","","","" },
 			0
 			);
 
@@ -253,6 +260,21 @@ public final class SpritePart implements Comparable<SpritePart> {
 			0
 			);
 
+	/*
+	 * Hair
+	 */
+	public static final SpritePart BALD = new SpritePart(
+			"Bald",
+			"/SpriteMe/Images/Nothing.png",
+			new byte[][] { {1,1,1} },
+			new byte[] { 0 },
+			new String[] {},
+			0
+			);
+
+	/*
+	 * Accessories
+	 */
 	public static final SpritePart GLASSES = new SpritePart(
 			"Glasses",
 			"/SpriteMe/Images/glasses_template.png",

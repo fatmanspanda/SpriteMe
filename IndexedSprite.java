@@ -24,8 +24,7 @@ public class IndexedSprite extends Component {
 	private BufferedImage[] sheets;
 
 	// Specific body parts
-	private SpritePart head = SpritePart.TEST;
-	private SpritePart body;
+	private final SpritePart body = SpritePart.BODY;
 	private SpritePart hair;
 	private SpritePart acc1;
 	private SpritePart acc2;
@@ -37,7 +36,7 @@ public class IndexedSprite extends Component {
 	 * @param p - Palette
 	 */
 	public IndexedSprite(Palette p) {
-		parts.add(head);
+		parts.add(body);
 		pal = p;
 		this.setPreferredSize(d);
 		this.setMinimumSize(d);
@@ -97,7 +96,7 @@ public class IndexedSprite extends Component {
 		raster = new byte[IRASTERSIZE];
 		// sort by z-index
 		parts.clear();
-		parts.add(head);
+		parts.add(body);
 		parts.add(acc1);
 		for (Object e : parts.toArray()) {
 			if (e == null) {
