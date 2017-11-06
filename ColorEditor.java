@@ -29,14 +29,14 @@ public class ColorEditor extends Container {
 	private int curIndex = 0;
 	private final JLabel indexLabel = new JLabel("0");
 	private final JLabel editableText = new JLabel("");
-	private SplotchBlob blob = new SplotchBlob();
-
+	private SplotchBlob blob;
 	/**
 	 * Creates a new editor attached to a palette.
 	 * @param p
 	 */
-	public ColorEditor(Palette p) {
+	public ColorEditor(PresetSplotchChooser chooser, Palette p) {
 		super();
+		blob = new SplotchBlob(chooser);
 		pal = p;
 		this.setPreferredSize(prefDim);
 		this.setMinimumSize(prefDim);
@@ -69,7 +69,7 @@ public class ColorEditor extends Container {
 				indexLabel.setText(i+"");
 				break;
 		}
-		
+
 		this.revalidate();
 		repaint();
 	}

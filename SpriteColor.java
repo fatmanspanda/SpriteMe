@@ -66,7 +66,6 @@ public class SpriteColor {
 	/**
 	 * @return The {@code SpriteColor}'s name.
 	 */
-	
 	public String toString() {
 		return n;
 	}

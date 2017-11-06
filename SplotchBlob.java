@@ -27,17 +27,18 @@ public class SplotchBlob extends Container {
 	};
 
 	// local vars
+	private final PresetSplotchChooser chooser;
 	private Splotch[] workingSet;
 	private boolean editable = true;
 	private final JCheckBox allMails = new JCheckBox("Use color or all mails");
 	private final JButton applyAll = new JButton("Apply all");
 	private boolean allMailsBool = false;
 	private SplotchEditor[] editors = new SplotchEditor[4];
-
 	/**
 	 * Creates a new {@code SplotchBlob}
 	 */
-	public SplotchBlob() {
+	public SplotchBlob(PresetSplotchChooser chooser) {
+		this.chooser = chooser;
 		this.setLayout(new GridBagLayout());
 		for (JLabel l : labels) {
 			l.setBorder(padding);
@@ -113,7 +114,7 @@ public class SplotchBlob extends Container {
 			this.add(labels[i],l);
 			l.gridx = 1;
 			l.gridwidth = 2;
-			editors[i] = new SplotchEditor(this,s,editable);
+			editors[i] = new SplotchEditor(chooser,this,s,editable);
 			this.add(editors[i],l);
 			l.gridy++;
 			i++;

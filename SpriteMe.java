@@ -101,7 +101,7 @@ public class SpriteMe {
 		final JFrame frame = new JFrame("Sprite Me " + VERSION);
 		final JPanel controls = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
-
+		final PresetSplotchChooser presets = new PresetSplotchChooser(frame);
 		w.gridy = -1;
 		w.fill = GridBagConstraints.HORIZONTAL;
 
@@ -175,7 +175,7 @@ public class SpriteMe {
 		fullWrap.add(mySprite);
 
 		// color changer
-		ColorEditor colorEditor = new ColorEditor(pal);
+		ColorEditor colorEditor = new ColorEditor(presets, pal);
 		SpritePartEditor indexMapEditor = new SpritePartEditor(pal);
 		pal.attachEditor(colorEditor);
 

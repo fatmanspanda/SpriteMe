@@ -64,7 +64,7 @@ public class SplotchEditor extends Container {
 
 	// color preview
 	private final ColorPreview p = new ColorPreview();
-	private final PresetSplotchChooser PRESETS = PresetSplotchChooser.PRESETS;
+	private final PresetSplotchChooser PRESETS;
 
 	// for location
 	private final SplotchBlob mommy;
@@ -73,7 +73,8 @@ public class SplotchEditor extends Container {
 	 * @param c - Splotch to apply color edits to.
 	 * @param e - Enable/Disabled
 	 */
-	public SplotchEditor(SplotchBlob parent, Splotch c, boolean e) {
+	public SplotchEditor(PresetSplotchChooser chooser, SplotchBlob parent, Splotch c, boolean e) {
+		PRESETS = chooser;
 		mommy = parent;
 		victim = c;
 		enabled = e;
