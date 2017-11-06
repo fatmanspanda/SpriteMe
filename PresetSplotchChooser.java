@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 
 public class PresetSplotchChooser extends JDialog {
 	private static final long serialVersionUID = -7435126379055131184L;
-	private static final Dimension D = new Dimension(270,400);
+	private static final Dimension D = new Dimension(270,300);
 	private static final int SPLOTCH_SIZE = 30;
 	private static final Dimension SPLOTCH_D = new Dimension(SPLOTCH_SIZE,SPLOTCH_SIZE);
 	private static final int COLUMN_COUNT = 7;
@@ -42,8 +42,9 @@ public class PresetSplotchChooser extends JDialog {
 		presetList = new PresetCategory[] {
 				new PresetCategory(this, "Vanilla classics", SpriteColor.VANILLA_FAVORITES),
 				new PresetCategory(this, "Dev favorites", SpriteColor.DEV_FAVORITES),
+				new PresetCategory(this, "Bossy colors", SpriteColor.BOSS_COLORS),
 				new PresetCategory(this, "Rainbow", SpriteColor.RAINBOW),
-				new PresetCategory(this, "Bossy colors", SpriteColor.BOSS_COLORS)
+				new PresetCategory(this, "Other colors", SpriteColor.MISC)
 		};
 		curCat = presetList[0];
 		CATEGORY_CHOOSER = new JComboBox<PresetCategory>(presetList);

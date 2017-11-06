@@ -209,20 +209,115 @@ public class SpriteColor {
 			new SpriteColor("Blue", 0, 0, 248);
 	public static final SpriteColor INDIGO =
 			new SpriteColor("Indigo", 128, 0, 248);
-	public static final SpriteColor BLACK =
-			new SpriteColor("Black", 72, 72, 72);
-	public static final SpriteColor OFFWHITE =
-			new SpriteColor("Off-white", 232, 232, 232);
-	public static final SpriteColor BROWN =
-			new SpriteColor("Brown", 128, 48, 0);
-	public static final SpriteColor GRAY =
-			new SpriteColor("Gray", 176, 176, 176);
-	public static final SpriteColor BEIGE =
-			new SpriteColor("Beige", 160, 160, 96);
+	public static final SpriteColor DARK_RED =
+			new SpriteColor("Dark red", 208, 0, 0);
+	public static final SpriteColor DARK_ORANGE =
+			new SpriteColor("Dark orange", 208, 104, 0);
+	public static final SpriteColor DARK_YELLOW =
+			new SpriteColor("Dark yellow", 208, 208, 0);
+	public static final SpriteColor DARK_GREEN =
+			new SpriteColor("Dark green", 0, 208, 0);
+	public static final SpriteColor DARK_CYAN =
+			new SpriteColor("Dark cyan", 0, 208, 208);
+	public static final SpriteColor DARK_BLUE =
+			new SpriteColor("Dark blue", 0, 0, 208);
+	public static final SpriteColor DARK_INDIGO =
+			new SpriteColor("Dark indigo", 104, 0, 208);
+	public static final SpriteColor DARKER_RED =
+			new SpriteColor("Darker red", 176, 0, 0);
+	public static final SpriteColor DARKER_ORANGE =
+			new SpriteColor("Darker orange", 176, 88, 0);
+	public static final SpriteColor DARKER_YELLOW =
+			new SpriteColor("Darker yellow", 176, 176, 0);
+	public static final SpriteColor DARKER_GREEN =
+			new SpriteColor("Darker green", 0, 176, 0);
+	public static final SpriteColor DARKER_CYAN =
+			new SpriteColor("Darker cyan", 0, 176, 176);
+	public static final SpriteColor DARKER_BLUE =
+			new SpriteColor("Darker blue", 0, 0, 176);
+	public static final SpriteColor DARKER_INDIGO =
+			new SpriteColor("Darker indigo", 88, 0, 176);
+	public static final SpriteColor EVEN_DARKER_RED =
+			new SpriteColor("Even darker red", 144, 0, 0);
+	public static final SpriteColor EVEN_DARKER_ORANGE =
+			new SpriteColor("Even darker orange", 144, 72, 0);
+	public static final SpriteColor EVEN_DARKER_YELLOW =
+			new SpriteColor("Even darker yellow", 144, 144, 0);
+	public static final SpriteColor EVEN_DARKER_GREEN =
+			new SpriteColor("Even darker green", 0, 144, 0);
+	public static final SpriteColor EVEN_DARKER_CYAN =
+			new SpriteColor("Even darker cyan", 0, 144, 144);
+	public static final SpriteColor EVEN_DARKER_BLUE =
+			new SpriteColor("Even darker blue", 0, 0, 144);
+	public static final SpriteColor EVEN_DARKER_INDIGO =
+			new SpriteColor("Even darker indigo", 72, 0, 144);
+	public static final SpriteColor EVEN_DARKERER_RED =
+			new SpriteColor("Even darkerer red", 104, 0, 0);
+	public static final SpriteColor EVEN_DARKERER_ORANGE =
+			new SpriteColor("Even darkerer orange", 104, 32, 0);
+	public static final SpriteColor EVEN_DARKERER_YELLOW =
+			new SpriteColor("Even darkerer yellow", 104, 104, 0);
+	public static final SpriteColor EVEN_DARKERER_GREEN =
+			new SpriteColor("Even darkerer green", 0, 104, 0);
+	public static final SpriteColor EVEN_DARKERER_CYAN =
+			new SpriteColor("Even darkerer cyan", 0, 104, 104);
+	public static final SpriteColor EVEN_DARKERER_BLUE =
+			new SpriteColor("Even darkerer blue", 0, 0, 104);
+	public static final SpriteColor EVEN_DARKERER_INDIGO =
+			new SpriteColor("Even darkerer indigo", 32, 0, 104);
 
 	public static final SpriteColor[] RAINBOW = new SpriteColor[] {
 			RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, INDIGO,
-			BLACK, OFFWHITE, BROWN, GRAY, BEIGE
+			DARK_RED, DARK_ORANGE, DARK_YELLOW, DARK_GREEN, DARK_CYAN, DARK_BLUE, DARK_INDIGO,
+			DARKER_RED, DARKER_ORANGE, DARKER_YELLOW, DARKER_GREEN, DARKER_CYAN, DARKER_BLUE, DARKER_INDIGO,
+			EVEN_DARKER_RED, EVEN_DARKER_ORANGE, EVEN_DARKER_YELLOW, EVEN_DARKER_GREEN,
+			EVEN_DARKER_CYAN, EVEN_DARKER_BLUE, EVEN_DARKER_INDIGO,
+			EVEN_DARKERER_RED, EVEN_DARKERER_ORANGE, EVEN_DARKERER_YELLOW, EVEN_DARKERER_GREEN,
+			EVEN_DARKERER_CYAN, EVEN_DARKERER_BLUE, EVEN_DARKERER_INDIGO,
+	};
+
+	/*
+	 * Misc colors
+	 */
+	public static final SpriteColor BLACK =
+			new SpriteColor("Black", 8, 8, 8);
+	public static final SpriteColor OFFWHITE =
+			new SpriteColor("Off-white", 240, 240, 240);
+	public static final SpriteColor BROWN =
+			new SpriteColor("Brown", 128, 48, 0);
+	public static final SpriteColor GRAY =
+			new SpriteColor("Gray", 72, 72, 72);
+	public static final SpriteColor LIGHT_GRAY =
+			new SpriteColor("Light gray", 144, 144, 144);
+	public static final SpriteColor BEIGE =
+			new SpriteColor("Beige", 160, 160, 96);
+	public static final SpriteColor GARBAGE =
+			new SpriteColor("Garbage", 96, 88, 0);
+	public static final SpriteColor PINK =
+			new SpriteColor("Pink", 248, 88, 248);
+	public static final SpriteColor MAGENTA =
+			new SpriteColor("Magenta", 248, 0, 128);
+	public static final SpriteColor PERIWINKLE =
+			new SpriteColor("Periwinkle", 200, 200, 248);
+	public static final SpriteColor BRONZE =
+			new SpriteColor("Bronze", 136, 72, 48);
+	public static final SpriteColor SILVER =
+			new SpriteColor("Silver", 192, 192, 192);
+	public static final SpriteColor GOLD =
+			new SpriteColor("Gold", 240, 184, 0);
+	public static final SpriteColor SAND =
+			new SpriteColor("Sand", 240, 240, 144);
+	public static final SpriteColor TURQUOISE =
+			new SpriteColor("Turquoise", 64, 208, 192);
+	public static final SpriteColor BLILVER =
+			new SpriteColor("Blilver", 128, 144, 160);
+	public static final SpriteColor GRAVEL =
+			new SpriteColor("Gravel", 144, 136, 96);
+
+	public static final SpriteColor[] MISC = new SpriteColor[] {
+			BLACK, OFFWHITE, BROWN, GRAY, LIGHT_GRAY, BEIGE, GARBAGE,
+			PINK, MAGENTA, PERIWINKLE, BRONZE, SILVER, GOLD, SAND,
+			TURQUOISE, BLILVER, GRAVEL
 	};
 
 	/*

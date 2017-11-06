@@ -268,7 +268,7 @@ public class SplotchEditor extends Container {
 					);
 			}); // end listener
 
-		// preset colors list
+		// preset color chooser
 		presets.addActionListener(
 			arg0 -> {
 				PRESETS.setPartner(this);
