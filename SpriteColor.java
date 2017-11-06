@@ -150,7 +150,9 @@ public class SpriteColor {
 	 * Some color constants
 	 */
 
-	// Skin colors
+	/*
+	 * Skin colors
+	 */
 	public static final SpriteColor WHITE_SKIN_LT =
 			new SpriteColor("White skin", 240, 160, 104);
 	public static final SpriteColor LEIUTENANT_FACE = WHITE_SKIN_LT;
@@ -165,7 +167,10 @@ public class SpriteColor {
 	public static final SpriteColor BLACK_SKIN =
 			new SpriteColor("Black skin", 96, 48, 8);
 
-	// THE BEST COLORS
+	/*
+	 * BEST COLORS
+	 * Added for people that have been generally helpful or are just cool
+	 */
 	public static final SpriteColor RASPBERRY = // me
 			new SpriteColor("Panda's raspberry", 152, 0, 64);
 	public static final SpriteColor MIKES_ORANGE =
@@ -181,7 +186,14 @@ public class SpriteColor {
 	public static final SpriteColor BAZLY_CORAL =
 			new SpriteColor("Bazly's coral", 248, 128, 80);
 
-	// A beautiful rainbow
+	public static final SpriteColor[] DEV_FAVORITES = new SpriteColor[] {
+			RASPBERRY, MIKES_ORANGE, NUMPTY_BLUE, FEESH_PURPLE,
+			ZARBY_ORANGE, SOSUKE_BLACK, BAZLY_CORAL
+	};
+
+	/*
+	 * A beautiful rainbow
+	 */
 	public static final SpriteColor RED =
 			new SpriteColor("Red", 248, 0, 0);
 	public static final SpriteColor ORANGE =
@@ -196,8 +208,6 @@ public class SpriteColor {
 			new SpriteColor("Blue", 0, 0, 248);
 	public static final SpriteColor INDIGO =
 			new SpriteColor("Indigo", 128, 0, 248);
-
-	// other colors
 	public static final SpriteColor BLACK =
 			new SpriteColor("Black", 72, 72, 72);
 	public static final SpriteColor OFFWHITE =
@@ -209,11 +219,75 @@ public class SpriteColor {
 	public static final SpriteColor BEIGE =
 			new SpriteColor("Beige", 160, 160, 96);
 
-	// List of useable constants for main colors
-	public static final SpriteColor[] CONSTANTS = new SpriteColor[] {
+	public static final SpriteColor[] RAINBOW = new SpriteColor[] {
 			RED, ORANGE, YELLOW, GREEN, CYAN, INDIGO,
-			BLACK, OFFWHITE, BROWN, GRAY, BEIGE,
-			RASPBERRY, MIKES_ORANGE, NUMPTY_BLUE, FEESH_PURPLE,
-			ZARBY_ORANGE, SOSUKE_BLACK, BAZLY_CORAL
+			BLACK, OFFWHITE, BROWN, GRAY, BEIGE
+	};
+
+	/*
+	 * Vanilla palette
+	 */
+	public static final SpriteColor VANILLA_WHITE =
+			new SpriteColor("Vanilla white", 248, 248, 248);
+	public static final SpriteColor VANILLA_YELLOW =
+			new SpriteColor("Vanilla yellow", 240, 216, 64);
+	public static final SpriteColor VANILLA_SKIN_DK =
+			new SpriteColor("Vanilla skin shade", 184, 104, 32);
+	public static final SpriteColor VANILLA_SKIN =
+			new SpriteColor("Lieutenant face", 240, 160, 104);
+	public static final SpriteColor VANILLA_OUTLINE =
+			new SpriteColor("Vanilla outline black", 40, 40, 40);
+	public static final SpriteColor VANILLA_ORANGE =
+			new SpriteColor("Vanilla orange", 248, 120, 0);
+	public static final SpriteColor VANILLA_RED =
+			new SpriteColor("Vanilla red", 192, 24, 32);
+	public static final SpriteColor VANILLA_HAIR =
+			new SpriteColor("Vanilla Link's pink hair", 232, 96, 176);
+	public static final SpriteColor VANILLA_TUNIC_DK =
+			new SpriteColor("Vanilla tunic shade", 56, 144, 104);
+	public static final SpriteColor VANILLA_TUNIC =
+			new SpriteColor("Vanilla tunic", 64, 216, 112);
+	public static final SpriteColor VANILLA_HAT_DK =
+			new SpriteColor("Vanilla hat shade", 80, 144, 16);
+	public static final SpriteColor VANILLA_HAT =
+			new SpriteColor("Vanilla hat", 120, 184, 32);
+	public static final SpriteColor VANILLA_HANDS =
+			new SpriteColor("Vanilla hands", 224, 144, 80);
+	public static final SpriteColor VANILLA_SLEEVES =
+			new SpriteColor("Vanilla sleeves", 136, 88, 40);
+	public static final SpriteColor VANILLA_WATER =
+			new SpriteColor("Vanilla water purple", 192, 128, 240);
+	public static final SpriteColor VANILLA_BLUE_MAIL_TUNIC_DK =
+			new SpriteColor("Vanilla blue mail tunic shade", 0, 96, 208);
+	public static final SpriteColor VANILLA_BLUE_MAIL_TUNIC =
+			new SpriteColor("Vanilla blue mail tunic", 136, 160, 232);
+	public static final SpriteColor VANILLA_BLUE_MAIL_HAT_DK =
+			new SpriteColor("Vanilla blue mail hat shade", 192, 160, 72);
+	public static final SpriteColor VANILLA_BLUE_MAIL_HAT =
+			new SpriteColor("Vanilla blue mail hat", 248, 216, 128);
+	public static final SpriteColor VANILLA_BLUE_MAIL_SLEEVES =
+			new SpriteColor("Vanilla blue mail sleeves", 200, 96, 32);
+	public static final SpriteColor VANILLA_RED_MAIL_TUNIC_DK =
+			new SpriteColor("Vanilla red mail tunic shade", 184, 16, 32);
+	public static final SpriteColor VANILLA_RED_MAIL_TUNIC =
+			new SpriteColor("Vanilla red mail tunic", 240, 88, 136);
+	public static final SpriteColor VANILLA_RED_MAIL_HAT_DK =
+			new SpriteColor("Vanilla red mail hat shade", 152, 120, 216);
+	public static final SpriteColor VANILLA_RED_MAIL_HAT =
+			new SpriteColor("Vanilla red mail hat", 200, 168, 248);
+	public static final SpriteColor VANILLA_RED_MAIL_SLEEVES =
+			new SpriteColor("Vanilla red mail sleeves", 56, 136, 64);
+	public static final SpriteColor VANILLA_BUNNY_SKIN =
+			new SpriteColor("Vanilla bunny skin", 144, 24, 48);
+
+	public static final SpriteColor[] VANILLA_FAVORITES = new SpriteColor[] {
+			VANILLA_WHITE, VANILLA_YELLOW, VANILLA_SKIN_DK, VANILLA_SKIN, VANILLA_OUTLINE,
+			VANILLA_ORANGE, VANILLA_RED, VANILLA_HAIR, VANILLA_TUNIC_DK, VANILLA_TUNIC,
+			VANILLA_HAT_DK, VANILLA_HAT, VANILLA_HANDS, VANILLA_SLEEVES, VANILLA_WATER,
+			VANILLA_BLUE_MAIL_TUNIC_DK, VANILLA_BLUE_MAIL_TUNIC,
+			VANILLA_BLUE_MAIL_HAT_DK, VANILLA_BLUE_MAIL_HAT, VANILLA_BLUE_MAIL_SLEEVES,
+			VANILLA_RED_MAIL_TUNIC_DK, VANILLA_RED_MAIL_TUNIC,
+			VANILLA_RED_MAIL_HAT_DK, VANILLA_RED_MAIL_HAT, VANILLA_RED_MAIL_SLEEVES,
+			VANILLA_BUNNY_SKIN,
 	};
 }
