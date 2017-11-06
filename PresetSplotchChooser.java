@@ -64,16 +64,18 @@ public class PresetSplotchChooser extends JDialog {
 
 	public void setColor(SpriteColor c) {
 		partner.setColor(c);
+		this.setVisible(false);
 	}
 
 	private void initializeDisplay() {
 		Container wrap = this.getContentPane();
 		this.setTitle("Choose a color");
-		wrap.setSize(D);
+
 		wrap.setPreferredSize(D);
 		wrap.setMaximumSize(D);
 		wrap.setMinimumSize(D);
 		wrap.setLayout(l);
+
 		JLabel origLbl = new JLabel("Original color", SwingConstants.RIGHT);
 		l.putConstraint(SpringLayout.NORTH, CATEGORY_CHOOSER, 2,
 				SpringLayout.NORTH, wrap);
@@ -119,6 +121,7 @@ public class PresetSplotchChooser extends JDialog {
 					PresetSplotchChooser.this.revalidate();
 					PresetSplotchChooser.this.repaint();
 				});
+
 		this.revalidate();
 	}
 
@@ -211,7 +214,7 @@ public class PresetSplotchChooser extends JDialog {
 			w.ipady = 2;
 			w.ipadx = 2;
 			fullFill :
-			for (int i = 0; i < 99; i++, w.gridy++) { // height grows without bounds
+			for (int i = 0; i < 99; i++, w.gridy++) { // height grows "without" bounds
 				w.gridx = 0;
 				for (int j = 0; j < COLUMN_COUNT; j++, w.gridx++, colorCount++) {
 					if (colorCount == colorSet.length) {
