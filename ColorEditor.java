@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 
-import SpriteAnimator.GUIHelpers;
-
 public class ColorEditor extends Container {
 	private static final long serialVersionUID = -6002186857197093009L;
 
@@ -91,9 +89,8 @@ public class ColorEditor extends Container {
 
 		final JLabel helpText = new JLabel();
 		final JLabel curEditing = new JLabel("Currently editing colors at index : ");
-		
 		helpText.setText("<html>" +
-				"<div style=\"" + GUIHelpers.join(INSTRUCTION_STYLE, ";") + "\">" +
+				"<div style=\"" + String.join(";", INSTRUCTION_STYLE) + "\">" +
 				"Use this area to edit the colors at your selected index. " +
 				"Note that SNES colors are 15-bit, so RGB values will be rounded down to the nearest multiple of 8." +
 				"<br /><br />" +

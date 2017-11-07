@@ -15,8 +15,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-import SpriteAnimator.GUIHelpers;
-
 // TODO: Revert all changes
 public class SpritePartEditor extends Container {
 	// class constants
@@ -113,7 +111,7 @@ public class SpritePartEditor extends Container {
 		final JLabel helpText = new JLabel();
 
 		helpText.setText("<html>" +
-				"<div style=\"" + GUIHelpers.join(INSTRUCTION_STYLE, ";") + "\">" +
+				"<div style=\"" + String.join(";", INSTRUCTION_STYLE) + "\">" +
 				"Use this area to pick the colors of each part of an item. " +
 				"<br /><br />" +
 				"Note that anything mapped to index 13 may change when gloves or mitts are obtained." +
@@ -121,8 +119,6 @@ public class SpritePartEditor extends Container {
 				"Anything mapped to index 0 will be fully transparent." +
 				"</div>" +
 				"</html>");
-//		l.putConstraint(SpringLayout.WEST, helpText, 0,
-//				SpringLayout.WEST, this);
 		l.putConstraint(SpringLayout.EAST, helpText, 0,
 				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.NORTH, helpText, 0,

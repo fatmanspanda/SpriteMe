@@ -35,7 +35,6 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import SpriteAnimator.GUIHelpers;
 import SpriteManipulator.SpriteManipulator;
 
 public class SpriteMe {
@@ -556,10 +555,11 @@ public class SpriteMe {
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
 
 		peepsList.append("\n\nArt:\n");
-		peepsList.append(GUIHelpers.join(new String[]{
-				"iBazly",
-				"Fish"
-				}, ", "));
+		peepsList.append(String.join(", ",
+				new String[]{
+						"iBazly",
+						"Fish"
+					}));
 
 		aboutFrame.add(peepsList);
 
