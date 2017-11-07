@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -32,10 +31,9 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import SpriteManipulator.SpriteManipulator;
+import SpriteManipulator.*;
 
 public class SpriteMe {
 	private static final String VERSION = "v0.0.0";
@@ -282,7 +280,7 @@ public class SpriteMe {
 		patchRom.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_R, ActionEvent.CTRL_MASK));
 		patchRom.setIcon(bigKey);
-		
+
 		fileMenu.add(patchRom);
 
 		// separator
@@ -300,7 +298,7 @@ public class SpriteMe {
 
 		// help menu
 		final JMenu helpMenu = new JMenu("Help");
-		
+
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
 		ImageIcon mapIcon = new ImageIcon(
@@ -394,7 +392,7 @@ public class SpriteMe {
 				arg0 -> {
 					if (lastSavePath.isSet()) {
 /*						try {
-							
+
 						} catch (IOException e) {
 							JOptionPane.showMessageDialog(frame,
 									"Error saving custom selections",
@@ -409,8 +407,7 @@ public class SpriteMe {
 
 		saveSprTo.addActionListener(
 				arg0 -> {
-					explorer.setROMStatus(false);
-					removeFilters(explorer);
+					explorer.removeAllFilters();
 					explorer.setFileFilter(smeFilter);
 					int option = explorer.showSaveDialog(frame);
 
@@ -457,8 +454,7 @@ public class SpriteMe {
 
 		expSprTo.addActionListener(
 				arg0 -> {
-					explorer.setROMStatus(false);
-					removeFilters(explorer);
+					explorer.removeAllFilters();
 					explorer.setFileFilter(sprFilter);
 					int option = explorer.showSaveDialog(frame);
 
@@ -488,8 +484,7 @@ public class SpriteMe {
 		// ROM patching
 		patchRom.addActionListener(
 				arg0 -> {
-					explorer.setROMStatus(true);
-					removeFilters(explorer);
+					explorer.removeAllFilters();
 					explorer.setFileFilter(romFilter);
 					int option = explorer.showSaveDialog(frame);
 
@@ -507,7 +502,7 @@ public class SpriteMe {
 								JOptionPane.WARNING_MESSAGE);
 						return;
 					}
-					
+
 					byte[] data = mySprite.makeSprite();
 					try {
 						SpriteManipulator.patchRom(data, n);
@@ -534,17 +529,6 @@ public class SpriteMe {
 		c.setPreferredSize(d);
 		c.setMaximumSize(d);
 		c.setMinimumSize(d);
-	}
-
-	/**
-	 * Removes all filters from an explorer.
-	 * @param ex
-	 */
-	private static void removeFilters(JFileChooser ex) {
-		FileFilter[] exlist = ex.getChoosableFileFilters();
-		for (FileFilter r : exlist) {
-			ex.removeChoosableFileFilter(r);
-		}
 	}
 
 	// about frame built here
@@ -587,48 +571,4 @@ public class SpriteMe {
 			return this.s != null;
 		}
 	}
-	/**
-	 * Need alternating Confirm messages
-	 */
-	private static class BetterJFileChooser extends JFileChooser {
-		private static final long serialVersionUID = -7581065406880416887L;
-		private boolean patchingROM;
-		public void approveSelection() {
-			File f = getSelectedFile();
-			if(f.exists() && getDialogType() == SAVE_DIALOG){
-				String warning;
-				String warningHeader;
-				if (patchingROM) {
-					warning =
-							"Are you sure you want to patch \"" + f.getName() + "\"?\n"+
-							"This cannot be undone.";
-					warningHeader = "This is a ROM";
-				} else {
-					warning = "The file \"" + f.getName() + "\" already exists. Save anyway?";
-					warningHeader = "Existing file";
-				}
-				int result = JOptionPane.showConfirmDialog(
-						this,
-						warning,
-						warningHeader,
-						JOptionPane.YES_NO_CANCEL_OPTION);
-				switch(result){
-					case JOptionPane.YES_OPTION :
-						super.approveSelection();
-						return;
-					case JOptionPane.NO_OPTION :
-					case JOptionPane.CLOSED_OPTION :
-						return;
-					case JOptionPane.CANCEL_OPTION:
-						cancelSelection();
-						return;
-				}
-			}
-			super.approveSelection();
-		}
-		
-		public void setROMStatus(boolean b) {
-			patchingROM = b;
-		}
-	};
 }
