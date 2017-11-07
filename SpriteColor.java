@@ -170,306 +170,163 @@ public class SpriteColor {
 	 * BEST COLORS
 	 * Added for people that have been generally helpful or are just cool
 	 */
-	public static final SpriteColor RASPBERRY = // me
-			new SpriteColor("Panda's raspberry", 152, 0, 64);
-	public static final SpriteColor MIKES_ORANGE =
-			new SpriteColor("Mike's orange", 248, 176, 0);
-	public static final SpriteColor NUMPTY_BLUE = // christos owen because he's cool
-			new SpriteColor("Numpty blue", 56, 152, 216);
-	public static final SpriteColor FEESH_PURPLE =
-			new SpriteColor("Fish's purple", 176, 0, 216);
-	public static final SpriteColor ZARBY_ORANGE =
-			new SpriteColor("Zarby's orange", 216, 80, 24);
-	public static final SpriteColor SOSUKE_BLACK =
-			new SpriteColor("Sosuke's black", 16, 16, 16);
-	public static final SpriteColor BAZLY_CORAL =
-			new SpriteColor("Bazly's coral", 248, 128, 80);
-	public static final SpriteColor VT_GREEN =
-			new SpriteColor("Veetorp's green", 72, 208, 112);
-	public static final SpriteColor GLAN_BLUE =
-			new SpriteColor("Glan's blue", 32, 168, 248);
-
 	public static final SpriteColor[] DEV_FAVORITES = new SpriteColor[] {
-			RASPBERRY, MIKES_ORANGE, NUMPTY_BLUE, FEESH_PURPLE,
-			ZARBY_ORANGE, SOSUKE_BLACK, BAZLY_CORAL, VT_GREEN,
-			GLAN_BLUE
+			new SpriteColor("Panda's raspberry", 152, 0, 64), // me
+			new SpriteColor("Mike's orange", 248, 176, 0),
+			new SpriteColor("Numpty blue", 56, 152, 216), // christos owen because he's cool
+			new SpriteColor("Fish's purple", 176, 0, 216),
+			new SpriteColor("Zarby's orange", 216, 80, 24),
+			new SpriteColor("Sosuke's black", 16, 16, 16),
+			new SpriteColor("Bazly's coral", 248, 128, 80),
+			new SpriteColor("Veetorp's green", 72, 208, 112),
+			new SpriteColor("Glan's blue", 32, 168, 248)
 	};
 
-	/*
-	 * A beautiful rainbow
-	 */
-	public static final SpriteColor RED =
-			new SpriteColor("Red", 248, 0, 0);
-	public static final SpriteColor ORANGE =
-			new SpriteColor("Orange", 248, 128, 0);
-	public static final SpriteColor YELLOW =
-			new SpriteColor("Yellow", 248, 248, 0);
-	public static final SpriteColor GREEN =
-			new SpriteColor("Green", 0, 248, 0);
-	public static final SpriteColor CYAN =
-			new SpriteColor("Cyan", 0, 248, 248);
-	public static final SpriteColor BLUE =
-			new SpriteColor("Blue", 0, 0, 248);
-	public static final SpriteColor INDIGO =
-			new SpriteColor("Indigo", 128, 0, 248);
-	public static final SpriteColor DARK_RED =
-			new SpriteColor("Dark red", 208, 0, 0);
-	public static final SpriteColor DARK_ORANGE =
-			new SpriteColor("Dark orange", 208, 104, 0);
-	public static final SpriteColor DARK_YELLOW =
-			new SpriteColor("Dark yellow", 208, 208, 0);
-	public static final SpriteColor DARK_GREEN =
-			new SpriteColor("Dark green", 0, 208, 0);
-	public static final SpriteColor DARK_CYAN =
-			new SpriteColor("Dark cyan", 0, 208, 208);
-	public static final SpriteColor DARK_BLUE =
-			new SpriteColor("Dark blue", 0, 0, 208);
-	public static final SpriteColor DARK_INDIGO =
-			new SpriteColor("Dark indigo", 104, 0, 208);
-	public static final SpriteColor DARKER_RED =
-			new SpriteColor("Darker red", 176, 0, 0);
-	public static final SpriteColor DARKER_ORANGE =
-			new SpriteColor("Darker orange", 176, 88, 0);
-	public static final SpriteColor DARKER_YELLOW =
-			new SpriteColor("Darker yellow", 176, 176, 0);
-	public static final SpriteColor DARKER_GREEN =
-			new SpriteColor("Darker green", 0, 176, 0);
-	public static final SpriteColor DARKER_CYAN =
-			new SpriteColor("Darker cyan", 0, 176, 176);
-	public static final SpriteColor DARKER_BLUE =
-			new SpriteColor("Darker blue", 0, 0, 176);
-	public static final SpriteColor DARKER_INDIGO =
-			new SpriteColor("Darker indigo", 88, 0, 176);
-	public static final SpriteColor EVEN_DARKER_RED =
-			new SpriteColor("Even darker red", 144, 0, 0);
-	public static final SpriteColor EVEN_DARKER_ORANGE =
-			new SpriteColor("Even darker orange", 144, 72, 0);
-	public static final SpriteColor EVEN_DARKER_YELLOW =
-			new SpriteColor("Even darker yellow", 144, 144, 0);
-	public static final SpriteColor EVEN_DARKER_GREEN =
-			new SpriteColor("Even darker green", 0, 144, 0);
-	public static final SpriteColor EVEN_DARKER_CYAN =
-			new SpriteColor("Even darker cyan", 0, 144, 144);
-	public static final SpriteColor EVEN_DARKER_BLUE =
-			new SpriteColor("Even darker blue", 0, 0, 144);
-	public static final SpriteColor EVEN_DARKER_INDIGO =
-			new SpriteColor("Even darker indigo", 72, 0, 144);
-	public static final SpriteColor EVEN_DARKERER_RED =
-			new SpriteColor("Even darkerer red", 104, 0, 0);
-	public static final SpriteColor EVEN_DARKERER_ORANGE =
-			new SpriteColor("Even darkerer orange", 104, 32, 0);
-	public static final SpriteColor EVEN_DARKERER_YELLOW =
-			new SpriteColor("Even darkerer yellow", 104, 104, 0);
-	public static final SpriteColor EVEN_DARKERER_GREEN =
-			new SpriteColor("Even darkerer green", 0, 104, 0);
-	public static final SpriteColor EVEN_DARKERER_CYAN =
-			new SpriteColor("Even darkerer cyan", 0, 104, 104);
-	public static final SpriteColor EVEN_DARKERER_BLUE =
-			new SpriteColor("Even darkerer blue", 0, 0, 104);
-	public static final SpriteColor EVEN_DARKERER_INDIGO =
-			new SpriteColor("Even darkerer indigo", 32, 0, 104);
-
+	// A beautiful rainbow
 	public static final SpriteColor[] RAINBOW = new SpriteColor[] {
-			RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, INDIGO,
-			DARK_RED, DARK_ORANGE, DARK_YELLOW, DARK_GREEN, DARK_CYAN, DARK_BLUE, DARK_INDIGO,
-			DARKER_RED, DARKER_ORANGE, DARKER_YELLOW, DARKER_GREEN, DARKER_CYAN, DARKER_BLUE, DARKER_INDIGO,
-			EVEN_DARKER_RED, EVEN_DARKER_ORANGE, EVEN_DARKER_YELLOW, EVEN_DARKER_GREEN,
-			EVEN_DARKER_CYAN, EVEN_DARKER_BLUE, EVEN_DARKER_INDIGO,
-			EVEN_DARKERER_RED, EVEN_DARKERER_ORANGE, EVEN_DARKERER_YELLOW, EVEN_DARKERER_GREEN,
-			EVEN_DARKERER_CYAN, EVEN_DARKERER_BLUE, EVEN_DARKERER_INDIGO,
+			new SpriteColor("Red", 248, 0, 0),
+			new SpriteColor("Orange", 248, 128, 0),
+			new SpriteColor("Yellow", 248, 248, 0),
+			new SpriteColor("Green", 0, 248, 0),
+			new SpriteColor("Cyan", 0, 248, 248),
+			new SpriteColor("Blue", 0, 0, 248),
+			new SpriteColor("Indigo", 128, 0, 248),
+			// dark
+			new SpriteColor("Dark red", 208, 0, 0),
+			new SpriteColor("Dark orange", 208, 104, 0),
+			new SpriteColor("Dark yellow", 208, 208, 0),
+			new SpriteColor("Dark green", 0, 208, 0),
+			new SpriteColor("Dark cyan", 0, 208, 208),
+			new SpriteColor("Dark blue", 0, 0, 208),
+			new SpriteColor("Dark indigo", 104, 0, 208),
+			new SpriteColor("Darker red", 176, 0, 0),
+			// darker
+			new SpriteColor("Darker orange", 176, 88, 0),
+			new SpriteColor("Darker yellow", 176, 176, 0),
+			new SpriteColor("Darker green", 0, 176, 0),
+			new SpriteColor("Darker cyan", 0, 176, 176),
+			new SpriteColor("Darker blue", 0, 0, 176),
+			new SpriteColor("Darker indigo", 88, 0, 176),
+			// even darker
+			new SpriteColor("Even darker red", 144, 0, 0),
+			new SpriteColor("Even darker orange", 144, 72, 0),
+			new SpriteColor("Even darker yellow", 144, 144, 0),
+			new SpriteColor("Even darker green", 0, 144, 0),
+			new SpriteColor("Even darker cyan", 0, 144, 144),
+			new SpriteColor("Even darker blue", 0, 0, 144),
+			new SpriteColor("Even darker indigo", 72, 0, 144),
+			// even darkerer
+			new SpriteColor("Even darkerer red", 104, 0, 0),
+			new SpriteColor("Even darkerer orange", 104, 32, 0),
+			new SpriteColor("Even darkerer yellow", 104, 104, 0),
+			new SpriteColor("Even darkerer green", 0, 104, 0),
+			new SpriteColor("Even darkerer cyan", 0, 104, 104),
+			new SpriteColor("Even darkerer blue", 0, 0, 104),
+			new SpriteColor("Even darkerer indigo", 32, 0, 104)
 	};
 
-	/*
-	 * Misc colors
-	 */
-	public static final SpriteColor BLACK =
-			new SpriteColor("Black", 8, 8, 8);
-	public static final SpriteColor OFFWHITE =
-			new SpriteColor("Off-white", 240, 240, 240);
-	public static final SpriteColor BROWN =
-			new SpriteColor("Brown", 128, 48, 0);
-	public static final SpriteColor GRAY =
-			new SpriteColor("Gray", 72, 72, 72);
-	public static final SpriteColor LIGHT_GRAY =
-			new SpriteColor("Light gray", 144, 144, 144);
-	public static final SpriteColor BEIGE =
-			new SpriteColor("Beige", 160, 160, 96);
-	public static final SpriteColor GARBAGE =
-			new SpriteColor("Garbage", 96, 88, 0);
-	public static final SpriteColor PINK =
-			new SpriteColor("Pink", 248, 88, 248);
-	public static final SpriteColor MAGENTA =
-			new SpriteColor("Magenta", 248, 0, 128);
-	public static final SpriteColor PERIWINKLE =
-			new SpriteColor("Periwinkle", 200, 200, 248);
-	public static final SpriteColor BRONZE =
-			new SpriteColor("Bronze", 136, 72, 48);
-	public static final SpriteColor SILVER =
-			new SpriteColor("Silver", 192, 192, 192);
-	public static final SpriteColor GOLD =
-			new SpriteColor("Gold", 240, 184, 0);
-	public static final SpriteColor SAND =
-			new SpriteColor("Sand", 240, 240, 144);
-	public static final SpriteColor TURQUOISE =
-			new SpriteColor("Turquoise", 64, 208, 192);
-	public static final SpriteColor BLILVER =
-			new SpriteColor("Blilver", 128, 144, 160);
-	public static final SpriteColor GRAVEL =
-			new SpriteColor("Gravel", 144, 136, 96);
-
+	// Miscellaneous colors
 	public static final SpriteColor[] MISC = new SpriteColor[] {
-			BLACK, OFFWHITE, BROWN, GRAY, LIGHT_GRAY, BEIGE, GARBAGE,
-			PINK, MAGENTA, PERIWINKLE, BRONZE, SILVER, GOLD, SAND,
-			TURQUOISE, BLILVER, GRAVEL
+			new SpriteColor("Black", 8, 8, 8),
+			new SpriteColor("Off-white", 240, 240, 240),
+			new SpriteColor("Brown", 128, 48, 0),
+			new SpriteColor("Gray", 72, 72, 72),
+			new SpriteColor("Light gray", 144, 144, 144),
+			new SpriteColor("Beige", 160, 160, 96),
+			new SpriteColor("Garbage", 96, 88, 0),
+			new SpriteColor("Pink", 248, 88, 248),
+			new SpriteColor("Magenta", 248, 0, 128),
+			new SpriteColor("Periwinkle", 200, 200, 248),
+			new SpriteColor("Bronze", 136, 72, 48),
+			new SpriteColor("Silver", 192, 192, 192),
+			new SpriteColor("Gold", 240, 184, 0),
+			new SpriteColor("Sand", 240, 240, 144),
+			new SpriteColor("Turquoise", 64, 208, 192),
+			new SpriteColor("Blilver", 128, 144, 160),
+			new SpriteColor("Gravel", 144, 136, 96)
 	};
 
-	/*
-	 * Vanilla palette
-	 */
-	public static final SpriteColor VANILLA_WHITE =
-			new SpriteColor("Vanilla white", 248, 248, 248);
-	public static final SpriteColor VANILLA_YELLOW =
-			new SpriteColor("Vanilla yellow", 240, 216, 64);
-	public static final SpriteColor VANILLA_SKIN_DK =
-			new SpriteColor("Vanilla skin shade", 184, 104, 32);
-	public static final SpriteColor VANILLA_SKIN =
-			new SpriteColor("Lieutenant face", 240, 160, 104);
-	public static final SpriteColor VANILLA_OUTLINE =
-			new SpriteColor("Vanilla outline black", 40, 40, 40);
-	public static final SpriteColor VANILLA_ORANGE =
-			new SpriteColor("Vanilla orange", 248, 120, 0);
-	public static final SpriteColor VANILLA_RED =
-			new SpriteColor("Vanilla red", 192, 24, 32);
-	public static final SpriteColor VANILLA_HAIR =
-			new SpriteColor("Vanilla Link's pink hair", 232, 96, 176);
-	public static final SpriteColor VANILLA_TUNIC_DK =
-			new SpriteColor("Vanilla tunic shade", 56, 144, 104);
-	public static final SpriteColor VANILLA_TUNIC =
-			new SpriteColor("Vanilla tunic", 64, 216, 112);
-	public static final SpriteColor VANILLA_HAT_DK =
-			new SpriteColor("Vanilla hat shade", 80, 144, 16);
-	public static final SpriteColor VANILLA_HAT =
-			new SpriteColor("Vanilla hat", 120, 184, 32);
-	public static final SpriteColor VANILLA_HANDS =
-			new SpriteColor("Vanilla hands", 224, 144, 80);
-	public static final SpriteColor VANILLA_SLEEVES =
-			new SpriteColor("Vanilla sleeves", 136, 88, 40);
-	public static final SpriteColor VANILLA_WATER =
-			new SpriteColor("Vanilla water purple", 192, 128, 240);
-	public static final SpriteColor VANILLA_BLUE_MAIL_TUNIC_DK =
-			new SpriteColor("Vanilla blue mail tunic shade", 0, 96, 208);
-	public static final SpriteColor VANILLA_BLUE_MAIL_TUNIC =
-			new SpriteColor("Vanilla blue mail tunic", 136, 160, 232);
-	public static final SpriteColor VANILLA_BLUE_MAIL_HAT_DK =
-			new SpriteColor("Vanilla blue mail hat shade", 192, 160, 72);
-	public static final SpriteColor VANILLA_BLUE_MAIL_HAT =
-			new SpriteColor("Vanilla blue mail hat", 248, 216, 128);
-	public static final SpriteColor VANILLA_BLUE_MAIL_SLEEVES =
-			new SpriteColor("Vanilla blue mail sleeves", 200, 96, 32);
-	public static final SpriteColor VANILLA_RED_MAIL_TUNIC_DK =
-			new SpriteColor("Vanilla red mail tunic shade", 184, 16, 32);
-	public static final SpriteColor VANILLA_RED_MAIL_TUNIC =
-			new SpriteColor("Vanilla red mail tunic", 240, 88, 136);
-	public static final SpriteColor VANILLA_RED_MAIL_HAT_DK =
-			new SpriteColor("Vanilla red mail hat shade", 152, 120, 216);
-	public static final SpriteColor VANILLA_RED_MAIL_HAT =
-			new SpriteColor("Vanilla red mail hat", 200, 168, 248);
-	public static final SpriteColor VANILLA_RED_MAIL_SLEEVES =
-			new SpriteColor("Vanilla red mail sleeves", 56, 136, 64);
-	public static final SpriteColor VANILLA_BUNNY_SKIN =
-			new SpriteColor("Vanilla bunny skin", 144, 24, 48);
-	public static final SpriteColor VANILLA_GLOVES =
-			new SpriteColor("Vanilla power gloves", 181, 186, 165);
-	public static final SpriteColor VANILLA_MITTS =
-			new SpriteColor("Vanilla mitts", 181, 219, 0);
-
+	// Vanilla colors
 	public static final SpriteColor[] VANILLA_FAVORITES = new SpriteColor[] {
-			VANILLA_WHITE, VANILLA_YELLOW, VANILLA_SKIN_DK, VANILLA_SKIN, VANILLA_OUTLINE,
-			VANILLA_ORANGE, VANILLA_RED, VANILLA_HAIR, VANILLA_TUNIC_DK, VANILLA_TUNIC,
-			VANILLA_HAT_DK, VANILLA_HAT, VANILLA_HANDS, VANILLA_SLEEVES, VANILLA_WATER,
-			VANILLA_BLUE_MAIL_TUNIC_DK, VANILLA_BLUE_MAIL_TUNIC,
-			VANILLA_BLUE_MAIL_HAT_DK, VANILLA_BLUE_MAIL_HAT, VANILLA_BLUE_MAIL_SLEEVES,
-			VANILLA_RED_MAIL_TUNIC_DK, VANILLA_RED_MAIL_TUNIC,
-			VANILLA_RED_MAIL_HAT_DK, VANILLA_RED_MAIL_HAT, VANILLA_RED_MAIL_SLEEVES,
-			VANILLA_BUNNY_SKIN, VANILLA_GLOVES, VANILLA_MITTS
+			// green mail
+			new SpriteColor("Vanilla white", 248, 248, 248),
+			new SpriteColor("Vanilla yellow", 240, 216, 64),
+			new SpriteColor("Vanilla skin shade", 184, 104, 32),
+			new SpriteColor("Lieutenant face", 240, 160, 104),
+			new SpriteColor("Vanilla outline black", 40, 40, 40),
+			new SpriteColor("Vanilla orange", 248, 120, 0),
+			new SpriteColor("Vanilla red", 192, 24, 32),
+			new SpriteColor("Vanilla Link's pink hair", 232, 96, 176),
+			new SpriteColor("Vanilla tunic shade", 56, 144, 104),
+			new SpriteColor("Vanilla tunic", 64, 216, 112),
+			new SpriteColor("Vanilla hat shade", 80, 144, 16),
+			new SpriteColor("Vanilla hat", 120, 184, 32),
+			new SpriteColor("Vanilla hands", 224, 144, 80),
+			new SpriteColor("Vanilla sleeves", 136, 88, 40),
+			new SpriteColor("Vanilla water purple", 192, 128, 240),
+			// blue mail
+			new SpriteColor("Vanilla blue mail tunic shade", 0, 96, 208),
+			new SpriteColor("Vanilla blue mail tunic", 136, 160, 232),
+			new SpriteColor("Vanilla blue mail hat shade", 192, 160, 72),
+			new SpriteColor("Vanilla blue mail hat", 248, 216, 128),
+			new SpriteColor("Vanilla blue mail sleeves", 200, 96, 32),
+			// red mail
+			new SpriteColor("Vanilla red mail tunic shade", 184, 16, 32),
+			new SpriteColor("Vanilla red mail tunic", 240, 88, 136),
+			new SpriteColor("Vanilla red mail hat shade", 152, 120, 216),
+			new SpriteColor("Vanilla red mail hat", 200, 168, 248),
+			new SpriteColor("Vanilla red mail sleeves", 56, 136, 64),
+			// other
+			new SpriteColor("Vanilla bunny skin", 144, 24, 48),
+			new SpriteColor("Vanilla power gloves", 181, 186, 165),
+			new SpriteColor("Vanilla mitts", 181, 219, 0)
 	};
 
-	/*
-	 * Boss colors
-	*/
-	public static final SpriteColor ARMOS_KNIGHT_BLUE =
-			new SpriteColor("Armos Knight blue", 80, 112, 200);
-	public static final SpriteColor ANGRY_ARMOS_KNIGHT_RED =
-			new SpriteColor("Angry Armos Knight red", 184, 64, 72);
-	public static final SpriteColor ARMOS_SHIELD_BRONZE =
-			new SpriteColor("Armos' shield bronze", 176, 96, 40);
-	public static final SpriteColor LANMOLAS_GREEN =
-			new SpriteColor("Lanmolas green", 64, 136, 88);
-	public static final SpriteColor LANMOLAS_BURROW_BROWN =
-			new SpriteColor("Lanmolas' burrow brown", 72, 64, 24);
-	public static final SpriteColor MOLDORM_YELLOW =
-			new SpriteColor("Moldorm yellow", 168, 152, 24);
-	public static final SpriteColor MOLDORMS_EYES_RED =
-			new SpriteColor("Moldorm's buggy eyes red", 232, 128, 104);
-	public static final SpriteColor AGAHNIM_ROBE_GREEN =
-			new SpriteColor("Agahnim's robe green", 144, 208, 56);
-	public static final SpriteColor AGAHNIM_ROBE_PURPLE =
-			new SpriteColor("Agahnim's robe trim purple", 192, 64, 128);
-	public static final SpriteColor BLUE_BALL_BLUE =
-			new SpriteColor("Blue ball blue", 120, 144, 248);
-	public static final SpriteColor HELMASAUR_ORANGE =
-			new SpriteColor("Helmasaur orange", 208, 56, 40);
-	public static final SpriteColor HELMASAUR_MASK_BLUE =
-			new SpriteColor("Helmasaur's mask blue", 120, 112, 232);
-	public static final SpriteColor ARRGHUS_RED =
-			new SpriteColor("Arrghus red", 176, 64, 56);
-	public static final SpriteColor ARRGHUS_PUFF_ORANGE =
-			new SpriteColor("Arrghus puff orange", 216, 88, 0);
-	public static final SpriteColor MOTHULA_BLUE =
-			new SpriteColor("Mothula blue", 120, 112, 232);
-	public static final SpriteColor MOTHULA_ORANGE =
-			new SpriteColor("Mothula orange", 216, 88, 32);
-	public static final SpriteColor BLIND_RED =
-			new SpriteColor("Blind red", 144, 48, 24);
-	public static final SpriteColor BLIND_LASER_ORANGE =
-			new SpriteColor("Blind laser orange", 248, 112, 48);
-	public static final SpriteColor KHOLDSTARE_PINK =
-			new SpriteColor("Kholdstare pink", 240, 160, 216);
-	public static final SpriteColor KHOLDSTARE_SHELL_BLUE =
-			new SpriteColor("Kholdstare's shell blue", 88, 176, 232);
-	public static final SpriteColor FALLING_ICE_BLUE =
-			new SpriteColor("Falling ice blue", 160, 200, 248);
-	public static final SpriteColor VITREOUS_GREEN =
-			new SpriteColor("Vitreous green", 80, 192, 144);
-	public static final SpriteColor VITREOUS_GOO_GREEN =
-			new SpriteColor("Vitreous goo green", 72, 152, 88);
-	public static final SpriteColor FIRE_NEXX_RED =
-			new SpriteColor("Fire nexx red", 160, 0, 40);
-	public static final SpriteColor ICE_NEX_BLUE =
-			new SpriteColor("Ice nexx blue", 72, 80, 208);
-	public static final SpriteColor STONE_NEX_GRAY =
-			new SpriteColor("Stone nexx gray", 120, 136, 144);
-	public static final SpriteColor GANON_BLUE =
-			new SpriteColor("Ganon blue", 80, 136, 168);
-	public static final SpriteColor GANON_CAPE_RED =
-			new SpriteColor("Ganon cape red", 184, 48, 16);
-	public static final SpriteColor GANON_TUNIC_BROWN =
-			new SpriteColor("Ganon tunic brown", 136, 96, 8);
-	public static final SpriteColor GANON_STUN_BLUE =
-			new SpriteColor("Ganon's stunning blue", 96, 184, 192);
-
+	// Boss colors
 	public static final SpriteColor[] BOSS_COLORS = new SpriteColor[] {
-			ARMOS_KNIGHT_BLUE, ANGRY_ARMOS_KNIGHT_RED, ARMOS_SHIELD_BRONZE,
-			LANMOLAS_GREEN, LANMOLAS_BURROW_BROWN,
-			MOLDORM_YELLOW, MOLDORMS_EYES_RED,
-			AGAHNIM_ROBE_GREEN, AGAHNIM_ROBE_PURPLE, BLUE_BALL_BLUE,
-			HELMASAUR_ORANGE, HELMASAUR_MASK_BLUE,
-			ARRGHUS_RED, ARRGHUS_PUFF_ORANGE,
-			MOTHULA_BLUE, MOTHULA_ORANGE,
-			BLIND_RED, BLIND_LASER_ORANGE,
-			KHOLDSTARE_PINK, KHOLDSTARE_SHELL_BLUE, FALLING_ICE_BLUE,
-			VITREOUS_GREEN, VITREOUS_GOO_GREEN,
-			FIRE_NEXX_RED, ICE_NEX_BLUE, STONE_NEX_GRAY,
-			GANON_BLUE, GANON_CAPE_RED, GANON_TUNIC_BROWN, GANON_STUN_BLUE
+			// Armos
+			new SpriteColor("Armos Knight blue", 80, 112, 200),
+			new SpriteColor("Angry Armos Knight red", 184, 64, 72),
+			new SpriteColor("Armos' shield bronze", 176, 96, 40),
+			// Lanmolas
+			new SpriteColor("Lanmolas green", 64, 136, 88),
+			new SpriteColor("Lanmolas' burrow brown", 72, 64, 24),
+			// Moldorm
+			new SpriteColor("Moldorm yellow", 168, 152, 24),
+			new SpriteColor("Moldorm's buggy eyes red", 232, 128, 104),
+			// Agahnim
+			new SpriteColor("Agahnim's robe green", 144, 208, 56),
+			new SpriteColor("Agahnim's robe trim purple", 192, 64, 128),
+			new SpriteColor("Blue ball blue", 120, 144, 248),
+			// Helmasaur
+			new SpriteColor("Helmasaur orange", 208, 56, 40),
+			new SpriteColor("Helmasaur's mask blue", 120, 112, 232),
+			// Arrghus
+			new SpriteColor("Arrghus red", 176, 64, 56),
+			new SpriteColor("Arrghus puff orange", 216, 88, 0),
+			// Mothula
+			new SpriteColor("Mothula blue", 120, 112, 232),
+			new SpriteColor("Mothula orange", 216, 88, 32),
+			// Blind
+			new SpriteColor("Blind red", 144, 48, 24),
+			new SpriteColor("Blind laser orange", 248, 112, 48),
+			// Kholdstare
+			new SpriteColor("Kholdstare pink", 240, 160, 216),
+			new SpriteColor("Kholdstare's shell blue", 88, 176, 232),
+			new SpriteColor("Falling ice blue", 160, 200, 248),
+			// Vitreous
+			new SpriteColor("Vitreous green", 80, 192, 144),
+			new SpriteColor("Vitreous goo green", 72, 152, 88),
+			// Trinexx
+			new SpriteColor("Fire nexx red", 160, 0, 40),
+			new SpriteColor("Ice nexx blue", 72, 80, 208),
+			new SpriteColor("Stone nexx gray", 120, 136, 144),
+			// Ganon
+			new SpriteColor("Ganon blue", 80, 136, 168),
+			new SpriteColor("Ganon cape red", 184, 48, 16),
+			new SpriteColor("Ganon tunic brown", 136, 96, 8),
+			new SpriteColor("Ganon's stunning blue", 96, 184, 192)
 	};
+
+	// end color constants
 }
