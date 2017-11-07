@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -305,7 +306,10 @@ public class SpriteMe {
 				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Map.png")
 			);
 		peeps.setIcon(mapIcon);
-		buildAbout();
+		
+		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
+		buildAbout(aboutFrame);
+
 		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true)); // do it here because short
 		helpMenu.add(peeps);
 
@@ -532,8 +536,7 @@ public class SpriteMe {
 	}
 
 	// about frame built here
-	static final JFrame aboutFrame = new JFrame("Acknowledgements");
-	private static void buildAbout() {
+	private static void buildAbout(JDialog aboutFrame) {
 		final TextArea peepsList = new TextArea("", 0,0,TextArea.SCROLLBARS_VERTICAL_ONLY);
 		peepsList.setEditable(false);
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
