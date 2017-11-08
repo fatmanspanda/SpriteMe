@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import SpriteManipulator.SpriteManipulator;
+import SpriteManipulator.*;
 
 public class IndexedSprite extends Component {
 	private static final long serialVersionUID = -6792579285233025438L;
@@ -55,12 +55,15 @@ public class IndexedSprite extends Component {
 	/**
 	 * Makes an SPR data file
 	 */
-	public byte[] makeSprite() {
+	public SPRFile makeSprite() {
 		makeRaster();
 		byte[][][] ebe = SpriteManipulator.get8x8(raster);
+		byte[] sprData = SpriteManipulator.export8x8ToSPR(ebe);
 		int[] RGB9 = pal.toRGB9Array();
 		byte[] palData = SpriteManipulator.getPalDataFromArray(RGB9);
-		return SpriteManipulator.exportToSPR(ebe, palData);
+		byte[] glovesData = SpriteManipulator.getGlovesDataFromArray(RGB9);
+		SPRFile mySprite = new SPRFile(sprData, palData, glovesData);
+		return mySprite;
 	}
 
 	/**

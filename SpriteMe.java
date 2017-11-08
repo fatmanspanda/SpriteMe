@@ -449,14 +449,26 @@ public class SpriteMe {
 		expSpr.addActionListener(
 				arg0 -> {
 					if (lastSpritePath.isSet()) {
-						byte[] data = mySprite.makeSprite();
+						SPRFile newSPR = mySprite.makeSprite();
 						try {
-							SpriteManipulator.writeSPR(data, lastSpritePath.toString());
+							SpriteManipulator.writeSPRFile(lastSpritePath.toString(), newSPR);
 						} catch (IOException e) {
 							JOptionPane.showMessageDialog(frame,
 									"Error exporting to a SPR file.",
 									"WOW",
 									JOptionPane.WARNING_MESSAGE);
+						} catch (NotSPRException e) {
+							JOptionPane.showMessageDialog(frame,
+									"File is not SPR file",
+									"Not my job",
+									JOptionPane.WARNING_MESSAGE);
+							return;
+						} catch (BadChecksumException e) {
+							JOptionPane.showMessageDialog(frame,
+									"Bad checksum; file may be corrupted",
+									"Invalid",
+									JOptionPane.WARNING_MESSAGE);
+							return;
 						}
 					} else { // if nowhere to export, click "export to" to prompt a file selection
 						expSprTo.doClick();
@@ -514,9 +526,9 @@ public class SpriteMe {
 						return;
 					}
 
-					byte[] data = mySprite.makeSprite();
+					SPRFile newSPR = mySprite.makeSprite();
 					try {
-						SpriteManipulator.patchRom(data, n);
+						SpriteManipulator.patchRom(n, newSPR);
 					} catch (IOException e) {
 						JOptionPane.showMessageDialog(frame,
 								"No ROM found",
