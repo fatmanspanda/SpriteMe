@@ -37,7 +37,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import SpriteManipulator.*;
 
 public class SpriteMe {
-	private static final String VERSION = "v0.0.0";
+	// version numbering
+	private static final byte VERSION = 1;
+	private static final String VERSION_TAG = "v0.0.0";
+	private static final byte SME_VERSION = 1; // file type specification
+
+	// class constants
 	public static final int SPLOTCH_SIZE = 16;
 	public static final Dimension SPLOTCH_DIMENSION = new Dimension(SPLOTCH_SIZE, SPLOTCH_SIZE);
 	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
@@ -101,7 +106,7 @@ public class SpriteMe {
 
 		// main window
 		final Dimension d = new Dimension(1000,750);
-		final JFrame frame = new JFrame("Sprite Me " + VERSION);
+		final JFrame frame = new JFrame("Sprite Me " + VERSION_TAG);
 		final JPanel controls = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
 		final PresetSplotchChooser presets = new PresetSplotchChooser(frame);
