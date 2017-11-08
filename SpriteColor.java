@@ -179,7 +179,8 @@ public class SpriteColor {
 			new SpriteColor("Sosuke's black", 16, 16, 16),
 			new SpriteColor("Bazly's coral", 248, 128, 80),
 			new SpriteColor("Veetorp's green", 72, 208, 112),
-			new SpriteColor("Glan's blue", 32, 168, 248)
+			new SpriteColor("Glan's blue", 32, 168, 248),
+			new SpriteColor("Karkat's eyes", 16, 96, 48)
 	};
 
 	// A beautiful rainbow
@@ -278,8 +279,8 @@ public class SpriteColor {
 			new SpriteColor("Vanilla red mail sleeves", 56, 136, 64),
 			// other
 			new SpriteColor("Vanilla bunny skin", 144, 24, 48),
-			new SpriteColor("Vanilla power gloves", 181, 186, 165),
-			new SpriteColor("Vanilla mitts", 181, 219, 0)
+			new SpriteColor("Vanilla power gloves", 184, 184, 168),
+			new SpriteColor("Vanilla mitts", 176, 216, 0)
 	};
 
 	// Boss colors
