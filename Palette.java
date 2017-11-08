@@ -156,24 +156,27 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * Sets up GUI.
+	 * Sets up GUI
 	 */
 	private void initializeDisplay() {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
 		w.fill = GridBagConstraints.HORIZONTAL;
+
 		w.gridy = 0;
+		w.gridx = 0;
 		JLabel indexWord = new JLabel("Index #", SwingConstants.RIGHT);
 		indexWord.setBorder(rightPad);
 		this.add(indexWord, w);
+
 		w.gridx = 1;
 		for (int i = 0; i < 18; i++, w.gridx++) {
 			this.add(new JLabel(INDEX_NAMES[i], SwingConstants.CENTER), w);
 		}
 
 		w.gridy = 1;
-		w.ipadx=2;
-		w.ipady=2;
+		w.ipady = 2;
+		w.ipadx = 2;
 		for (int i = 0; i < 4; i++, w.gridy++) {
 			w.gridx = 0;
 			JLabel mailName = new JLabel(SpriteMe.MAIL_NAMES[i], SwingConstants.RIGHT);
