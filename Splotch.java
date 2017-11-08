@@ -46,6 +46,13 @@ public class Splotch extends JComponent {
 	}
 
 	/**
+	 * @return The {@code SpriteColor} name.
+	 */
+	public String getColorName() {
+		return color.toString();
+	}
+
+	/**
 	 * @return The RGB coordinates currently associated with this splotch.
 	 */
 	public int[] getColorVals() {

@@ -79,7 +79,7 @@ public class SplotchEditor extends Container {
 		victim = c;
 		enabled = e;
 		RGB = c.getColorVals();
-		originalColor = new SpriteColor(c.getName(), RGB[0], RGB[1], RGB[2]); // new object so it never changes
+		originalColor = new SpriteColor(c.getColorName(), RGB[0], RGB[1], RGB[2]); // new object so it never changes
 		sliders = new JSlider[] {
 				new JSlider(JSlider.HORIZONTAL, 0, 31, RGB[0]/8),
 				new JSlider(JSlider.HORIZONTAL, 0, 31, RGB[1]/8),
@@ -89,6 +89,7 @@ public class SplotchEditor extends Container {
 		vals = new JFormattedTextField[3];
 		NumberFormat rgbFormat = NumberFormat.getNumberInstance();
 		rgbFormat.setMaximumFractionDigits(3);
+
 		vals[0] = new JFormattedTextField(rgbFormat);
 		vals[1] = new JFormattedTextField(rgbFormat);
 		vals[2] = new JFormattedTextField(rgbFormat);
@@ -102,9 +103,12 @@ public class SplotchEditor extends Container {
 		redT.setValue(RGB[0]);
 		greenT.setValue(RGB[1]);
 		blueT.setValue(RGB[2]);
+
 		p.setColor(RGB);
 		initializeDisplay();
 		addListeners();
+
+		reset.doClick();
 	}
 
 	/**
