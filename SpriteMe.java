@@ -38,9 +38,11 @@ import SpriteManipulator.*;
 
 public class SpriteMe {
 	// version numbering
+	// Time stamp: 7 Nov 2017
 	private static final byte VERSION = 1;
 	private static final String VERSION_TAG = "v0.0.0";
 	private static final byte SME_VERSION = 1; // file type specification
+	private static final byte[] SME_FLAG = { 'T', 'H', 'I', 'N', 'K', 'I', 'N', 'G' };
 
 	// class constants
 	public static final int SPLOTCH_SIZE = 16;
