@@ -225,7 +225,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new byte[] { 0 },
 			new String[] {},
 			0
-			);
+		);
 
 	/*
 	 * Main template
@@ -245,20 +245,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new byte[] { 5, 1, 2, 4, 3, 7, 15 },
 			new String[] { "","","","","","","" },
 			0
-			);
-
-	public static final SpritePart TEST = new SpritePart(
-			"Body",
-			"/SpriteMe/Images/Weird Chocolate Link.png",
-			convertArray(new int[][] { 
-						{ 40, 40, 40 }, // black outline
-						{ 240, 160, 104 }, // skin
-						{ 184, 104, 32} // skin shade
-					}),
-			new byte[] { 5, 4, 3 },
-			new String[] { "Outline", "Base color", "Shading" },
-			0
-			);
+		);
 
 	/*
 	 * Hair
@@ -270,7 +257,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new byte[] { 0 },
 			new String[] {},
 			0
-			);
+		);
 
 	/*
 	 * Accessories
@@ -285,5 +272,16 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new byte[] { 5, 15 },
 			new String[] { "Frame", "Lens" },
 			100
-			);
+		);
+
+	public static final SpritePart EYEPATCH = new SpritePart(
+			"Eyepatch",
+			"/SpriteMe/Images/Eyepatch template.png",
+			convertArray(new int[][] { 
+						{ 40, 40, 40 }, // black outline
+					}),
+			new byte[] { 5 },
+			new String[] { "Eye patch color" },
+			100
+		);
 }

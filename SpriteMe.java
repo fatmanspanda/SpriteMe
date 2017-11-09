@@ -65,7 +65,9 @@ public class SpriteMe {
 	};
 
 	public static final SpritePart[] ACCESSORIES = new SpritePart[] {
-		SpritePart.NOTHING, SpritePart.GLASSES,	
+		SpritePart.NOTHING,
+		SpritePart.GLASSES,
+		SpritePart.EYEPATCH
 	};
 
 	// file type constants
