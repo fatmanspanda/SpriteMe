@@ -154,7 +154,7 @@ public class SpriteColor {
 	 */
 	public static final SpriteColor WHITE_SKIN_LT =
 			new SpriteColor("White skin", 240, 160, 104);
-	public static final SpriteColor LEIUTENANT_FACE = WHITE_SKIN_LT;
+	public static final SpriteColor LIEUTENANT_FACE = WHITE_SKIN_LT;
 	public static final SpriteColor WHITE_SKIN_DK =
 			new SpriteColor("White skin shade", 184, 104, 32);
 	public static final SpriteColor PALE_SKIN =
