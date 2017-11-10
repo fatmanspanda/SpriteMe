@@ -280,7 +280,7 @@ public class SpriteColor {
 			// other
 			new SpriteColor("Vanilla bunny skin", 144, 24, 48),
 			new SpriteColor("Vanilla power gloves", 184, 184, 168),
-			new SpriteColor("Vanilla mitts", 176, 216, 0)
+			new SpriteColor("Vanilla mitts", 184, 224, 0)
 	};
 
 	// Boss colors
