@@ -25,18 +25,17 @@ public class IndexedSprite extends Component {
 
 	// Specific body parts
 	private final SpritePart body = SpritePart.BODY;
-	private SpritePart hair;
+	private SpritePart hair = SpritePart.BALD;
 	private SpritePart acc1;
 	private SpritePart acc2;
 	private SpritePart acc3;
-	private static final Dimension d = new Dimension(200, 448);
 
+	private static final Dimension d = new Dimension(200, 448);
 	/**
 	 * Creates a new editable sprite object connected to a palette.
 	 * @param p - Palette
 	 */
 	public IndexedSprite(Palette p) {
-		parts.add(body);
 		pal = p;
 		this.setPreferredSize(d);
 		this.setMinimumSize(d);
@@ -97,26 +96,29 @@ public class IndexedSprite extends Component {
 		byte[][] palette = pal.toArray();
 		// make raster
 		raster = new byte[IRASTERSIZE];
-		// sort by z-index
+
+		// reset parts
 		parts.clear();
-		parts.add(body);
-		parts.add(acc1);
-		for (Object e : parts) {
-			if (e == null) {
-				parts.remove(e);
+		SpritePart[] allParts = new SpritePart[] {
+				body, hair, acc1, acc2, acc3
+		};
+		for (int i = 0; i < allParts.length; i++) {
+			SpritePart p = allParts[i];
+			if (p != null && !p.isBlankSheet) {
+				parts.add(p);
 			}
 		}
-		Collections.sort(parts);
 
+		// sort by z-index
+		Collections.sort(parts);
+	
 		// create index wrapper
 		// just paste over old values, nothing fancy
 		for (SpritePart p : parts) {
-			if (p != null) {
-				byte[] partRaster = p.getRaster();
-				for (int i = 0; i < IRASTERSIZE; i++) {
-					if (partRaster[i] != 0) {
-						raster[i] = partRaster[i];
-					}
+			byte[] partRaster = p.getRaster();
+			for (int i = 0; i < IRASTERSIZE; i++) {
+				if (partRaster[i] != 0) {
+					raster[i] = partRaster[i];
 				}
 			}
 		}
@@ -141,7 +143,7 @@ public class IndexedSprite extends Component {
 	} // end make raster
 
 	/**
-	 * Remakes the raster and images.
+	 * Remakes the raster and images
 	 */
 	private void refreshImage() {
 		makeRaster();

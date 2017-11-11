@@ -183,7 +183,7 @@ public class SpriteMe {
 		framesWrap.add(pal);
 
 		// sprite appearance
-		IndexedSprite mySprite = new IndexedSprite(pal);
+		final IndexedSprite mySprite = new IndexedSprite(pal);
 		l.putConstraint(SpringLayout.NORTH, mySprite, 5,
 				SpringLayout.NORTH, fullWrap);
 		l.putConstraint(SpringLayout.WEST, mySprite, 5,
@@ -213,12 +213,12 @@ public class SpriteMe {
 				SpringLayout.EAST, framesWrap);
 		framesWrap.add(colorEditor);
 
-		// index map
+/*		// index map
 		l.putConstraint(SpringLayout.SOUTH, indexMapEditor, -2,
 				SpringLayout.SOUTH, fullWrap);
 		l.putConstraint(SpringLayout.EAST, indexMapEditor, -2,
 				SpringLayout.EAST, fullWrap);
-		fullWrap.add(indexMapEditor);
+		fullWrap.add(indexMapEditor);*/
 
 		// menu
 		final JMenuBar menu = new JMenuBar();

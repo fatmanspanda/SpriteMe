@@ -41,6 +41,7 @@ public class SpritePartEditor extends Container {
 	// keeps track which area we're editing
 	// if that area changes items, we remove the remapper
 	private JComboBox<?> selectorUsed;
+
 	/**
 	 * Creates a new {@code SpritePartEditor}
 	 * attached to a {@link Palette} for communication.
@@ -142,7 +143,7 @@ public class SpritePartEditor extends Container {
 				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.NORTH, helpText, 0,
 				SpringLayout.NORTH, this);
-		this.add(helpText);
+		//this.add(helpText);
 	
 		newPaletteSet();
 	} // end display initialization
