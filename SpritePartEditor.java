@@ -16,7 +16,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-// TODO: Revert all changes
 public class SpritePartEditor extends Container {
 	// class constants
 	private static final long serialVersionUID = 3880283257828608241L;
@@ -195,16 +194,6 @@ public class SpritePartEditor extends Container {
 				m.refreshPalette();
 			}
 		} catch (Exception e) {}
-	}
-
-	/**
-	 * Reverts all remappings to the default indices of the object.
-	 */
-	private void revertAllChanges() {
-		for (int i = 0; i < colors; i++) {
-			colorMap[i] = originalColorMap[i];
-		}
-		fireSpriteChangeEvent();
 	}
 
 	/*
