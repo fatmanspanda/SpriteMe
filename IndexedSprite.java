@@ -10,8 +10,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JComboBox;
-
 import SpriteManipulator.*;
 
 public class IndexedSprite extends Component {
@@ -189,9 +187,5 @@ public class IndexedSprite extends Component {
 		while(listening.hasNext()) {
 			(listening.next()).eventReceived(s);
 		}
-	}
-
-	public static void pickAcc(IndexedSprite s, SpritePart a, int x) {
-
 	}
 }
