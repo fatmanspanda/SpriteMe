@@ -76,7 +76,7 @@ public class SpriteMe {
 
 	// file type constants
 	static final String[] SPRITE_ME_EXTS = { "sme" }; // SpriteMe files
-	static final String[] EXPORT_EXTS = { SPRFile.EXTENSION }; // sprite files
+	static final String[] EXPORT_EXTS = { ZSPRFile.EXTENSION }; // sprite files
 	static final String[] ROM_EXTS = { "sfc" }; // ROM
 
 	// main
@@ -264,7 +264,7 @@ public class SpriteMe {
 		fileMenu.addSeparator();
 
 		// ZSPR quicksave
-		final JMenuItem expSpr = new JMenuItem("Export to " + SPRFile.EXTENSION);
+		final JMenuItem expSpr = new JMenuItem("Export to " + ZSPRFile.EXTENSION);
 		ImageIcon smallKey = new ImageIcon(
 				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Small key.png")
 			);
@@ -274,7 +274,7 @@ public class SpriteMe {
 		fileMenu.add(expSpr);
 
 		// ZSPR save
-		final JMenuItem expSprTo = new JMenuItem("Export to " + SPRFile.EXTENSION + " + as...");
+		final JMenuItem expSprTo = new JMenuItem("Export to " + ZSPRFile.EXTENSION + " + as...");
 		ImageIcon smallKeyAs = new ImageIcon(
 				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Small key as.png")
 			);
@@ -343,7 +343,7 @@ public class SpriteMe {
 		FileNameExtensionFilter smeFilter =
 				new FileNameExtensionFilter("SpriteMe files (.sme)", SPRITE_ME_EXTS);
 		FileNameExtensionFilter sprFilter =
-				new FileNameExtensionFilter("ALttP Sprite files (" + SPRFile.EXTENSION + ")", EXPORT_EXTS);
+				new FileNameExtensionFilter("ALttP Sprite files (" + ZSPRFile.EXTENSION + ")", EXPORT_EXTS);
 		FileNameExtensionFilter romFilter =
 				new FileNameExtensionFilter("ROM files (.sfc)", ROM_EXTS);
 
@@ -457,17 +457,17 @@ public class SpriteMe {
 		expSpr.addActionListener(
 				arg0 -> {
 					if (lastSpritePath.isSet()) {
-						SPRFile newSPR = mySprite.makeSprite();
+						ZSPRFile newSPR = mySprite.makeSprite();
 						try {
 							SpriteManipulator.writeSPRFile(lastSpritePath.toString(), newSPR);
 						} catch (IOException e) {
 							JOptionPane.showMessageDialog(frame,
-									"Error exporting to a " + SPRFile.EXTENSION + " file.",
+									"Error exporting to a " + ZSPRFile.EXTENSION + " file.",
 									"WOW",
 									JOptionPane.WARNING_MESSAGE);
 						} catch (NotZSPRException e) {
 							JOptionPane.showMessageDialog(frame,
-									"File is not a " + SPRFile.EXTENSION + " file",
+									"File is not a " + ZSPRFile.EXTENSION + " file",
 									"Not my job",
 									JOptionPane.WARNING_MESSAGE);
 							return;
@@ -501,7 +501,7 @@ public class SpriteMe {
 					} finally {
 						if (!SpriteManipulator.testFileType(n,EXPORT_EXTS)) {
 							if(!n.contains(".") && n.length() > 0) { // no filetype, append zspr
-								n = n + "." + SPRFile.EXTENSION;
+								n = n + "." + ZSPRFile.EXTENSION;
 							} else { // otherwise break out
 								return;
 							}
@@ -534,7 +534,7 @@ public class SpriteMe {
 						return;
 					}
 
-					SPRFile newSPR = mySprite.makeSprite();
+					ZSPRFile newSPR = mySprite.makeSprite();
 					try {
 						SpriteManipulator.patchRom(n, newSPR);
 					} catch (IOException e) {

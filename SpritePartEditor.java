@@ -211,7 +211,6 @@ public class SpritePartEditor extends Container {
 	/**
 	 * Reverts all remappings to the default indices of the object.
 	 */
-	@SuppressWarnings("unused")
 	private void revertAllChanges() {
 		for (int i = 0; i < colors; i++) {
 			colorMap[i] = originalColorMap[i];

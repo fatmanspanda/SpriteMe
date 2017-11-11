@@ -53,16 +53,16 @@ public class IndexedSprite extends Component {
 	}
 
 	/**
-	 * Makes an SPR data file
+	 * Makes an ZSPR data file
 	 */
-	public SPRFile makeSprite() {
+	public ZSPRFile makeSprite() {
 		makeRaster();
 		byte[][][] ebe = SpriteManipulator.get8x8(raster);
 		byte[] sprData = SpriteManipulator.export8x8ToSPR(ebe);
 		int[] RGB9 = pal.toRGB9Array();
 		byte[] palData = SpriteManipulator.getPalDataFromArray(RGB9);
 		byte[] glovesData = SpriteManipulator.getGlovesDataFromArray(RGB9);
-		SPRFile mySprite = new SPRFile(sprData, palData, glovesData);
+		ZSPRFile mySprite = new ZSPRFile(sprData, palData, glovesData);
 		return mySprite;
 	}
 
@@ -101,7 +101,7 @@ public class IndexedSprite extends Component {
 		parts.clear();
 		parts.add(body);
 		parts.add(acc1);
-		for (Object e : parts.toArray()) {
+		for (Object e : parts) {
 			if (e == null) {
 				parts.remove(e);
 			}
