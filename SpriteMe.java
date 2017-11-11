@@ -36,6 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import SpriteManipulator.*;
 
+// TODO: Multiple sprite part editors? Good use of space maybe?
 public class SpriteMe {
 	// version numbering
 	// Time stamp: 7 Nov 2017
@@ -389,17 +390,19 @@ public class SpriteMe {
 			);
 
 		acc1Pick.addItemListener(
-				arg0 -> mySprite.setAccessory((SpritePart) acc1Pick.getSelectedItem(), 1)
+				arg0 -> {
+					SpritePart picked = (SpritePart) acc1Pick.getSelectedItem();
+					mySprite.setAccessory(picked, 1);
+					if (indexMapEditor.compareSelectors(acc1Pick)) {
+						indexMapEditor.editNewPart(picked, acc1Pick);
+					}
+				}
 			);
 
 		acc1Edit.addActionListener(
 			arg0 ->	{
 				SpritePart picked = (SpritePart) acc1Pick.getSelectedItem();
-				if (picked == SpritePart.NOTHING) {
-					indexMapEditor.editNewPart(null);
-				} else {
-					indexMapEditor.editNewPart(picked);
-				}
+				indexMapEditor.editNewPart(picked, acc1Pick);
 			});
 
 		// Action listeners for menu
@@ -585,15 +588,19 @@ public class SpriteMe {
 	 */
 	private static class FakeString {
 		private String s;
+
 		public FakeString(String s) {
 			this.s = s;
 		}
+
 		public void changeString(String s) {
 			this.s = s;
 		}
+
 		public String toString() {
 			return this.s;
 		}
+
 		public boolean isSet() {
 			return this.s != null;
 		}

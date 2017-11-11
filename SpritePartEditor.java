@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
@@ -36,7 +37,10 @@ public class SpritePartEditor extends Container {
 	private JPanel paletteArea;
 	private SpringLayout l = new SpringLayout();
 	private final JLabel partLbl = new JLabel("Nothing");
-
+	
+	// keeps track which area we're editing
+	// if that area changes items, we remove the remapper
+	private JComboBox<?> selectorUsed;
 	/**
 	 * Creates a new {@code SpritePartEditor}
 	 * attached to a {@link Palette} for communication.
@@ -50,7 +54,7 @@ public class SpritePartEditor extends Container {
 		this.setMinimumSize(prefDim);
 		setPalette();
 		newPaletteSet();
-		editNewPart(null);
+		editNewPart(null,null);
 		initializeDisplay();
 	}
 
@@ -58,14 +62,15 @@ public class SpritePartEditor extends Container {
 	 * Attaches a new {@code SpritePart} to edit.
 	 * @param p
 	 */
-	public void editNewPart(SpritePart p) {
-		if (p == null) { // remove null parts
+	public void editNewPart(SpritePart p, JComboBox<?> selector) {
+		if (p == null || p.isBlankSheet) { // remove null and empty parts
 			partLbl.setText("Nothing");
 			this.remove(paletteArea);
 			this.revalidate();
 			this.repaint();
 			return;
 		}
+		selectorUsed = selector;
 		curPart = p;
 		colors = p.colorCount();
 		originalColorMap = new byte[colors];
@@ -77,6 +82,20 @@ public class SpritePartEditor extends Container {
 		partLbl.setText(p.toString());
 		setPalette();
 		newPaletteSet();
+	}
+
+	/**
+	 * Removes remapper for current part.
+	 */
+	public void clearPart() {
+		editNewPart(null, null);
+	}
+
+	/**
+	 * Sees if selectors match.
+	 */
+	public boolean compareSelectors(JComboBox<?> selector) {
+		return selectorUsed == selector;
 	}
 
 	/**
@@ -192,6 +211,7 @@ public class SpritePartEditor extends Container {
 	/**
 	 * Reverts all remappings to the default indices of the object.
 	 */
+	@SuppressWarnings("unused")
 	private void revertAllChanges() {
 		for (int i = 0; i < colors; i++) {
 			colorMap[i] = originalColorMap[i];

@@ -24,7 +24,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 	private final String[] colorAreas;
 	protected final int z;
 	private final byte[] raster;
-
+	protected final boolean isBlankSheet;
 	// invariable size
 	private static final int RASTERSIZE = SpriteManipulator.INDEXED_RASTER_SIZE;
 
@@ -39,14 +39,16 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 * @param areas - {@code String} names for each color index.
 	 * @param zIndex - Display priority of the part, relative to all other parts. Higher values are drawn last.
 	 */
-	private SpritePart(String name, String imagePath, byte[][] colorIndexMap,
-						byte[] paletteIndexMap, String[] areas, int zIndex) {
+	private SpritePart(String name, String imagePath,
+			byte[][] colorIndexMap, byte[] paletteIndexMap,
+			String[] areas, int zIndex, boolean isBlank) {
 		n = name;
 		path = imagePath;
 		colorMap = colorIndexMap;
 		defaultIndexMap = paletteIndexMap;
 		indexMap = new byte[defaultIndexMap.length];
 		colorAreas = areas;
+		isBlankSheet = isBlank;
 		// deep copy
 		resetIndexMapping();		
 		z = zIndex;
@@ -54,6 +56,21 @@ public final class SpritePart implements Comparable<SpritePart> {
 		getResourceAndRaster();
 	}
 
+	/**
+	 * Creates a new {@code SpritePart}, defaulting blankness to {@code false}.
+	 * @param name
+	 * @param imagePath
+	 * @param colorIndexMap
+	 * @param paletteIndexMap
+	 * @param areas
+	 * @param zIndex
+	 * @param isBlank
+	 */
+	private SpritePart(String name, String imagePath,
+			byte[][] colorIndexMap, byte[] paletteIndexMap, String[] areas,
+			int zIndex) {
+		this(name, imagePath, colorIndexMap, paletteIndexMap, areas, zIndex, false);
+	}
 	/**
 	 * Undoes all custom indexing performed by the user.
 	 */
@@ -224,7 +241,8 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new byte[][] { {1,1,1} },
 			new byte[] { 0 },
 			new String[] {},
-			0
+			0,
+			true // blank sheet
 		);
 
 	/*
@@ -256,7 +274,8 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new byte[][] { {1,1,1} },
 			new byte[] { 0 },
 			new String[] {},
-			0
+			0,
+			true // blank sheet
 		);
 
 	/*
