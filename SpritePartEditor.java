@@ -21,11 +21,7 @@ public class SpritePartEditor extends Container {
 	// class constants
 	private static final long serialVersionUID = 3880283257828608241L;
 	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
-	private static final Dimension prefDim = new Dimension(400,250);
-	private static String[] INSTRUCTION_STYLE = {
-			"padding: 10px 10px 10px 0px",
-			"width: 230px"
-	};
+	private static final Dimension prefDim = new Dimension(400,20);
 
 	// local vars
 	private byte[] originalColorMap = {};
@@ -36,18 +32,22 @@ public class SpritePartEditor extends Container {
 	private MiniPalette[] palettes;
 	private JPanel paletteArea;
 	private SpringLayout l = new SpringLayout();
-	private final JLabel partLbl = new JLabel("Nothing");
-	
-	// keeps track which area we're editing
-	// if that area changes items, we remove the remapper
-	private JComboBox<?> selectorUsed;
+	private final String partName;
+	private final JComboBox<SpritePart> selector;
+	private final Picker pick;
 
 	/**
-	 * Creates a new {@code SpritePartEditor}
-	 * attached to a {@link Palette} for communication.
-	 * @param p
+	 * Creates a new {@code SpritePartEditor}.
+	 * attached to a {@link Palette} and {@link JComboBox} for communication.
+	 * @param name - Name of section edited
+	 * @param p - palette to communicate with
+	 * @param selector - {@code JComboBox} that chooses this part.
+	 * @param pick - a defined {@link Picker} interface containing the function that
+	 * controls what happens when the combobox is changed
 	 */
-	public SpritePartEditor(Palette p) {
+
+	public SpritePartEditor(String name, Palette p,
+			JComboBox<SpritePart> selector, Picker pick) {
 		super();
 		pal = p;
 		this.setLayout(l);
@@ -55,7 +55,10 @@ public class SpritePartEditor extends Container {
 		this.setMinimumSize(prefDim);
 		setPalette();
 		newPaletteSet();
-		editNewPart(null,null);
+		this.selector = selector;
+		this.pick = pick;
+		partName = name;
+		editNewPart(null);
 		initializeDisplay();
 	}
 
@@ -63,15 +66,15 @@ public class SpritePartEditor extends Container {
 	 * Attaches a new {@code SpritePart} to edit.
 	 * @param p
 	 */
-	public void editNewPart(SpritePart p, JComboBox<?> selector) {
+	public void editNewPart(SpritePart p) {
 		if (p == null || p.isBlankSheet) { // remove null and empty parts
-			partLbl.setText("Nothing");
 			this.remove(paletteArea);
+			this.setSize(prefDim);
+			this.setPreferredSize(prefDim);
 			this.revalidate();
 			this.repaint();
 			return;
 		}
-		selectorUsed = selector;
 		curPart = p;
 		colors = p.colorCount();
 		originalColorMap = new byte[colors];
@@ -80,23 +83,18 @@ public class SpritePartEditor extends Container {
 			originalColorMap[i] = p.colorIndex(i);
 			colorMap[i] = p.colorIndex(i);
 		}
-		partLbl.setText(p.toString());
 		setPalette();
 		newPaletteSet();
+		Dimension f = new Dimension(400, colors * SpriteMe.SPLOTCH_SIZE + 40);
+		this.setSize(f);
+		this.setPreferredSize(f);
 	}
 
 	/**
 	 * Removes remapper for current part.
 	 */
 	public void clearPart() {
-		editNewPart(null, null);
-	}
-
-	/**
-	 * Sees if selectors match.
-	 */
-	public boolean compareSelectors(JComboBox<?> selector) {
-		return selectorUsed == selector;
+		editNewPart(null);
 	}
 
 	/**
@@ -112,39 +110,29 @@ public class SpritePartEditor extends Container {
 	}
 
 	/**
-	 * Sets up GUI.
+	 * Sets up GUI
 	 */
 	public void initializeDisplay() {
-		final JLabel editingPart = new JLabel("Editing map for : ");
-		l.putConstraint(SpringLayout.EAST, editingPart, 0,
-				SpringLayout.HORIZONTAL_CENTER, this);
-		l.putConstraint(SpringLayout.SOUTH, editingPart, 0,
-				SpringLayout.VERTICAL_CENTER, this);
-		this.add(editingPart);
-		
-		l.putConstraint(SpringLayout.WEST, partLbl, 0,
-				SpringLayout.EAST, editingPart);
-		l.putConstraint(SpringLayout.SOUTH, partLbl, 0,
-				SpringLayout.VERTICAL_CENTER, this);
-		this.add(partLbl);
-		
-		final JLabel helpText = new JLabel();
+		final JLabel nameLbl = new JLabel(partName + ":");
+		l.putConstraint(SpringLayout.EAST, nameLbl, -6,
+				SpringLayout.WEST, selector);
+		l.putConstraint(SpringLayout.VERTICAL_CENTER, nameLbl, 0,
+				SpringLayout.VERTICAL_CENTER, selector);
+		this.add(nameLbl);
 
-		helpText.setText("<html>" +
-				"<div style=\"" + String.join(";", INSTRUCTION_STYLE) + "\">" +
-				"Use this area to pick the colors of each part of an item. " +
-				"<br /><br />" +
-				"Note that anything mapped to index 13 may change when gloves or mitts are obtained." +
-				"<br />" +
-				"Anything mapped to index 0 will be fully transparent." +
-				"</div>" +
-				"</html>");
-		l.putConstraint(SpringLayout.EAST, helpText, 0,
+		l.putConstraint(SpringLayout.EAST, selector, 0,
 				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.NORTH, helpText, 0,
+		l.putConstraint(SpringLayout.NORTH, selector, 0,
 				SpringLayout.NORTH, this);
-		//this.add(helpText);
-	
+		this.add(selector);
+
+		selector.addItemListener(
+				arg0 -> {
+					SpritePart picked = (SpritePart) selector.getSelectedItem();
+					pick.pickThis(picked);
+					this.editNewPart(picked);
+				}
+			);
 		newPaletteSet();
 	} // end display initialization
 
@@ -183,7 +171,7 @@ public class SpritePartEditor extends Container {
 		l.putConstraint(SpringLayout.EAST, paletteArea, 0,
 				SpringLayout.EAST, this);
 		l.putConstraint(SpringLayout.NORTH, paletteArea, 0,
-				SpringLayout.VERTICAL_CENTER, this);
+				SpringLayout.SOUTH, selector);
 		this.add(paletteArea);
 		this.revalidate();
 	}

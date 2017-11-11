@@ -3,8 +3,6 @@ package SpriteMe;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -12,9 +10,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -24,19 +20,16 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import SpriteManipulator.*;
 
-// TODO: Multiple sprite part editors? Good use of space maybe?
 public class SpriteMe {
 	// version numbering
 	// Time stamp: 7 Nov 2017
@@ -51,7 +44,11 @@ public class SpriteMe {
 	// class constants
 	public static final int SPLOTCH_SIZE = 16;
 	public static final Dimension SPLOTCH_DIMENSION = new Dimension(SPLOTCH_SIZE, SPLOTCH_SIZE);
-	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
+
+	private static String[] INSTRUCTION_STYLE = {
+			"padding: 10px 10px 10px 0px",
+			"width: 230px"
+	};
 
 	/*
 	 * Combo box constants
@@ -115,67 +112,122 @@ public class SpriteMe {
 		// main window
 		final Dimension d = new Dimension(1000,750);
 		final JFrame frame = new JFrame("Sprite Me " + VERSION_TAG);
-		final JPanel controls = new JPanel(new GridBagLayout());
-		GridBagConstraints w = new GridBagConstraints();
-		final PresetSplotchChooser presets = new PresetSplotchChooser(frame);
-		w.gridy = -1;
-		w.fill = GridBagConstraints.HORIZONTAL;
 
+		// format main wrapper
+		final Container fullWrap = new Container();
+		final Dimension cd = new Dimension(600,500);
+		final Dimension cbd = new Dimension(120, 20);
+		SpringLayout l = new SpringLayout();
+		fullWrap.setLayout(l);
+		fullWrap.setPreferredSize(cd);
+		fullWrap.setMinimumSize(cd);
+
+		final PresetSplotchChooser presets = new PresetSplotchChooser(frame);
+		Palette pal = new Palette();
+		final IndexedSprite mySprite = new IndexedSprite(pal);
+
+		final JLabel helpText = new JLabel();
+		helpText.setText("<html>" +
+				"<div style=\"" + String.join(";", INSTRUCTION_STYLE) + "\">" +
+				"Use this area to pick and customize your sprite's individual parts. " +
+				"When applicable, you may use additional controls to reindex the " +
+				"colors of individual parts." +
+				"<br /><br />" +
+				"Note that anything mapped to index 13 may change when gloves or mitts are obtained." +
+				"<br />" +
+				"Anything mapped to index 0 will be fully transparent." +
+				"</div>" +
+				"</html>");
+		l.putConstraint(SpringLayout.EAST, helpText, 0,
+				SpringLayout.EAST, fullWrap);
+		l.putConstraint(SpringLayout.NORTH, helpText, 0,
+				SpringLayout.NORTH, fullWrap);
+		fullWrap.add(helpText);
+
+		/*
+		 * Customization controls
+		 */
 		// mail preview
-		final JLabel mailLbl = new JLabel("Mail preview", SwingConstants.RIGHT);
+		final JLabel mailLbl = new JLabel("Mail preview:", SwingConstants.RIGHT);
 		final JComboBox<String> mailPick = new JComboBox<String>(MAIL_NAMES);
-		mailLbl.setBorder(rightPad);
-		w.gridy++;
-		w.gridx = 0;
-		controls.add(mailLbl,w);
-		w.gridx = 1;
-		controls.add(mailPick, w);
+		setAllSizes(mailPick, cbd);
+
+		l.putConstraint(SpringLayout.EAST, mailLbl, -6,
+				SpringLayout.WEST, mailPick);
+		l.putConstraint(SpringLayout.VERTICAL_CENTER, mailLbl, 0,
+				SpringLayout.VERTICAL_CENTER, mailPick);
+		fullWrap.add(mailLbl);
+
+		l.putConstraint(SpringLayout.EAST, mailPick, -5,
+				SpringLayout.EAST, fullWrap);
+		l.putConstraint(SpringLayout.NORTH, mailPick, 5,
+				SpringLayout.SOUTH, helpText);
+		fullWrap.add(mailPick);
 
 		// skin color
-		final JLabel skinLbl = new JLabel("Skin color", SwingConstants.RIGHT);
+		final JLabel skinLbl = new JLabel("Skin color:", SwingConstants.RIGHT);
 		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(SKINCOLORS);
-		skinLbl.setBorder(rightPad);
-		w.gridy++;
-		w.gridx = 0;
-		controls.add(skinLbl,w);
-		w.gridx = 1;
-		controls.add(skinPick, w);
+		setAllSizes(skinPick, cbd);
 
-		// accessories
-		final JLabel acc1Lbl = new JLabel("Accessory 1", SwingConstants.RIGHT);
+		l.putConstraint(SpringLayout.EAST, skinLbl, 0,
+				SpringLayout.EAST, mailLbl);
+		l.putConstraint(SpringLayout.VERTICAL_CENTER, skinLbl, 0,
+				SpringLayout.VERTICAL_CENTER, skinPick);
+		fullWrap.add(skinLbl);
+
+		l.putConstraint(SpringLayout.EAST, skinPick, 0,
+				SpringLayout.EAST, mailPick);
+		l.putConstraint(SpringLayout.WEST, skinPick, 0,
+				SpringLayout.WEST, mailPick);
+		l.putConstraint(SpringLayout.NORTH, skinPick, 2,
+				SpringLayout.SOUTH, mailPick);
+		fullWrap.add(skinPick);
+
+		// accessory 1
 		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(ACCESSORIES);
-		final JButton acc1Edit = new JButton("Edit");
-		acc1Lbl.setBorder(rightPad);
-		w.gridy++;
-		w.gridx = 0;
-		controls.add(acc1Lbl,w);
-		w.gridx = 1;
-		controls.add(acc1Pick, w);
-		w.gridx = 2;
-		controls.add(acc1Edit, w);
+		Picker acc1PickThis = part -> mySprite.setAccessory(part, 1);
+		SpritePartEditor acc1Editor =
+				new SpritePartEditor("Accessory 1", pal, acc1Pick, acc1PickThis);
+		setAllSizes(acc1Pick, cbd);
+
+		l.putConstraint(SpringLayout.EAST, acc1Editor, 0,
+				SpringLayout.EAST, mailPick);
+		l.putConstraint(SpringLayout.NORTH, acc1Editor, 2,
+				SpringLayout.SOUTH, skinPick);
+		fullWrap.add(acc1Editor);
+
+		// accessory 2
+		final JComboBox<SpritePart> acc2Pick = new JComboBox<SpritePart>(ACCESSORIES);
+		Picker acc2PickThis = part -> mySprite.setAccessory(part, 2);
+		SpritePartEditor acc2Editor =
+				new SpritePartEditor("Accessory 2", pal, acc2Pick, acc2PickThis);
+		setAllSizes(acc2Pick, cbd);
+
+		l.putConstraint(SpringLayout.EAST, acc2Editor, 0,
+				SpringLayout.EAST, mailPick);
+		l.putConstraint(SpringLayout.NORTH, acc2Editor, 2,
+				SpringLayout.SOUTH, acc1Editor);
+		fullWrap.add(acc2Editor);
+
+		// accessory 3
+		final JComboBox<SpritePart> acc3Pick = new JComboBox<SpritePart>(ACCESSORIES);
+		Picker acc3PickThis = part -> mySprite.setAccessory(part, 3);
+		SpritePartEditor acc3Editor =
+				new SpritePartEditor("Accessory 3", pal, acc3Pick, acc3PickThis);
+		setAllSizes(acc3Pick, cbd);
+
+		l.putConstraint(SpringLayout.EAST, acc3Editor, 0,
+				SpringLayout.EAST, mailPick);
+		l.putConstraint(SpringLayout.NORTH, acc3Editor, 2,
+				SpringLayout.SOUTH, acc2Editor);
+		fullWrap.add(acc3Editor);
 
 		// format frame
 		final Container framesWrap = frame.getContentPane();
 		SpringLayout f = new SpringLayout();
 		framesWrap.setLayout(f);
 
-		// format main wrapper
-		final Container fullWrap = new Container();
-		final Dimension cd = new Dimension(600,500);
-		SpringLayout l = new SpringLayout();
-		fullWrap.setLayout(l);
-		fullWrap.setPreferredSize(cd);
-		fullWrap.setMinimumSize(cd);
-
-		// add controls
-		l.putConstraint(SpringLayout.EAST, controls, -5,
-				SpringLayout.EAST, fullWrap);
-		l.putConstraint(SpringLayout.NORTH, controls, 5,
-				SpringLayout.NORTH, fullWrap);
-		fullWrap.add(controls);
-
 		// palette
-		Palette pal = new Palette();
 		f.putConstraint(SpringLayout.NORTH, pal, 0,
 				SpringLayout.NORTH, framesWrap);
 		f.putConstraint(SpringLayout.EAST, pal, 0,
@@ -183,7 +235,6 @@ public class SpriteMe {
 		framesWrap.add(pal);
 
 		// sprite appearance
-		final IndexedSprite mySprite = new IndexedSprite(pal);
 		l.putConstraint(SpringLayout.NORTH, mySprite, 5,
 				SpringLayout.NORTH, fullWrap);
 		l.putConstraint(SpringLayout.WEST, mySprite, 5,
@@ -192,7 +243,6 @@ public class SpriteMe {
 
 		// color changer
 		ColorEditor colorEditor = new ColorEditor(presets, pal);
-		SpritePartEditor indexMapEditor = new SpritePartEditor(pal);
 		pal.attachEditor(colorEditor);
 
 		// wrapper frame
@@ -213,13 +263,6 @@ public class SpriteMe {
 				SpringLayout.EAST, framesWrap);
 		framesWrap.add(colorEditor);
 
-/*		// index map
-		l.putConstraint(SpringLayout.SOUTH, indexMapEditor, -2,
-				SpringLayout.SOUTH, fullWrap);
-		l.putConstraint(SpringLayout.EAST, indexMapEditor, -2,
-				SpringLayout.EAST, fullWrap);
-		fullWrap.add(indexMapEditor);*/
-
 		// menu
 		final JMenuBar menu = new JMenuBar();
 		frame.setJMenuBar(menu);
@@ -227,6 +270,7 @@ public class SpriteMe {
 		// file menu
 		final JMenu fileMenu = new JMenu("File");
 		menu.add(fileMenu);
+
 		// File load
 		final JMenuItem loadSpr = new JMenuItem("Open");
 		ImageIcon compass = new ImageIcon(
@@ -319,7 +363,7 @@ public class SpriteMe {
 				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Map.png")
 			);
 		peeps.setIcon(mapIcon);
-		
+
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
 		buildAbout(aboutFrame);
 
@@ -372,11 +416,15 @@ public class SpriteMe {
 		// repainting on all sprite changes
 		SpriteChangeListener repainter =
 				arg0 -> {
-					indexMapEditor.refreshPalette();
+					acc1Editor.refreshPalette();
+					acc2Editor.refreshPalette();
+					acc3Editor.refreshPalette();
 					frame.repaint();
 				};
 
-		indexMapEditor.addSpriteChangeListener(repainter);
+		acc1Editor.addSpriteChangeListener(repainter);
+		acc2Editor.addSpriteChangeListener(repainter);
+		acc3Editor.addSpriteChangeListener(repainter);
 		pal.addSpriteChangeListener(repainter);
 		mySprite.addSpriteChangeListener(repainter);
 
@@ -388,22 +436,6 @@ public class SpriteMe {
 		mailPick.addItemListener(
 				arg0 -> mySprite.setMail(mailPick.getSelectedIndex())
 			);
-
-		acc1Pick.addItemListener(
-				arg0 -> {
-					SpritePart picked = (SpritePart) acc1Pick.getSelectedItem();
-					mySprite.setAccessory(picked, 1);
-					if (indexMapEditor.compareSelectors(acc1Pick)) {
-						indexMapEditor.editNewPart(picked, acc1Pick);
-					}
-				}
-			);
-
-		acc1Edit.addActionListener(
-			arg0 ->	{
-				SpritePart picked = (SpritePart) acc1Pick.getSelectedItem();
-				indexMapEditor.editNewPart(picked, acc1Pick);
-			});
 
 		// Action listeners for menu
 		// save spr as sme file
