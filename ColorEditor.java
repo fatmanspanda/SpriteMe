@@ -18,7 +18,7 @@ public class ColorEditor extends Container {
 			"This color index cannot be edited, as it is heavily used by other sprites.";
 	private static final String CAN = "";
 	private static final String ARE_GLOVES =
-			"This color index is ovewritten when Link receives glove upgrades.";
+			"This color index is overwritten when Link receives glove upgrades.";
 	private static final String GLOVES_TEMPLATE =
 			"This color overwrites index 13 when Link has obtained the %s.";
 	private static final String GLOVES_EDIT_TEXT = String.format(GLOVES_TEMPLATE, "power gloves");
