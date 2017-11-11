@@ -46,7 +46,7 @@ public class SpriteMe {
 	@SuppressWarnings("unused")
 	private static final byte SME_VERSION = 1; // file type specification
 	@SuppressWarnings("unused")
-	private static final byte[] SME_FLAG = { 'T', 'H', 'I', 'N', 'K', 'I', 'N', 'G' };
+	private static final byte[] SME_FLAG = { 'S', 'P', 'R', 'I', 'T', 'E', 'M', 'E' };
 
 	// class constants
 	public static final int SPLOTCH_SIZE = 16;
