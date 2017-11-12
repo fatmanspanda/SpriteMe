@@ -92,14 +92,16 @@ public class IndexedSprite extends Component {
 	/**
 	 * Checks if an accessory {@code SpritePart} is currently being used.
 	 * @param acc
-	 * @return Accessory # or 0 if unused
+	 * @return Accessory # or 0 if unused/blank sheet
 	 */
 	public int checkAccessoryUse(SpritePart acc) {
-		if (acc1 == acc && !acc.isBlankSheet) {
+		if (acc.isBlankSheet) {
+			return 0;
+		} else if (acc1 == acc) {
 			return 1;
-		} else if (acc2 == acc && !acc.isBlankSheet) {
+		} else if (acc2 == acc) {
 			return 2;
-		} else if (acc3 == acc && !acc.isBlankSheet) {
+		} else if (acc3 == acc) {
 			return 3;
 		} else {
 			return 0;
