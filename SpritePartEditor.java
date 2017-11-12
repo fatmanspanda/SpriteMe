@@ -26,15 +26,15 @@ public class SpritePartEditor extends Container {
 	// local vars
 	private byte[] colorMap = {};
 	private Palette pal;
+	private final String partName;
 	private SpritePart curPart;
 	private int colors = 0;
 	private MiniPalette[] palettes;
 	private JPanel paletteArea;
-	private SpringLayout l = new SpringLayout();
-	private final String partName;
-	private final JComboBox<SpritePart> selector;
 	private final Picker pick;
 	private final Picker unpick;
+	private SpringLayout l = new SpringLayout();
+	private final JComboBox<SpritePart> selector;
 
 	/**
 	 * Creates a new {@code SpritePartEditor}.
@@ -44,6 +44,7 @@ public class SpritePartEditor extends Container {
 	 * @param selector - {@code JComboBox} that chooses this part.
 	 * @param pick - a defined {@link Picker} interface containing the function that
 	 * controls what happens when the combobox is changed
+	 * @param unpick - optional {@link Picker} for controls related to other SpritePartEditors
 	 */
 	public SpritePartEditor(String name, Palette p,
 			JComboBox<SpritePart> selector, Picker pick, Picker unpick) {
@@ -125,18 +126,17 @@ public class SpritePartEditor extends Container {
 		this.add(selector);
 
 		selector.addItemListener(
-				arg0 -> {
-					if (arg0.getStateChange() == ItemEvent.SELECTED) {
-						SpritePart picked = (SpritePart) selector.getSelectedItem();
-						if (unpick != null) {
-							unpick.pickThis(picked);
-						}
-						pick.pickThis(picked);
-						this.editNewPart(picked);
-						fireSpriteChangeEvent();
+			arg0 -> {
+				if (arg0.getStateChange() == ItemEvent.SELECTED) {
+					SpritePart picked = (SpritePart) selector.getSelectedItem();
+					if (unpick != null) {
+						unpick.pickThis(picked);
 					}
+					pick.pickThis(picked);
+					this.editNewPart(picked);
+					fireSpriteChangeEvent();
 				}
-			);
+			});
 		newPaletteSet();
 	} // end display initialization
 

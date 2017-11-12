@@ -218,6 +218,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 			throw e;
 		}
 	}
+
 	/**
 	 * 
 	 */
@@ -308,6 +309,9 @@ public final class SpritePart implements Comparable<SpritePart> {
 			100)
 	};
 
+	/**
+	 * Index class for bunching together remap control properties
+	 */
 	static class Index {
 		public final String name;
 		/*
@@ -337,7 +341,9 @@ public final class SpritePart implements Comparable<SpritePart> {
 		}
 
 		public void remapTo(byte i) {
-			mappedTo = i;
+			if (isRemappable) {
+				mappedTo = i;
+			}
 		}
 
 		public byte getIndexMappedTo() {
@@ -347,5 +353,5 @@ public final class SpritePart implements Comparable<SpritePart> {
 		public void resetMap() {
 			mappedTo = defaultMappedTo;
 		}
-	}
+	} // end Index class
 }
