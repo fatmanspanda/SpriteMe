@@ -34,11 +34,11 @@ public class SplotchEditor extends Container {
 	// color and splotch information
 	private final Splotch victim;
 	private final SpriteColor originalColor;
+	private String colorName = "Custom color";
+	private final int[] RGB;
+	private boolean enabled;
 	private boolean isAllFour = false;
 	private Splotch[] allFourVictims;
-	private boolean enabled;
-	private final int[] RGB;
-	private String colorName = "Custom color";
 
 	// GUI vars
 	private final GridBagLayout w = new GridBagLayout();
@@ -56,7 +56,7 @@ public class SplotchEditor extends Container {
 	private final JFormattedTextField blueT;
 
 	// buttons
-	private final JButton confirm = new JButton("Apply");
+	private final JButton apply = new JButton("Apply");
 	private final JButton reset = new JButton("Reset");
 	private final JButton darker = new JButton("Darken");
 	private final JButton lighter = new JButton("Lighten");
@@ -68,6 +68,7 @@ public class SplotchEditor extends Container {
 
 	// for location
 	private final SplotchBlob mommy;
+
 	/**
 	 * 
 	 * @param c - Splotch to apply color edits to.
@@ -97,9 +98,11 @@ public class SplotchEditor extends Container {
 		red = sliders[0];
 		green = sliders[1];
 		blue = sliders[2];
+
 		redT = vals[0];
 		greenT = vals[1];
 		blueT = vals[2];
+
 		redT.setValue(RGB[0]);
 		greenT.setValue(RGB[1]);
 		blueT.setValue(RGB[2]);
@@ -160,6 +163,7 @@ public class SplotchEditor extends Container {
 		final JLabel lr = new JLabel("R", SwingConstants.CENTER);
 		lr.setPreferredSize(labelD);
 		lr.setMinimumSize(labelD);
+
 		l.gridx = 1;
 		this.add(lr,l);
 		l.gridx = 2;
@@ -167,14 +171,16 @@ public class SplotchEditor extends Container {
 		l.gridx = 3;
 		this.add(redT, l);
 
+		// apply button
 		l.gridx = 4;
-		this.add(confirm, l);
+		this.add(apply, l);
 
 		// green
 		l.gridy = 1;
 		final JLabel lg = new JLabel("G", SwingConstants.CENTER);
 		lg.setPreferredSize(labelD);
 		lg.setMinimumSize(labelD);
+
 		l.gridx = 1;
 		this.add(lg,l);
 		l.gridx = 2;
@@ -190,6 +196,7 @@ public class SplotchEditor extends Container {
 		final JLabel lb = new JLabel("B", SwingConstants.CENTER);
 		lb.setPreferredSize(labelD);
 		lb.setMinimumSize(labelD);
+
 		l.gridx = 1;
 		this.add(lb,l);
 		l.gridx = 2;
@@ -231,7 +238,7 @@ public class SplotchEditor extends Container {
 
 		// buttons
 		// apply color
-		confirm.addActionListener(
+		apply.addActionListener(
 			arg0 -> {
 				if (isAllFour && allFourVictims != null) {
 					for (Splotch s : allFourVictims) {
@@ -285,17 +292,16 @@ public class SplotchEditor extends Container {
 			}); // end listener
 
 		// reset button
-		reset.addActionListener(
-				arg0 -> SplotchEditor.this.resetColor()
-			); // end listener
+		reset.addActionListener(arg0 -> SplotchEditor.this.resetColor());
 	} // end Listeners
 
 	/**
 	 * Clicks the apply button
 	 */
 	public void apply() {
-		confirm.doClick();
+		apply.doClick();
 	}
+
 	/**
 	 * Sets color back to original before any editing.
 	 */
@@ -309,12 +315,15 @@ public class SplotchEditor extends Container {
 	 */
 	public void setColor(SpriteColor c) {
 		byte[] t = c.getRGB();
+
 		RGB[0] = Byte.toUnsignedInt(t[0]);
 		RGB[1] = Byte.toUnsignedInt(t[1]);
 		RGB[2] = Byte.toUnsignedInt(t[2]);
+
 		sliders[0].setValue(RGB[0]/8);
 		sliders[1].setValue(RGB[1]/8);
 		sliders[2].setValue(RGB[2]/8);
+
 		colorName = c.toString();
 	}
 
@@ -325,18 +334,16 @@ public class SplotchEditor extends Container {
 		RGB[0] = Byte.toUnsignedInt(r);
 		RGB[1] = Byte.toUnsignedInt(g);
 		RGB[2] = Byte.toUnsignedInt(b);
+
 		sliders[0].setValue(RGB[0]/8);
 		sliders[1].setValue(RGB[1]/8);
 		sliders[2].setValue(RGB[2]/8);
+
 		colorName = "Custom color";
 	}
 
 	public SpriteColor getColor() {
-		return new SpriteColor(colorName,
-				RGB[0],
-				RGB[1],
-				RGB[2]
-				);
+		return new SpriteColor(colorName, RGB[0], RGB[1], RGB[2]);
 	}
 
 	/**
@@ -386,6 +393,7 @@ public class SplotchEditor extends Container {
 				int val = source.getValue();
 				val *= 8;
 				JFormattedTextField t = null;
+
 				if (source == red) {
 					RGB[0] = val;
 					t = redT;
@@ -430,6 +438,7 @@ public class SplotchEditor extends Container {
 					val = 248;
 				}
 				val = SpriteManipulator.roundVal(val);
+
 				JSlider s = null;
 				if (source == redT) {
 					RGB[0] = val;
@@ -447,18 +456,21 @@ public class SplotchEditor extends Container {
 	}
 
 	// preview class for drawing squares
+	@SuppressWarnings("serial")
 	private static class ColorPreview extends Component {
-		private static final long serialVersionUID = -6583423770149289548L;
 		public static final int SIZE = 40;
 		static final Dimension D = new Dimension(SIZE,SIZE);
+
 		private static final Color BLACK = Color.BLACK;
 		private static final Color BLACK_OFF = new Color(0,0,0,50);
-		private boolean enabled = true;
+
 		// locals
+		private boolean enabled = true;
 		private Color c = new Color(0,0,0);
 		private Color cOff = new Color(0,0,0,50);
 		private Color curColor;
 		private Color curOutline;
+
 		public ColorPreview() {
 			this.setSize(D);
 			this.setPreferredSize(D);
@@ -487,9 +499,7 @@ public class SplotchEditor extends Container {
 				curOutline = BLACK_OFF;
 			}
 		}
-		/**
-		 * 
-		 */
+
 		public void paint(Graphics g) {
 			g.setColor(curColor);
 			g.fillRect(0, 0, SIZE, SIZE);

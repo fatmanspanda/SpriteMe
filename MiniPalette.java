@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 public class MiniPalette extends Container {
 	private static final long serialVersionUID = 4303748895061447018L;
+
 	private static final int SIZE = SpriteMe.SPLOTCH_SIZE; // used for multi splotches
 	private static final int ROWSIZE = SIZE/4;
 
@@ -25,7 +26,7 @@ public class MiniPalette extends Container {
 	private MultiSplotch[] splotches;
 
 	/**
-	 * Creates a new {@code MiniPalette}.
+	 * Creates a new {@code MiniPalette}
 	 * @param parent
 	 * @param p
 	 * @param index
@@ -35,6 +36,7 @@ public class MiniPalette extends Container {
 		parentIndex = index;
 		splotches = new MultiSplotch[16];
 		pal = p;
+
 		// set a new splotch with the 4 colors from parent palette
 		for (int i = 0; i < 16; i++) {
 			SpriteColor c1 = p.colorForMailAndIndex(0, i);
@@ -43,6 +45,7 @@ public class MiniPalette extends Container {
 			SpriteColor c4 = p.colorForMailAndIndex(3, i);
 			splotches[i] = new MultiSplotch(this, (byte) i, c1, c2, c3, c4);
 		}
+
 		initializeDisplay();
 	}
 
@@ -74,13 +77,14 @@ public class MiniPalette extends Container {
 	}
 
 	/**
-	 * Sets up GUI.
+	 * Sets up GUI
 	 */
-	private void initializeDisplay() {
+	private final void initializeDisplay() {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
 		w.gridy = 0;
 		w.gridx = 0;
+
 		// index labels for first palette
 		if (parentIndex == 0) {
 			for (int i = 0; i < 16; i++, w.gridx++) {
@@ -89,6 +93,7 @@ public class MiniPalette extends Container {
 			w.gridx = 0;
 			w.gridy++;
 		}
+
 		w.ipady = 2;
 		w.ipadx = 2;
 		for (int i = 0; i < 16; i++, w.gridx++) {
@@ -101,9 +106,8 @@ public class MiniPalette extends Container {
 	 * with 0 functionality for actually changing colors.
 	 *
 	 */
+	@SuppressWarnings("serial")
 	private static class MultiSplotch extends JComponent {
-		private static final long serialVersionUID = -2349012926208164404L;
-
 		// local vars
 		private SpriteColor[] colors;
 		private final byte index;
@@ -112,12 +116,14 @@ public class MiniPalette extends Container {
 
 		public MultiSplotch(MiniPalette parent, byte i,
 				SpriteColor c1, SpriteColor c2, SpriteColor c3, SpriteColor c4) {
+			setSize(SpriteMe.SPLOTCH_DIMENSION);
+			setMinimumSize(SpriteMe.SPLOTCH_DIMENSION);
+			setPreferredSize(SpriteMe.SPLOTCH_DIMENSION);
+
 			mommy = parent;
 			index = i;
 			colors = new SpriteColor[] { c1, c2, c3, c4 };
-			this.setSize(SpriteMe.SPLOTCH_DIMENSION);
-			this.setMinimumSize(SpriteMe.SPLOTCH_DIMENSION);
-			this.setPreferredSize(SpriteMe.SPLOTCH_DIMENSION);
+
 			addMouse();
 		}
 
@@ -148,16 +154,17 @@ public class MiniPalette extends Container {
 			selected = b;
 		}
 
-		private void addMouse() {
+		private final void addMouse() {
 			this.addMouseListener(new MouseListener() {
-
 				public void mouseClicked(MouseEvent arg0) {
 					mommy.setIndex(index);
 				}
+
 				public void mousePressed(MouseEvent arg0) {
 					mommy.setIndex(index);
 				}
 
+				// unused
 				public void mouseEntered(MouseEvent arg0) {}
 				public void mouseExited(MouseEvent arg0) {}
 				public void mouseReleased(MouseEvent arg0) {}

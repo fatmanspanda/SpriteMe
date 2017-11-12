@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 
 public class PresetSplotchChooser extends JDialog {
 	private static final long serialVersionUID = -7435126379055131184L;
+
 	private static final Dimension D = new Dimension(270,250);
 	private static final int SPLOTCH_SIZE = 30;
 	private static final Dimension SPLOTCH_D = new Dimension(SPLOTCH_SIZE,SPLOTCH_SIZE);
@@ -27,16 +28,17 @@ public class PresetSplotchChooser extends JDialog {
 	// locals
 	private final PresetCategory[] presetList;
 	private final JComboBox<PresetCategory> CATEGORY_CHOOSER;
+	private final SpringLayout l = new SpringLayout();
 	private PresetCategory curCat;
 	private SplotchEditor partner;
-	SpringLayout l = new SpringLayout();
+
 	public PresetSplotchChooser(JFrame frame) {
 		super(frame);
-		this.setSize(D);
-		this.setPreferredSize(D);
-		this.setMaximumSize(D);
-		this.setMinimumSize(D);
-		this.setResizable(false);
+		setSize(D);
+		setPreferredSize(D);
+		setMaximumSize(D);
+		setMinimumSize(D);
+		setResizable(false);
 
 		presetList = new PresetCategory[] {
 				new PresetCategory(this, "Vanilla classics", SpriteColor.VANILLA_FAVORITES),
@@ -45,6 +47,7 @@ public class PresetSplotchChooser extends JDialog {
 				new PresetCategory(this, "Rainbow", SpriteColor.RAINBOW),
 				new PresetCategory(this, "Other colors", SpriteColor.MISC)
 		};
+
 		curCat = presetList[0];
 		CATEGORY_CHOOSER = new JComboBox<PresetCategory>(presetList);
 		initializeDisplay();
@@ -52,7 +55,7 @@ public class PresetSplotchChooser extends JDialog {
 
 	public void setPartner(SplotchEditor e) {
 		partner = e;
-		this.revalidate();
+		revalidate();
 		repaint();
 	}
 
@@ -62,12 +65,12 @@ public class PresetSplotchChooser extends JDialog {
 
 	public void setColor(SpriteColor c) {
 		partner.setColor(c);
-		this.setVisible(false);
+		setVisible(false);
 	}
 
-	private void initializeDisplay() {
+	private final void initializeDisplay() {
 		Container wrap = this.getContentPane();
-		this.setTitle("Choose a color");
+		setTitle("Choose a color");
 
 		wrap.setPreferredSize(D);
 		wrap.setMaximumSize(D);
@@ -105,36 +108,34 @@ public class PresetSplotchChooser extends JDialog {
 					PresetSplotchChooser.this.repaint();
 				});
 
-		this.revalidate();
+		revalidate();
 	}
 
 	/**
 	 * Mini splotch presets
 	 */
 	@SuppressWarnings("serial")
-	private static class SplotchPreset extends JComponent {
+	private class SplotchPreset extends JComponent {
 		private SpriteColor c;
 		private final PresetSplotchChooser mommy;
 		private SplotchPreset(SpriteColor c, PresetSplotchChooser parent) {
+			setSize(SPLOTCH_D);
+			setPreferredSize(SPLOTCH_D);
+			setMinimumSize(SPLOTCH_D);
+			setMaximumSize(SPLOTCH_D);
+
 			setColor(c);
 			mommy = parent;
-			this.setSize(SPLOTCH_D);
-			this.setPreferredSize(SPLOTCH_D);
-			this.setMinimumSize(SPLOTCH_D);
-			this.setMaximumSize(SPLOTCH_D);
-			this.setToolTipText(c.toFullString());
+			setToolTipText(c.toFullString());
 			addMouse();
 		}
 
-		public void setColor(SpriteColor c) {
+		public final void setColor(SpriteColor c) {
 			this.c = c;
-			this.setForeground(c.toColor());
-			this.setBackground(c.toColor());
+			setForeground(c.toColor());
+			setBackground(c.toColor());
 		}
 
-		/**
-		 * 
-		 */
 		public void paint(Graphics g) {
 			g.fillRect(0, 0, SPLOTCH_SIZE, SPLOTCH_SIZE);
 			g.setColor(Color.BLACK);
@@ -144,9 +145,8 @@ public class PresetSplotchChooser extends JDialog {
 		/**
 		 * Used to add mouse listeners
 		 */
-		private void addMouse() {
+		private final void addMouse() {
 			this.addMouseListener(new MouseListener() {
-
 				public void mouseClicked(MouseEvent arg0) {
 					mommy.setColor(c);
 				}
@@ -155,6 +155,7 @@ public class PresetSplotchChooser extends JDialog {
 					mommy.setColor(c);
 				}
 
+				// unused
 				public void mouseEntered(MouseEvent arg0) {}
 				public void mouseExited(MouseEvent arg0) {}
 				public void mouseReleased(MouseEvent arg0) {}
@@ -166,7 +167,7 @@ public class PresetSplotchChooser extends JDialog {
 	 * For grouping colors into categories
 	 */
 	@SuppressWarnings("serial")
-	private static class PresetCategory extends Container {
+	private class PresetCategory extends Container {
 		// locals
 		private final PresetSplotchChooser mommy;
 		private final SplotchPreset[] colorSet;
@@ -178,24 +179,29 @@ public class PresetSplotchChooser extends JDialog {
 			colorList = list;
 			this.name = name;
 			mommy = parent;
+
 			for (int i = 0; i < colorSet.length; i++) {
 				colorSet[i] = new SplotchPreset(colorList[i], mommy);
 			}
+
 			initializeDisplay();
 		}
 
-		private void initializeDisplay() {
-			this.setLayout(new GridBagLayout());
+		private final void initializeDisplay() {
+			setLayout(new GridBagLayout());
 			GridBagConstraints w = new GridBagConstraints();
 			int colorCount = 0;
+
 			w.gridy = 0;
 			w.gridx = 0;
 			w.gridwidth = COLUMN_COUNT;
 			this.add(new JLabel(name, SwingConstants.CENTER), w);
+
 			w.gridwidth = 1;
 			w.gridy = 1;
 			w.ipady = 2;
 			w.ipadx = 2;
+
 			fullFill :
 			for (int i = 0; i < 99; i++, w.gridy++) { // height grows "without" bounds
 				w.gridx = 0;

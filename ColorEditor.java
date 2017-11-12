@@ -14,13 +14,16 @@ public class ColorEditor extends Container {
 			"padding: 10px 10px 10px 0px"
 	};
 
+	private static final String CAN = "";
 	private static final String CANNOT =
 			"This color index cannot be edited, as it is heavily used by other sprites.";
-	private static final String CAN = "";
+
 	private static final String ARE_GLOVES =
 			"This color index is overwritten when Link receives glove upgrades.";
+
 	private static final String GLOVES_TEMPLATE =
 			"This color overwrites index 13 when Link has obtained the %s.";
+
 	private static final String GLOVES_EDIT_TEXT = String.format(GLOVES_TEMPLATE, "power gloves");
 	private static final String MITTS_EDIT_TEXT = String.format(GLOVES_TEMPLATE, "mitts");
 
@@ -31,16 +34,18 @@ public class ColorEditor extends Container {
 	private final JLabel indexLabel = new JLabel("0");
 	private final JLabel editableText = new JLabel("");
 	private SplotchBlob blob;
+
 	/**
 	 * Creates a new editor attached to a palette.
 	 * @param p
 	 */
 	public ColorEditor(PresetSplotchChooser chooser, Palette p) {
 		super();
+		setPreferredSize(prefDim);
+		setMinimumSize(prefDim);
+
 		blob = new SplotchBlob(chooser);
 		pal = p;
-		this.setPreferredSize(prefDim);
-		this.setMinimumSize(prefDim);
 		editNewColor(curIndex);
 		initializeDisplay();
 	}
@@ -49,7 +54,7 @@ public class ColorEditor extends Container {
 	 * Sets a new index to edit.
 	 * @param i
 	 */
-	public void editNewColor(int i) {
+	public final void editNewColor(int i) {
 		curIndex = i;
 		editable = Palette.editableIndex(i);
 		blob.setColors(pal.splotchesForIndex(i));
@@ -75,14 +80,14 @@ public class ColorEditor extends Container {
 				break;
 		}
 
-		this.revalidate();
+		revalidate();
 		repaint();
 	}
 
 	/**
 	 * Sets up child components.
 	 */
-	private void initializeDisplay() {
+	private final void initializeDisplay() {
 		// add palette area
 		SpringLayout l = new SpringLayout();
 		this.setLayout(l);
@@ -91,12 +96,15 @@ public class ColorEditor extends Container {
 		final JLabel curEditing = new JLabel("Currently editing colors at index : ");
 		helpText.setText("<html>" +
 				"<div style=\"" + String.join(";", INSTRUCTION_STYLE) + "\">" +
-				"Use this area to edit the colors at your selected index. " +
-				"Note that SNES colors are 15-bit, so RGB values will be rounded down to the nearest multiple of 8." +
-				"<br /><br />" +
-				"Checking \"Use color for all mails\" will apply the first color to every mail when selecting \"Apply\"." +
+					"Use this area to edit the colors at your selected index. " +
+					"Note that SNES colors are 15-bit, " +
+					"so RGB values will be rounded down to the nearest multiple of 8." +
+					"<br /><br />" +
+					"Checking \"Use color for all mails\" will "+
+					"apply the first color to every mail when selecting \"Apply\"." +
 				"</div>" +
 				"</html>");
+
 		l.putConstraint(SpringLayout.WEST, helpText, 0,
 				SpringLayout.WEST, curEditing);
 		l.putConstraint(SpringLayout.EAST, helpText, 0,

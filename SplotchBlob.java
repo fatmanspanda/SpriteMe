@@ -17,8 +17,9 @@ import javax.swing.border.Border;
 public class SplotchBlob extends Container {
 	// class constants
 	private static final long serialVersionUID = 5958661421574061169L;
+
 	private static final Border padding = BorderFactory.createEmptyBorder(1,2,1,4);
-	private final JLabel[] labels = new JLabel[] {
+	private static final JLabel[] labels = new JLabel[] {
 			new JLabel("Green mail", SwingConstants.RIGHT),
 			new JLabel("Blue mail", SwingConstants.RIGHT),
 			new JLabel("Red mail", SwingConstants.RIGHT),
@@ -33,6 +34,7 @@ public class SplotchBlob extends Container {
 	private final JButton applyAll = new JButton("Apply all");
 	private boolean allMailsBool = false;
 	private SplotchEditor[] editors = new SplotchEditor[4];
+
 	/**
 	 * Creates a new {@code SplotchBlob}
 	 */
@@ -47,13 +49,12 @@ public class SplotchBlob extends Container {
 		// clicks apply button for all mails
 		// or just first mail if we're using 1 color for all mails
 		applyAll.addActionListener(
-				arg0 -> {
-					int maxClick = allMailsBool ? 1 : 4;
-					for (int i = 0; i < maxClick; i++) {
-						editors[i].apply();
-					}
+			arg0 -> {
+				int maxClick = allMailsBool ? 1 : 4;
+				for (int i = 0; i < maxClick; i++) {
+					editors[i].apply();
 				}
-			);
+			});
 	}
 
 	/**
@@ -90,34 +91,41 @@ public class SplotchBlob extends Container {
 	 * Resets all {@code SplotchEditor} objects and revalidates the GUI.
 	 */
 	private void resetEditArea() {
-		this.removeAll();
+		removeAll();
 		GridBagConstraints l = new GridBagConstraints();
-		this.revalidate();
+		revalidate();
 		l.fill = GridBagConstraints.HORIZONTAL;
+
 		l.gridx = 0;
 		l.gridy = 0;
 		l.gridwidth = 2;
 		l.weightx = 20;
+
 		this.add(allMails,l);
 		l.gridx = 2;
 		l.gridwidth = 1;
 		l.weightx = 0;
+
 		this.add(applyAll,l);
 		l.gridy = 1;
 		l.ipady = 10;
 		l.gridwidth = 1;
+
 		int i = 0;
 		for (Splotch s : workingSet) {
 			l.gridx = 0;
 			l.gridwidth = 1;
 			this.add(labels[i],l);
+	
 			l.gridx = 1;
 			l.gridwidth = 2;
 			editors[i] = new SplotchEditor(chooser,this,s,editable);
 			this.add(editors[i],l);
+
 			l.gridy++;
 			i++;
 		}
+
 		editors[0].setFourVictims(workingSet);
 	}
 

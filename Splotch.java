@@ -1,4 +1,5 @@
 package SpriteMe;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -26,14 +27,17 @@ public class Splotch extends JComponent {
 	 * @param c - {@code SpriteColor} object
 	 */
 	public Splotch(Palette parent, int i, SpriteColor c) {
+		setSize(SpriteMe.SPLOTCH_DIMENSION);
+		setMinimumSize(SpriteMe.SPLOTCH_DIMENSION);
+		setPreferredSize(SpriteMe.SPLOTCH_DIMENSION);
+
 		mommy = parent;
 		index = i;
 		color = c;
-		this.setForeground(color.toColor());
-		this.setBackground(color.toColor());
-		this.setSize(SpriteMe.SPLOTCH_DIMENSION);
-		this.setMinimumSize(SpriteMe.SPLOTCH_DIMENSION);
-		this.setPreferredSize(SpriteMe.SPLOTCH_DIMENSION);
+
+		setForeground(color.toColor());
+		setBackground(color.toColor());
+
 		setToolTip();
 		addMouse();
 	}
@@ -77,18 +81,10 @@ public class Splotch extends JComponent {
 	}
 
 	/**
-	 * 
-	 */
-	public void setEnabled(boolean e) {
-		editable = e;
-		setToolTip();
-	}
-
-	/**
 	 * Self-use function to set a tooltip that may also indicate
 	 * that the color index cannot be edited.
 	 */
-	private void setToolTip() {
+	private final void setToolTip() {
 		String changeable = editable ?
 				"" :
 				" - This color cannot be edited.";
@@ -96,25 +92,9 @@ public class Splotch extends JComponent {
 	}
 
 	/**
-	 * 
-	 */
-	public String toString() {
-		return color.toFullString();
-	}
-
-	/**
-	 * 
-	 */
-	public void paint(Graphics g) {
-		g.fillRect(0, 0, SIZE, SIZE);
-		g.setColor(Color.BLACK);
-		g.drawRect(0, 0, SIZE, SIZE);
-	}
-
-	/**
 	 * Used to add mouse listeners
 	 */
-	private void addMouse() {
+	private final void addMouse() {
 		this.addMouseListener(new MouseListener() {
 
 			public void mouseClicked(MouseEvent arg0) {
@@ -130,4 +110,19 @@ public class Splotch extends JComponent {
 			public void mouseReleased(MouseEvent arg0) {}
 		});
 	} // end addMouse
+
+	public String toString() {
+		return color.toFullString();
+	}
+
+	public void paint(Graphics g) {
+		g.fillRect(0, 0, SIZE, SIZE);
+		g.setColor(Color.BLACK);
+		g.drawRect(0, 0, SIZE, SIZE);
+	}
+
+	public void setEnabled(boolean e) {
+		editable = e;
+		setToolTip();
+	}
 }

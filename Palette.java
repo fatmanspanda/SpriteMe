@@ -1,7 +1,6 @@
 package SpriteMe;
 
 import java.awt.Container;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -108,9 +107,10 @@ public class Palette extends Container {
 			{ (byte) 144, (byte)  24, (byte)  48 },
 			{ (byte) 192, (byte) 128, (byte) 240 }
 		};
+
 	private static final SpriteColor GLOVES = new SpriteColor("Gloves", 181, 186, 165);
 	private static final SpriteColor MITTS = new SpriteColor("Mitts", 181, 219, 0);
-	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
+
 	private static final int[] UNCHANGEABLE_INDICES =
 			{ 0, 1, 2, 3, 4, 5, 6, 7 };
 
@@ -118,6 +118,8 @@ public class Palette extends Container {
 		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
 		"10", "11", "12", "13", "14", "15", "G", "M"
 	};
+
+	private static final Border rightPad = BorderFactory.createEmptyBorder(0,0,0,5);
 
 	// local vars
 	private Splotch[][] splotches = new Splotch[4][18];
@@ -207,7 +209,6 @@ public class Palette extends Container {
 		}
 		fireSpriteChangeEvent();
 		refreshColorEditor(3,4);
-		refreshColorEditor(3,4);
 	}
 
 	/**
@@ -280,13 +281,6 @@ public class Palette extends Container {
 	}
 
 	/**
-	 * 
-	 */
-	public void paint(Graphics g) {
-		this.paintComponents(g);
-	}
-
-	/**
 	 * @return A 2 dimension {@code byte} of all colors in this palette as RGB values.
 	 */
 	public byte[][] toArray() {
@@ -324,7 +318,6 @@ public class Palette extends Container {
 	 * Informs this palette that a specific {@code Splotch} has been updated.
 	 * @param child - {@code Splotch} firing the event.
 	 */
-	// TODO : Validate child
 	public void colorChanged(Splotch child) {
 		fireSpriteChangeEvent();
 	}
@@ -333,6 +326,7 @@ public class Palette extends Container {
 	 * Change listeners
 	 */
 	private List<SpriteChangeListener> spriteListeners = new ArrayList<SpriteChangeListener>();
+
 	public synchronized void addSpriteChangeListener(SpriteChangeListener s) {
 		spriteListeners.add(s);
 	}

@@ -53,11 +53,14 @@ public class SpritePartEditor extends Container {
 		this.setLayout(l);
 		this.setPreferredSize(prefDim);
 		this.setMinimumSize(prefDim);
+
 		setPalette();
 		newPaletteSet();
+
 		this.selector = selector;
 		this.pick = pick;
 		this.unpick = unpick;
+
 		partName = name;
 		editNewPart(null);
 		initializeDisplay();
@@ -67,7 +70,7 @@ public class SpritePartEditor extends Container {
 	 * Attaches a new {@code SpritePart} to edit.
 	 * @param p
 	 */
-	public void editNewPart(SpritePart p) {
+	public final void editNewPart(SpritePart p) {
 		if (p == null || p.isBlankSheet) { // remove null and empty parts
 			this.remove(paletteArea);
 			this.setSize(prefDim);
@@ -100,7 +103,7 @@ public class SpritePartEditor extends Container {
 	 * Sets a new array of {@link MiniPalette} objects to be used
 	 * to remap {@code SpritePart} indices.
 	 */
-	public void setPalette() {
+	public final void setPalette() {
 		palettes = new MiniPalette[colors];
 		for (int i = 0; i < colors; i++) {
 			palettes[i] = new MiniPalette(this, pal, i);
@@ -111,7 +114,7 @@ public class SpritePartEditor extends Container {
 	/**
 	 * Sets up GUI
 	 */
-	public void initializeDisplay() {
+	public final void initializeDisplay() {
 		final JLabel nameLbl = new JLabel(partName + ":");
 		l.putConstraint(SpringLayout.EAST, nameLbl, -6,
 				SpringLayout.WEST, selector);
@@ -143,20 +146,23 @@ public class SpritePartEditor extends Container {
 	/**
 	 * Creates a new palette area in the GUI for user control.
 	 */
-	private void newPaletteSet() {
+	private final void newPaletteSet() {
 		if (paletteArea != null) {
 				this.remove(paletteArea);
-			}
+		}
+
 		paletteArea = new JPanel(new GridBagLayout());
 		GridBagConstraints w = new GridBagConstraints();
 		w.fill = GridBagConstraints.HORIZONTAL;
 		w.gridy = 0;
 		w.gridx = 0;
+
 		if (colors > 0) {
 			JLabel indexWord = new JLabel("Index", SwingConstants.RIGHT);
 			indexWord.setBorder(rightPad);
 			paletteArea.add(indexWord, w);
 		}
+
 		w.gridheight = 2;
 		for (int i = 0; i < colors; i++, w.gridy++) {
 			w.gridx = 1;
@@ -166,8 +172,8 @@ public class SpritePartEditor extends Container {
 				w.gridheight = 1;
 			}
 			w.gridx = 0;
-			JLabel partColorName =
-					new JLabel(curPart.getNthRemappableColorName(i), SwingConstants.RIGHT);
+
+			JLabel partColorName = new JLabel(curPart.getNthRemappableColorName(i), SwingConstants.RIGHT);
 			partColorName.setBorder(rightPad);
 			paletteArea.add(partColorName, w);
 		}
@@ -178,6 +184,7 @@ public class SpritePartEditor extends Container {
 		l.putConstraint(SpringLayout.NORTH, paletteArea, 0,
 				SpringLayout.SOUTH, selector);
 		this.add(paletteArea);
+
 		this.revalidate();
 	}
 
@@ -206,6 +213,7 @@ public class SpritePartEditor extends Container {
 	 * Change listeners
 	 */
 	private List<SpriteChangeListener> spriteListeners = new ArrayList<SpriteChangeListener>();
+
 	public synchronized void addSpriteChangeListener(SpriteChangeListener s) {
 		spriteListeners.add(s);
 	}

@@ -14,6 +14,7 @@ import SpriteManipulator.*;
 
 public class IndexedSprite extends Component {
 	private static final long serialVersionUID = -6792579285233025438L;
+
 	private static final int IRASTERSIZE = SpriteManipulator.INDEXED_RASTER_SIZE;
 	private static final Dimension d = new Dimension(200, 520);
 
@@ -208,6 +209,7 @@ public class IndexedSprite extends Component {
 	 * Change listeners
 	 */
 	private List<SpriteChangeListener> spriteListeners = new ArrayList<SpriteChangeListener>();
+
 	public synchronized void addSpriteChangeListener(SpriteChangeListener s) {
 		spriteListeners.add(s);
 	}

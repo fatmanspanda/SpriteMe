@@ -1,10 +1,12 @@
 package SpriteMe;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 import SpriteManipulator.SpriteManipulator;
+
 public final class SpritePart implements Comparable<SpritePart> {
 	// class constants
 	private static final int RASTERSIZE = SpriteManipulator.INDEXED_RASTER_SIZE;

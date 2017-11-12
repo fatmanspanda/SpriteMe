@@ -1,7 +1,5 @@
 package SpriteMe;
-/**
- * Pairs colors together.
- */
+
 public class ColorPair {
 	private String n;
 	private SpriteColor color1;
@@ -33,9 +31,6 @@ public class ColorPair {
 		return color2;
 	}
 
-	/**
-	 * 
-	 */
 	public String toString() {
 		return n;
 	}

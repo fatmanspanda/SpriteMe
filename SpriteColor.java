@@ -74,7 +74,7 @@ public class SpriteColor {
 	 * @return The {@code SpriteColor}'s name and RGB coordinates.
 	 */
 	public String toFullString() {
-		return String.format("%s (RGB{%s,%s,%s})",
+		return String.format("%s (RGB: {%s,%s,%s})",
 				n,
 				Byte.toUnsignedInt(RGB[0]),
 				Byte.toUnsignedInt(RGB[1]),
@@ -95,7 +95,7 @@ public class SpriteColor {
 	 */
 	public static SpriteColor makeDarker(String name, SpriteColor s) {
 		byte[] RGB = darkerShade(s.getRGB());
-		SpriteColor shade = new SpriteColor(name + " shaded",RGB);
+		SpriteColor shade = new SpriteColor(name + " shaded", RGB);
 		return shade;
 	}
 
@@ -107,14 +107,12 @@ public class SpriteColor {
 		int r2 = Byte.toUnsignedInt(rgb[0]);
 		int g2 = Byte.toUnsignedInt(rgb[1]);
 		int b2 = Byte.toUnsignedInt(rgb[2]);
+
 		r2 = r2 * 7 / 8;
 		g2 = g2 * 7 / 8;
 		b2 = b2 * 7 / 8;
-		return new byte[] {
-				(byte) r2,
-				(byte) g2,
-				(byte) b2
-		};
+
+		return new byte[] { (byte) r2, (byte) g2, (byte) b2 };
 	}
 
 	/**
@@ -125,17 +123,16 @@ public class SpriteColor {
 		int r2 = Byte.toUnsignedInt(rgb[0]);
 		int g2 = Byte.toUnsignedInt(rgb[1]);
 		int b2 = Byte.toUnsignedInt(rgb[2]);
+
 		r2 = r2 * 8 / 7;
 		g2 = g2 * 8 / 7;
 		b2 = b2 * 8 / 7;
+
 		if (r2 > 248) { r2 = 248; }
 		if (g2 > 248) { g2 = 248; }
 		if (b2 > 248) { b2 = 248; }
-		return new byte[] {
-				(byte) r2,
-				(byte) g2,
-				(byte) b2
-		};
+
+		return new byte[] { (byte) r2, (byte) g2, (byte) b2 };
 	}
 
 	/**
