@@ -108,13 +108,13 @@ public class SpriteMe {
 		final JFrame frame = new JFrame("Sprite Me " + VERSION_TAG);
 
 		// format main wrapper
-		final Container fullWrap = new Container();
+		final Container controls = new Container();
 		final Dimension cd = new Dimension(600,500);
 		final Dimension cbd = new Dimension(120, 20);
 		SpringLayout l = new SpringLayout();
-		fullWrap.setLayout(l);
-		fullWrap.setPreferredSize(cd);
-		fullWrap.setMinimumSize(cd);
+		controls.setLayout(l);
+		controls.setPreferredSize(cd);
+		controls.setMinimumSize(cd);
 
 		final PresetSplotchChooser presets = new PresetSplotchChooser(frame);
 		Palette pal = new Palette();
@@ -133,10 +133,10 @@ public class SpriteMe {
 				"</div>" +
 				"</html>");
 		l.putConstraint(SpringLayout.EAST, helpText, 0,
-				SpringLayout.EAST, fullWrap);
+				SpringLayout.EAST, controls);
 		l.putConstraint(SpringLayout.NORTH, helpText, 0,
-				SpringLayout.NORTH, fullWrap);
-		fullWrap.add(helpText);
+				SpringLayout.NORTH, controls);
+		controls.add(helpText);
 
 		/*
 		 * Customization controls
@@ -145,29 +145,35 @@ public class SpriteMe {
 		final JLabel mailLbl = new JLabel("Mail preview:", SwingConstants.RIGHT);
 		final JComboBox<String> mailPick = new JComboBox<String>(MAIL_NAMES);
 		setAllSizes(mailPick, cbd);
+		mailPick.addItemListener(
+				arg0 -> mySprite.setMail(mailPick.getSelectedIndex())
+			);
 
 		l.putConstraint(SpringLayout.EAST, mailLbl, -6,
 				SpringLayout.WEST, mailPick);
 		l.putConstraint(SpringLayout.VERTICAL_CENTER, mailLbl, 0,
 				SpringLayout.VERTICAL_CENTER, mailPick);
-		fullWrap.add(mailLbl);
+		controls.add(mailLbl);
 
 		l.putConstraint(SpringLayout.EAST, mailPick, -5,
-				SpringLayout.EAST, fullWrap);
+				SpringLayout.EAST, controls);
 		l.putConstraint(SpringLayout.NORTH, mailPick, 5,
 				SpringLayout.SOUTH, helpText);
-		fullWrap.add(mailPick);
+		controls.add(mailPick);
 
 		// skin color
 		final JLabel skinLbl = new JLabel("Skin color:", SwingConstants.RIGHT);
 		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(SKINCOLORS);
 		setAllSizes(skinPick, cbd);
+		skinPick.addItemListener(
+				arg0 -> pal.setSkinColor((ColorPair) skinPick.getSelectedItem())
+			);
 
 		l.putConstraint(SpringLayout.EAST, skinLbl, 0,
 				SpringLayout.EAST, mailLbl);
 		l.putConstraint(SpringLayout.VERTICAL_CENTER, skinLbl, 0,
 				SpringLayout.VERTICAL_CENTER, skinPick);
-		fullWrap.add(skinLbl);
+		controls.add(skinLbl);
 
 		l.putConstraint(SpringLayout.EAST, skinPick, 0,
 				SpringLayout.EAST, mailPick);
@@ -175,7 +181,20 @@ public class SpriteMe {
 				SpringLayout.WEST, mailPick);
 		l.putConstraint(SpringLayout.NORTH, skinPick, 2,
 				SpringLayout.SOUTH, mailPick);
-		fullWrap.add(skinPick);
+		controls.add(skinPick);
+
+		// hair
+		final JComboBox<SpritePart> hairPick = new JComboBox<SpritePart>(SpritePart.HAIR_CHOICES);
+		Picker hairPickThis = part -> mySprite.setHair(part);
+		SpritePartEditor hairEditor =
+				new SpritePartEditor("Hair", pal, hairPick, hairPickThis, null);
+		setAllSizes(hairPick, cbd);
+
+		l.putConstraint(SpringLayout.EAST, hairEditor, 0,
+				SpringLayout.EAST, mailPick);
+		l.putConstraint(SpringLayout.NORTH, hairEditor, 2,
+				SpringLayout.SOUTH, skinPick);
+		controls.add(hairEditor);
 
 		// accessories
 		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
@@ -207,8 +226,8 @@ public class SpriteMe {
 		l.putConstraint(SpringLayout.EAST, acc1Editor, 0,
 				SpringLayout.EAST, mailPick);
 		l.putConstraint(SpringLayout.NORTH, acc1Editor, 2,
-				SpringLayout.SOUTH, skinPick);
-		fullWrap.add(acc1Editor);
+				SpringLayout.SOUTH, hairEditor);
+		controls.add(acc1Editor);
 
 		// accessory 2
 		Picker acc2PickThis = part -> mySprite.setAccessory(part, 2);
@@ -220,7 +239,7 @@ public class SpriteMe {
 				SpringLayout.EAST, mailPick);
 		l.putConstraint(SpringLayout.NORTH, acc2Editor, 2,
 				SpringLayout.SOUTH, acc1Editor);
-		fullWrap.add(acc2Editor);
+		controls.add(acc2Editor);
 
 		// accessory 3
 		Picker acc3PickThis = part -> mySprite.setAccessory(part, 3);
@@ -232,7 +251,7 @@ public class SpriteMe {
 				SpringLayout.EAST, mailPick);
 		l.putConstraint(SpringLayout.NORTH, acc3Editor, 2,
 				SpringLayout.SOUTH, acc2Editor);
-		fullWrap.add(acc3Editor);
+		controls.add(acc3Editor);
 
 		// format frame
 		final Container framesWrap = frame.getContentPane();
@@ -248,23 +267,23 @@ public class SpriteMe {
 
 		// sprite appearance
 		l.putConstraint(SpringLayout.NORTH, mySprite, 5,
-				SpringLayout.NORTH, fullWrap);
+				SpringLayout.NORTH, controls);
 		l.putConstraint(SpringLayout.WEST, mySprite, 5,
-				SpringLayout.WEST, fullWrap);
-		fullWrap.add(mySprite);
+				SpringLayout.WEST, controls);
+		controls.add(mySprite);
 
 		// color changer
 		ColorEditor colorEditor = new ColorEditor(presets, pal);
 		pal.attachEditor(colorEditor);
 
 		// wrapper frame
-		f.putConstraint(SpringLayout.NORTH, fullWrap, 2,
+		f.putConstraint(SpringLayout.NORTH, controls, 2,
 				SpringLayout.NORTH, framesWrap);
-		f.putConstraint(SpringLayout.SOUTH, fullWrap, -2,
+		f.putConstraint(SpringLayout.SOUTH, controls, -2,
 				SpringLayout.SOUTH, framesWrap);
-		f.putConstraint(SpringLayout.WEST, fullWrap, 2,
+		f.putConstraint(SpringLayout.WEST, controls, 2,
 				SpringLayout.WEST, framesWrap);
-		framesWrap.add(fullWrap);
+		framesWrap.add(controls);
 
 		// color editor
 		f.putConstraint(SpringLayout.NORTH, colorEditor, 2,
@@ -425,30 +444,30 @@ public class SpriteMe {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(200, 70);
 
+		// get a list of all remappers to listen for palette changes
+		ArrayList<SpritePartEditor> remappers = new ArrayList<SpritePartEditor>();
+		for (Component c : controls.getComponents()) {
+			if (c instanceof SpritePartEditor) {
+				remappers.add((SpritePartEditor) c);
+			}
+		}
+
 		// repainting on all sprite changes
 		SpriteChangeListener repainter =
 				arg0 -> {
-					acc1Editor.refreshPalette();
-					acc2Editor.refreshPalette();
-					acc3Editor.refreshPalette();
+					for (SpritePartEditor spe : remappers) {
+						spe.refreshPalette();
+					}
 					frame.revalidate();
 					frame.repaint();
 				};
 
-		acc1Editor.addSpriteChangeListener(repainter);
-		acc2Editor.addSpriteChangeListener(repainter);
-		acc3Editor.addSpriteChangeListener(repainter);
+		// add repaint listener to all relevant components
+		for (SpritePartEditor spe : remappers) {
+			spe.addSpriteChangeListener(repainter);
+		}
 		pal.addSpriteChangeListener(repainter);
 		mySprite.addSpriteChangeListener(repainter);
-
-		// Action listeners for controls
-		skinPick.addItemListener(
-				arg0 -> pal.setSkinColor((ColorPair) skinPick.getSelectedItem())
-			);
-
-		mailPick.addItemListener(
-				arg0 -> mySprite.setMail(mailPick.getSelectedIndex())
-			);
 
 		// Action listeners for menu
 		// save spr as sme file

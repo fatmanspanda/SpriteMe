@@ -21,7 +21,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 	private final String n;
 	private final String path;
 	private final String[] colorAreas;
-	protected final int z;
+	public final int z;
 	private final byte[] raster;
 	protected final boolean isBlankSheet;
 	// invariable size
@@ -195,13 +195,6 @@ public final class SpritePart implements Comparable<SpritePart> {
 		} catch (IndexOutOfBoundsException e) {
 			throw e;
 		}
-	}
-
-	/**
-	 * @return This part's display priority.
-	 */
-	public int zIndex() {
-		return z;
 	}
 
 	/**

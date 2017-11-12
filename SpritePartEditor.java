@@ -131,7 +131,9 @@ public class SpritePartEditor extends Container {
 				arg0 -> {
 					if (arg0.getStateChange() == ItemEvent.SELECTED) {
 						SpritePart picked = (SpritePart) selector.getSelectedItem();
-						unpick.pickThis(picked);
+						if (unpick != null) {
+							unpick.pickThis(picked);
+						}
 						pick.pickThis(picked);
 						this.editNewPart(picked);
 						fireSpriteChangeEvent();
