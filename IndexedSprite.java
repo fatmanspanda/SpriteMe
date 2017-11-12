@@ -15,7 +15,9 @@ import SpriteManipulator.*;
 public class IndexedSprite extends Component {
 	private static final long serialVersionUID = -6792579285233025438L;
 	private static final int IRASTERSIZE = SpriteManipulator.INDEXED_RASTER_SIZE;
+	private static final Dimension d = new Dimension(200, 448);
 
+	// local vars
 	private ArrayList<SpritePart> parts = new ArrayList<SpritePart>();
 	private byte[] raster;
 	private byte[] rasterABGR;
@@ -30,7 +32,6 @@ public class IndexedSprite extends Component {
 	private SpritePart acc2;
 	private SpritePart acc3;
 
-	private static final Dimension d = new Dimension(200, 448);
 	/**
 	 * Creates a new editable sprite object connected to a palette.
 	 * @param p - Palette
@@ -143,7 +144,7 @@ public class IndexedSprite extends Component {
 		}
 
 		// unindex the raster
-		rasterABGR = new byte[SpriteManipulator.RASTER_SIZE];
+		rasterABGR = new byte[SpriteManipulator.ABGR_RASTER_SIZE];
 		for (int i = 0; i < IRASTERSIZE; i++) {
 			int pos = 4 * i;
 			int index = raster[i];

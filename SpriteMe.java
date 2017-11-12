@@ -65,12 +65,6 @@ public class SpriteMe {
 		"Green mail", "Blue mail", "Red mail", "Bunny"
 	};
 
-	public static final SpritePart[] ACCESSORIES = new SpritePart[] {
-		SpritePart.NOTHING,
-		SpritePart.GLASSES,
-		SpritePart.EYEPATCH
-	};
-
 	// file type constants
 	static final String[] SPRITE_ME_EXTS = { "sme" }; // SpriteMe files
 	static final String[] EXPORT_EXTS = { ZSPRFile.EXTENSION }; // sprite files
@@ -184,9 +178,9 @@ public class SpriteMe {
 		fullWrap.add(skinPick);
 
 		// accessories
-		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(ACCESSORIES);
-		final JComboBox<SpritePart> acc2Pick = new JComboBox<SpritePart>(ACCESSORIES);
-		final JComboBox<SpritePart> acc3Pick = new JComboBox<SpritePart>(ACCESSORIES);
+		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
+		final JComboBox<SpritePart> acc2Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
+		final JComboBox<SpritePart> acc3Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
 
 		// prevents duplicate items
 		Picker accessoryUnpicker = part -> {

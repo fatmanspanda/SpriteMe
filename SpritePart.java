@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 
 import SpriteManipulator.SpriteManipulator;
 public final class SpritePart implements Comparable<SpritePart> {
-
 	// Maps colors to an indexing that only serves this sprite part
 	// only used for initializing a map of the image
 	private final byte[][] colorMap;
@@ -274,14 +273,21 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new byte[][] { {1,1,1} },
 			new byte[] { 0 },
 			new String[] {},
-			0,
+			1,
 			true // blank sheet
 		);
+
+	public static final SpritePart[] HAIR_CHOICES = new SpritePart[] {
+		BALD
+	};
 
 	/*
 	 * Accessories
 	 */
-	public static final SpritePart GLASSES = new SpritePart(
+	public static final SpritePart[] ACCESSORIES = new SpritePart[] {
+		NOTHING,
+		// Glasses
+		new SpritePart(
 			"Glasses",
 			"/SpriteMe/Images/glasses_template.png",
 			convertArray(new int[][] { 
@@ -290,10 +296,9 @@ public final class SpritePart implements Comparable<SpritePart> {
 					}),
 			new byte[] { 5, 15 },
 			new String[] { "Frame", "Lens" },
-			100
-		);
-
-	public static final SpritePart EYEPATCH = new SpritePart(
+			100),
+		// Eye patch
+		new SpritePart(
 			"Eyepatch",
 			"/SpriteMe/Images/Eyepatch template.png",
 			convertArray(new int[][] { 
@@ -302,5 +307,6 @@ public final class SpritePart implements Comparable<SpritePart> {
 			new byte[] { 5 },
 			new String[] { "Eye patch color" },
 			100
-		);
+		)
+	};
 }
