@@ -6,26 +6,17 @@ import javax.imageio.ImageIO;
 
 import SpriteManipulator.SpriteManipulator;
 public final class SpritePart implements Comparable<SpritePart> {
-	// Maps colors to an indexing that only serves this sprite part
-	// only used for initializing a map of the image
-	private final byte[][] colorMap;
-	/* Maps indices to an index in the full palette
-	 * Such that { a, b } means :
-	 * Index 0 turns into index a of the main palette
-	 * Index 1 of this part becomes index b of the image
-	 */
-	private final byte[] indexMap;
-	// default map for resetting the indices
-	private final byte[] defaultIndexMap;
+	// class constants
+	private static final int RASTERSIZE = SpriteManipulator.INDEXED_RASTER_SIZE;
+	private static final String TPATH = "/SpriteMe/Images/";
 
 	private final String n;
 	private final String path;
-	private final String[] colorAreas;
 	public final int z;
 	private final byte[] raster;
-	protected final boolean isBlankSheet;
-	// invariable size
-	private static final int RASTERSIZE = SpriteManipulator.INDEXED_RASTER_SIZE;
+	public final boolean isBlankSheet;
+	private final Index[] indices;
+	private final Index[] remappableIndices;
 
 	/**
 	 * Creates a new {@code SpritePart}.
@@ -33,24 +24,32 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 * as such, this constructor is hidden.
 	 * @param name - Name of the part. To be used in {@code toString()}
 	 * @param imagePath - File path to the {@code PNG} file for this sprite's data.
-	 * @param colorIndexMap - Custom indexing of the file based on its default color values.
-	 * @param paletteIndexMap - Maps this image's indices to indices on Link's palette.
-	 * @param areas - {@code String} names for each color index.
+	 * @param indices - An array of {@code Index} objects containing info about how to draw and read the image
 	 * @param zIndex - Display priority of the part, relative to all other parts. Higher values are drawn last.
 	 */
 	private SpritePart(String name, String imagePath,
-			byte[][] colorIndexMap, byte[] paletteIndexMap,
-			String[] areas, int zIndex, boolean isBlank) {
+			Index[] indices, int zIndex, boolean isBlank) {
 		n = name;
 		path = imagePath;
-		colorMap = colorIndexMap;
-		defaultIndexMap = paletteIndexMap;
-		indexMap = new byte[defaultIndexMap.length];
-		colorAreas = areas;
 		isBlankSheet = isBlank;
-		// deep copy
-		resetIndexMapping();		
 		z = zIndex;
+		this.indices = indices;
+		// count remappable indices
+		int c = 0;
+		for (Index i : indices) {
+			if (i.isRemappable) {
+				c++;
+			}
+		}
+		// make remappable indices array
+		this.remappableIndices = new Index[c];
+		c = 0;
+		for (Index i : indices) {
+			if (i.isRemappable) {
+				remappableIndices[c++] = i;
+			}
+		}
+
 		raster = new byte[RASTERSIZE];
 		getResourceAndRaster();
 	}
@@ -65,17 +64,16 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 * @param zIndex
 	 * @param isBlank
 	 */
-	private SpritePart(String name, String imagePath,
-			byte[][] colorIndexMap, byte[] paletteIndexMap, String[] areas,
-			int zIndex) {
-		this(name, imagePath, colorIndexMap, paletteIndexMap, areas, zIndex, false);
+	private SpritePart(String name, String imagePath, Index[] indices, int zIndex) {
+		this(name, imagePath, indices, zIndex, false);
 	}
+
 	/**
 	 * Undoes all custom indexing performed by the user.
 	 */
 	public void resetIndexMapping() {
-		for (int i = 0; i < indexMap.length; i++) {
-			indexMap[i] = defaultIndexMap[i];
+		for (Index i : indices) {
+			i.resetMap();
 		}
 	}
 
@@ -90,32 +88,46 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 * @return The number of unique color indices for this part.
 	 */
 	public int colorCount() {
-		return indexMap.length;
+		return indices.length;
 	}
 
 	/**
-	 * @return A {@code byte[]} map containing
-	 * which color index is mapped to which Link palette index,
-	 * such that {@code indexMap[0]} refers to color index 0 of this part.
+	 * @return The number of unique color indices for this part.
 	 */
-	public byte[] indexMap() {
-		return indexMap;
+	public int remappableColorCount() {
+		return remappableIndices.length;
 	}
 
 	/**
 	 * @param i
 	 * @return The {@code String} name given to desired index {@code i}.
 	 */
-	public String colorName(int i) {
-		return colorAreas[i];
+	public String getColorName(int i) {
+		return indices[i].name;
+	}
+
+	/**
+	 * 
+	 */
+	public String getNthRemappableColorName(int i) {
+		return remappableIndices[i].name;
 	}
 
 	/**
 	 * @param i
 	 * @return The Link palette index mapped to desired index {@code i}.
 	 */
-	public byte colorIndex(int i) {
-		return indexMap[i];
+	public byte getColorAtIndex(int i) {
+		return indices[i].mappedTo;
+	}
+
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 */
+	public byte getNthRemappableIndex(int i) {
+		return remappableIndices[i].mappedTo;
 	}
 
 	/**
@@ -129,10 +141,10 @@ public final class SpritePart implements Comparable<SpritePart> {
 	/**
 	 * Fetches the file's resource and creates a raster based on the part's indexing.
 	 */
-	private void getResourceAndRaster() {
+	private final void getResourceAndRaster() {
 		BufferedImage file;
 		try {
-			file = ImageIO.read(SpritePart.class.getResourceAsStream(path));
+			file = ImageIO.read(SpritePart.class.getResourceAsStream(TPATH+path));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -142,12 +154,13 @@ public final class SpritePart implements Comparable<SpritePart> {
 		byte[] rawRaster = SpriteManipulator.getImageRaster(file);
 
 		// convert pal for easier comparison
-		int[] RGB9Pal = new int[colorMap.length];
-		for (int i = 0; i < colorMap.length; i++) {
+		int[] RGB9Pal = new int[indices.length];
+		for (int i = 0; i < indices.length; i++) {
+			byte[] colorMap = indices[i].defaultColor;
 			RGB9Pal[i] = SpriteManipulator.toRGB9(
-					Byte.toUnsignedInt(colorMap[i][0]),
-					Byte.toUnsignedInt(colorMap[i][1]),
-					Byte.toUnsignedInt(colorMap[i][2])
+					Byte.toUnsignedInt(colorMap[0]),
+					Byte.toUnsignedInt(colorMap[1]),
+					Byte.toUnsignedInt(colorMap[2])
 					);
 		}
 
@@ -178,7 +191,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 
 			// apply mapped index
 			if (matchedColor) {
-				raster[i] = indexMap[curColI];
+				raster[i] = indices[curColI].getIndexMappedTo();
 			} else {
 				raster[i] = 0;
 			}
@@ -190,30 +203,21 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 */
 	public void remapColor(int i, byte j) throws IndexOutOfBoundsException {
 		try {
-			indexMap[i] = j;
+			indices[i].remapTo(j);
 			getResourceAndRaster();
 		} catch (IndexOutOfBoundsException e) {
 			throw e;
 		}
 	}
 
-	/**
-	 * Private function that converts an array of {@code int} values
-	 * into an array of {@code byte} values.
-	 * 
-	 * Only used for cleaner hard coding of inputs.
-	 * @param c
-	 */
-	private static byte[][] convertArray(int[][] c) {
-		byte[][] ret = new byte[c.length][c[0].length];
-		for (int i = 0; i < ret.length; i++) {
-			for (int j = 0; j < ret[i].length; j++) {
-				ret[i][j] = (byte) c[i][j];
-			}
+	public void remapNTHRemappableColor(int i, byte j) throws IndexOutOfBoundsException {
+		try {
+			remappableIndices[i].remapTo(j);
+			getResourceAndRaster();
+		} catch (IndexOutOfBoundsException e) {
+			throw e;
 		}
-		return ret;
 	}
-
 	/**
 	 * 
 	 */
@@ -229,10 +233,8 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 */
 	public static final SpritePart NOTHING = new SpritePart(
 			"Nothing",
-			"/SpriteMe/Images/Nothing.png",
-			new byte[][] { {1,1,1} },
-			new byte[] { 0 },
-			new String[] {},
+			"Nothing.png",
+			new Index[] {},
 			0,
 			true // blank sheet
 		);
@@ -242,18 +244,16 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 */
 	public static final SpritePart BODY = new SpritePart(
 			"Body",
-			"/SpriteMe/Images/Dummy Link.png",
-			convertArray(new int[][] { 
-						{ 40, 40, 40 }, // black outline
-						{ 248, 248, 248 }, // eyes and water
-						{ 240, 216, 64 }, // yellow
-						{ 240, 160, 104 }, // skin
-						{ 184, 104, 32 }, // skin shade
-						{ 194, 24, 32 }, // mouth
-						{ 192, 128, 240 } // water
-					}),
-			new byte[] { 5, 1, 2, 4, 3, 7, 15 },
-			new String[] { "","","","","","","" },
+			"Dummy Link.png",
+			new Index[] {
+					new Index("", 5, false, 40, 40, 40),
+					new Index("", 1, false, 248, 248, 248),
+					new Index("", 2, false, 240, 216, 64),
+					new Index("", 4, false, 240, 160, 104),
+					new Index("", 3, false, 184, 104, 32),
+					new Index("", 7, false,  194, 24, 32),
+					new Index("", 15, false, 192, 128, 240)
+				},
 			0
 		);
 
@@ -262,10 +262,8 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 */
 	public static final SpritePart BALD = new SpritePart(
 			"Bald",
-			"/SpriteMe/Images/Nothing.png",
-			new byte[][] { {1,1,1} },
-			new byte[] { 0 },
-			new String[] {},
+			"Nothing.png",
+			new Index[] {},
 			1,
 			true // blank sheet
 		);
@@ -282,24 +280,72 @@ public final class SpritePart implements Comparable<SpritePart> {
 		// Glasses
 		new SpritePart(
 			"Glasses",
-			"/SpriteMe/Images/glasses_template.png",
-			convertArray(new int[][] { 
-						{ 40, 40, 40 }, // black outline
-						{ 192, 128, 240 } // lens
-					}),
-			new byte[] { 5, 15 },
-			new String[] { "Frame", "Lens" },
+			"glasses_template.png",
+			new Index[] {
+					new Index("Frame", 5, false, 40, 40, 40),
+					new Index("Lens", 15, true, 192, 128, 240)
+				},
 			100),
 		// Eye patch
 		new SpritePart(
 			"Eyepatch",
-			"/SpriteMe/Images/Eyepatch template.png",
-			convertArray(new int[][] { 
-						{ 40, 40, 40 }, // black outline
-					}),
-			new byte[] { 5 },
-			new String[] { "Eye patch color" },
-			100
-		)
+			"Eyepatch template.png",
+			new Index[] {
+					new Index("Color", 5, true, 40, 40, 40)
+				},
+			100),
+		// pendant
+		new SpritePart(
+			"Pendant",
+			"Pendant template.png",
+			new Index[] {
+					new Index("Outline", 5, false, 40, 40, 40),
+					new Index("String", 1, true, 192, 128, 240), // default white, different here for indexing
+					new Index("Gem", 10, true, 64, 216, 112),
+					new Index("Gem shade", 9, true, 56, 144, 104),
+					new Index("Gem luster", 1, false, 248, 248, 248)
+			},
+			100)
 	};
+
+	static class Index {
+		public final String name;
+		/*
+		 * Maps indices to an index in the full palette
+		 * Such that { a, b } means :
+		 * Index 0 turns into index a of the main palette
+		 * Index 1 of this part becomes index b of the image
+		 */
+		private byte mappedTo;
+		private final byte defaultMappedTo;
+		public final boolean isRemappable;
+		// Maps colors to an indexing that only serves this sprite part
+		// only used for initializing a map of the image
+		public final byte[] defaultColor;
+
+		public Index(String name, int mappedTo, boolean isRemappable,
+				int r, int g, int b) {
+			this.name = name;
+			this.mappedTo = (byte) mappedTo;
+			this.defaultMappedTo = (byte) mappedTo;
+			this.isRemappable = isRemappable;
+			defaultColor = new byte[] {
+					(byte) r,
+					(byte) g,
+					(byte) b
+			};
+		}
+
+		public void remapTo(byte i) {
+			mappedTo = i;
+		}
+
+		public byte getIndexMappedTo() {
+			return mappedTo;
+		}
+
+		public void resetMap() {
+			mappedTo = defaultMappedTo;
+		}
+	}
 }

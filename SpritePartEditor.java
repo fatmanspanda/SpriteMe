@@ -24,7 +24,6 @@ public class SpritePartEditor extends Container {
 	private static final Dimension prefDim = new Dimension(400,20);
 
 	// local vars
-	private byte[] originalColorMap = {};
 	private byte[] colorMap = {};
 	private Palette pal;
 	private SpritePart curPart;
@@ -77,12 +76,10 @@ public class SpritePartEditor extends Container {
 			return;
 		}
 		curPart = p;
-		colors = p.colorCount();
-		originalColorMap = new byte[colors];
+		colors = p.remappableColorCount();
 		colorMap = new byte[colors];
 		for (int i = 0; i < colors; i++) {
-			originalColorMap[i] = p.colorIndex(i);
-			colorMap[i] = p.colorIndex(i);
+			colorMap[i] = p.getNthRemappableIndex(i);
 		}
 		setPalette();
 		newPaletteSet();
@@ -106,7 +103,7 @@ public class SpritePartEditor extends Container {
 		palettes = new MiniPalette[colors];
 		for (int i = 0; i < colors; i++) {
 			palettes[i] = new MiniPalette(this, pal, i);
-			palettes[i].setIndex(curPart.colorIndex(i));
+			palettes[i].setIndex(curPart.getNthRemappableIndex(i));
 		}
 	}
 
@@ -169,7 +166,8 @@ public class SpritePartEditor extends Container {
 				w.gridheight = 1;
 			}
 			w.gridx = 0;
-			JLabel partColorName = new JLabel(curPart.colorName(i), SwingConstants.RIGHT);
+			JLabel partColorName =
+					new JLabel(curPart.getNthRemappableColorName(i), SwingConstants.RIGHT);
 			partColorName.setBorder(rightPad);
 			paletteArea.add(partColorName, w);
 		}
@@ -189,7 +187,7 @@ public class SpritePartEditor extends Container {
 	 * @param palI
 	 */
 	public void setPaletteColor(int palX, byte palI) {
-		curPart.remapColor(palX, palI);
+		curPart.remapNTHRemappableColor(palX, palI);
 		fireSpriteChangeEvent();
 	}
 
