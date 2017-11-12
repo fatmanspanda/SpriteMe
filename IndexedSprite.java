@@ -15,7 +15,7 @@ import SpriteManipulator.*;
 public class IndexedSprite extends Component {
 	private static final long serialVersionUID = -6792579285233025438L;
 	private static final int IRASTERSIZE = SpriteManipulator.INDEXED_RASTER_SIZE;
-	private static final Dimension d = new Dimension(200, 448);
+	private static final Dimension d = new Dimension(200, 520);
 
 	// local vars
 	private ArrayList<SpritePart> parts = new ArrayList<SpritePart>();
@@ -183,10 +183,25 @@ public class IndexedSprite extends Component {
 		// draw big preview
 		Graphics2D g2 = (Graphics2D) g;
 		g2.scale(4, 4);
-		BufferedImage body = cur.getSubimage(48, 16, 16, 16);
-		BufferedImage head = cur.getSubimage(16, 0, 16, 16);
-		g2.drawImage(body, 33, 8, null);
-		g2.drawImage(head, 33, 0, null);
+		int xOffset = 33;
+		BufferedImage body;
+		BufferedImage head;
+		// draw 3 mails
+		for (int i = 0; i < 3; i++) {
+			cur = sheets[i];
+			body = cur.getSubimage(48, 16, 16, 16);
+			head = cur.getSubimage(16, 0, 16, 16);
+			int h = i * 24;
+			g2.drawImage(body, xOffset, h+8, null);
+			g2.drawImage(head, xOffset, h+0, null);
+		}
+		// draw bunny
+		int h = 3 * 24;
+		cur = sheets[3];
+		body = cur.getSubimage(0, 16 * 26, 16, 16);
+		head = cur.getSubimage(16 * 5, 16 * 25, 16, 16);
+		g2.drawImage(body, xOffset, h+8, null);
+		g2.drawImage(head, xOffset, h+0, null);
 	}
 
 	/*
