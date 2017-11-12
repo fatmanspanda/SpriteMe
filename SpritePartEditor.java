@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,7 @@ public class SpritePartEditor extends Container {
 	private final String partName;
 	private final JComboBox<SpritePart> selector;
 	private final Picker pick;
+	private final Picker unpick;
 
 	/**
 	 * Creates a new {@code SpritePartEditor}.
@@ -44,9 +46,8 @@ public class SpritePartEditor extends Container {
 	 * @param pick - a defined {@link Picker} interface containing the function that
 	 * controls what happens when the combobox is changed
 	 */
-
 	public SpritePartEditor(String name, Palette p,
-			JComboBox<SpritePart> selector, Picker pick) {
+			JComboBox<SpritePart> selector, Picker pick, Picker unpick) {
 		super();
 		pal = p;
 		this.setLayout(l);
@@ -56,6 +57,7 @@ public class SpritePartEditor extends Container {
 		newPaletteSet();
 		this.selector = selector;
 		this.pick = pick;
+		this.unpick = unpick;
 		partName = name;
 		editNewPart(null);
 		initializeDisplay();
@@ -127,9 +129,13 @@ public class SpritePartEditor extends Container {
 
 		selector.addItemListener(
 				arg0 -> {
-					SpritePart picked = (SpritePart) selector.getSelectedItem();
-					pick.pickThis(picked);
-					this.editNewPart(picked);
+					if (arg0.getStateChange() == ItemEvent.SELECTED) {
+						SpritePart picked = (SpritePart) selector.getSelectedItem();
+						unpick.pickThis(picked);
+						pick.pickThis(picked);
+						this.editNewPart(picked);
+						fireSpriteChangeEvent();
+					}
 				}
 			);
 		newPaletteSet();

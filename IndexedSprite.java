@@ -90,6 +90,23 @@ public class IndexedSprite extends Component {
 	}
 
 	/**
+	 * Checks if an accessory {@code SpritePart} is currently being used.
+	 * @param acc
+	 * @return Accessory # or 0 if unused
+	 */
+	public int checkAccessoryUse(SpritePart acc) {
+		if (acc1 == acc && !acc.isBlankSheet) {
+			return 1;
+		} else if (acc2 == acc && !acc.isBlankSheet) {
+			return 2;
+		} else if (acc3 == acc && !acc.isBlankSheet) {
+			return 3;
+		} else {
+			return 0;
+		}
+	}
+
+	/**
 	 * Set raster based on each parts' index mapping
 	 */
 	private void makeRaster() {

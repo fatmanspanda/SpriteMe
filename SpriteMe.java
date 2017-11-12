@@ -183,11 +183,31 @@ public class SpriteMe {
 				SpringLayout.SOUTH, mailPick);
 		fullWrap.add(skinPick);
 
-		// accessory 1
+		// accessories
 		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(ACCESSORIES);
+		final JComboBox<SpritePart> acc2Pick = new JComboBox<SpritePart>(ACCESSORIES);
+		final JComboBox<SpritePart> acc3Pick = new JComboBox<SpritePart>(ACCESSORIES);
+
+		// prevents duplicate items
+		Picker accessoryUnpicker = part -> {
+			int user = mySprite.checkAccessoryUse(part);
+			switch (user) {
+				case 1 :
+					acc1Pick.setSelectedIndex(0);
+					break;
+				case 2 :
+					acc2Pick.setSelectedIndex(0);
+					break;
+				case 3 :
+					acc3Pick.setSelectedIndex(0);
+					break;
+			}
+		};
+
+		// accessory 1
 		Picker acc1PickThis = part -> mySprite.setAccessory(part, 1);
 		SpritePartEditor acc1Editor =
-				new SpritePartEditor("Accessory 1", pal, acc1Pick, acc1PickThis);
+				new SpritePartEditor("Accessory 1", pal, acc1Pick, acc1PickThis, accessoryUnpicker);
 		setAllSizes(acc1Pick, cbd);
 
 		l.putConstraint(SpringLayout.EAST, acc1Editor, 0,
@@ -197,10 +217,9 @@ public class SpriteMe {
 		fullWrap.add(acc1Editor);
 
 		// accessory 2
-		final JComboBox<SpritePart> acc2Pick = new JComboBox<SpritePart>(ACCESSORIES);
 		Picker acc2PickThis = part -> mySprite.setAccessory(part, 2);
 		SpritePartEditor acc2Editor =
-				new SpritePartEditor("Accessory 2", pal, acc2Pick, acc2PickThis);
+				new SpritePartEditor("Accessory 2", pal, acc2Pick, acc2PickThis, accessoryUnpicker);
 		setAllSizes(acc2Pick, cbd);
 
 		l.putConstraint(SpringLayout.EAST, acc2Editor, 0,
@@ -210,10 +229,9 @@ public class SpriteMe {
 		fullWrap.add(acc2Editor);
 
 		// accessory 3
-		final JComboBox<SpritePart> acc3Pick = new JComboBox<SpritePart>(ACCESSORIES);
 		Picker acc3PickThis = part -> mySprite.setAccessory(part, 3);
 		SpritePartEditor acc3Editor =
-				new SpritePartEditor("Accessory 3", pal, acc3Pick, acc3PickThis);
+				new SpritePartEditor("Accessory 3", pal, acc3Pick, acc3PickThis, accessoryUnpicker);
 		setAllSizes(acc3Pick, cbd);
 
 		l.putConstraint(SpringLayout.EAST, acc3Editor, 0,
@@ -419,6 +437,7 @@ public class SpriteMe {
 					acc1Editor.refreshPalette();
 					acc2Editor.refreshPalette();
 					acc3Editor.refreshPalette();
+					frame.revalidate();
 					frame.repaint();
 				};
 
