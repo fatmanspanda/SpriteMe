@@ -349,7 +349,7 @@ public class SpriteMe {
 		fileMenu.add(expSpr);
 
 		// ZSPR save
-		final JMenuItem expSprTo = new JMenuItem("Export to " + ZSPRFile.EXTENSION + " + as...");
+		final JMenuItem expSprTo = new JMenuItem("Export to " + ZSPRFile.EXTENSION + " as...");
 		ImageIcon smallKeyAs = new ImageIcon(
 				SpriteMe.class.getResource("/SpriteMe/Images/Meta/Small key as.png")
 			);
@@ -529,16 +529,10 @@ public class SpriteMe {
 									"Error exporting to a " + ZSPRFile.EXTENSION + " file.",
 									"WOW",
 									JOptionPane.WARNING_MESSAGE);
-						} catch (NotZSPRException e) {
+						} catch (ZSPRFormatException e) {
 							JOptionPane.showMessageDialog(frame,
-									"File is not a " + ZSPRFile.EXTENSION + " file",
-									"Not my job",
-									JOptionPane.WARNING_MESSAGE);
-							return;
-						} catch (BadChecksumException e) {
-							JOptionPane.showMessageDialog(frame,
-									"Bad checksum; file may be corrupted",
-									"Invalid",
+									e.getMessage(),
+									"PROBLEM",
 									JOptionPane.WARNING_MESSAGE);
 							return;
 						}
