@@ -156,15 +156,12 @@ public class MiniPalette extends Container {
 
 		private final void addMouse() {
 			this.addMouseListener(new MouseListener() {
-				public void mouseClicked(MouseEvent arg0) {
-					mommy.setIndex(index);
-				}
-
 				public void mousePressed(MouseEvent arg0) {
 					mommy.setIndex(index);
 				}
 
 				// unused
+				public void mouseClicked(MouseEvent arg0) {}
 				public void mouseEntered(MouseEvent arg0) {}
 				public void mouseExited(MouseEvent arg0) {}
 				public void mouseReleased(MouseEvent arg0) {}
