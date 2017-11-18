@@ -383,10 +383,12 @@ public class SpriteMe {
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
 		exit.addActionListener(arg0 -> System.exit(0));
+
 		// end file menu
 
 		// help menu
 		final JMenu helpMenu = new JMenu("Help");
+		menu.add(helpMenu);
 
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
@@ -401,7 +403,6 @@ public class SpriteMe {
 		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true)); // do it here because short
 		helpMenu.add(peeps);
 
-		menu.add(helpMenu);
 		// end help menu
 
 		// saved names used for quick saving/exporting

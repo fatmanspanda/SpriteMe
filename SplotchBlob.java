@@ -28,11 +28,11 @@ public class SplotchBlob extends Container {
 
 	// local vars
 	private final PresetSplotchChooser chooser;
-	private Splotch[] workingSet;
 	private boolean editable = true;
-	private final JCheckBox allMails = new JCheckBox("Use color or all mails");
-	private final JButton applyAll = new JButton("Apply all");
 	private boolean allMailsBool = false;
+	private final JCheckBox allMails = new JCheckBox("Use color for all mails");
+	private final JButton applyAll = new JButton("Apply all");
+	private Splotch[] workingSet;
 	private SplotchEditor[] editors = new SplotchEditor[4];
 
 	/**

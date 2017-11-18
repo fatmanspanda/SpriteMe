@@ -1,4 +1,5 @@
 package SpriteMe;
+
 import java.util.EventObject;
 
 public class SpriteChangeEvent extends EventObject {

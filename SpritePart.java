@@ -93,9 +93,6 @@ public final class SpritePart implements Comparable<SpritePart> {
 		return indices.length;
 	}
 
-	/**
-	 * @return The number of unique color indices for this part.
-	 */
 	public int remappableColorCount() {
 		return remappableIndices.length;
 	}
@@ -123,11 +120,6 @@ public final class SpritePart implements Comparable<SpritePart> {
 		return indices[i].mappedTo;
 	}
 
-	/**
-	 * 
-	 * @param i
-	 * @return
-	 */
 	public byte getNthRemappableIndex(int i) {
 		return remappableIndices[i].mappedTo;
 	}
@@ -316,12 +308,6 @@ public final class SpritePart implements Comparable<SpritePart> {
 	 */
 	static class Index {
 		public final String name;
-		/*
-		 * Maps indices to an index in the full palette
-		 * Such that { a, b } means :
-		 * Index 0 turns into index a of the main palette
-		 * Index 1 of this part becomes index b of the image
-		 */
 		private byte mappedTo;
 		private final byte defaultMappedTo;
 		public final boolean isRemappable;
