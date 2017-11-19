@@ -25,10 +25,12 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import SpriteManipulator.*;
+import SpriteManipulator.BetterJFileChooser;
+import SpriteManipulator.SpriteManipulator;
+import SpriteManipulator.ZSPRFile;
+import SpriteManipulator.ZSPRFormatException;
 
 public class SpriteMe {
 	// version numbering
@@ -81,23 +83,12 @@ public class SpriteMe {
 
 	// GUI
 	public static void doTheGUI() {
-		//try to set LaF
+		// try to set LaF
 		try {
-			UIManager.setLookAndFeel("metal");
-		} catch (UnsupportedLookAndFeelException
-				| ClassNotFoundException
-				| InstantiationException
-				| IllegalAccessException e) {
-			// try to set System default
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (UnsupportedLookAndFeelException
-					| ClassNotFoundException
-					| InstantiationException
-					| IllegalAccessException e2) {
-					// do nothing
-			} //end System
-		} // end Metal
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e2) {
+				// do nothing
+		} //end System
 
 		// fast and long-lasting tooltips
 		ToolTipManager.sharedInstance().setInitialDelay(100);
