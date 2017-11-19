@@ -39,14 +39,11 @@ public class ColorPair {
 	 * Some constants
 	 */
 	// Skin
-	public static final ColorPair WHITE_SKIN =
-			new ColorPair("White skin", SpriteColor.WHITE_SKIN_LT, SpriteColor.WHITE_SKIN_DK);
-	public static final ColorPair PALE_SKIN =
-			SpriteColor.PALE_SKIN.makeShadedPair();
-	public static final ColorPair HISPANIC_SKIN =
-			SpriteColor.HISPANIC_SKIN.makeShadedPair();;
-	public static final ColorPair BROWN_SKIN =
-			SpriteColor.BROWN_SKIN.makeShadedPair();
-	public static final ColorPair BLACK_SKIN =
-			SpriteColor.BLACK_SKIN.makeShadedPair();
+	public static final ColorPair[] SKIN_COLORS = new ColorPair[] {
+			new ColorPair("White skin", SpriteColor.WHITE_SKIN_LT, SpriteColor.WHITE_SKIN_DK),
+			SpriteColor.PALE_SKIN.makeShadedPair(),
+			SpriteColor.HISPANIC_SKIN.makeShadedPair(),
+			SpriteColor.BROWN_SKIN.makeShadedPair(),
+			SpriteColor.BLACK_SKIN.makeShadedPair()
+	};
 }

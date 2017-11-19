@@ -52,17 +52,6 @@ public class SpriteMe {
 			"width: 230px"
 	};
 
-	/*
-	 * Combo box constants
-	 */
-	public static final ColorPair[] SKINCOLORS = new ColorPair[] {
-			ColorPair.WHITE_SKIN,
-			ColorPair.PALE_SKIN,
-			ColorPair.HISPANIC_SKIN,
-			ColorPair.BROWN_SKIN,
-			ColorPair.BLACK_SKIN
-	};
-
 	public static final String[] MAIL_NAMES = {
 		"Green mail", "Blue mail", "Red mail", "Bunny"
 	};
@@ -154,7 +143,7 @@ public class SpriteMe {
 
 		// skin color
 		final JLabel skinLbl = new JLabel("Skin color:", SwingConstants.RIGHT);
-		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(SKINCOLORS);
+		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(ColorPair.SKIN_COLORS);
 		setAllSizes(skinPick, cbd);
 		skinPick.addItemListener(
 				arg0 -> pal.setSkinColor((ColorPair) skinPick.getSelectedItem())
