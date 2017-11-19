@@ -277,7 +277,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 			"Glasses",
 			"glasses_template.png",
 			new Index[] {
-					new Index("Frame", 5, false, 40, 40, 40),
+					new Index("Frame", 5, true, 40, 40, 40),
 					new Index("Lens", 15, true, 192, 128, 240)
 				},
 			100),
