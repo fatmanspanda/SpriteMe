@@ -475,9 +475,7 @@ public class SpriteMeGUI {
 					explorer.setFileFilter(smeFilter);
 					int option = explorer.showSaveDialog(frame);
 
-					if (option == JFileChooser.CANCEL_OPTION) {
-						return;
-					}
+					if (option == JFileChooser.CANCEL_OPTION) { return; }
 
 					String n = "";
 					try {
@@ -528,9 +526,7 @@ public class SpriteMeGUI {
 					explorer.setFileFilter(sprFilter);
 					int option = explorer.showSaveDialog(frame);
 
-					if (option == JFileChooser.CANCEL_OPTION) {
-						return;
-					}
+					if (option == JFileChooser.CANCEL_OPTION) { return; }
 
 					String n = "";
 					try {
@@ -558,9 +554,7 @@ public class SpriteMeGUI {
 					explorer.setFileFilter(romFilter);
 					int option = explorer.showSaveDialog(frame);
 
-					if (option == JFileChooser.CANCEL_OPTION) {
-						return;
-					}
+					if (option == JFileChooser.CANCEL_OPTION) { return; }
 
 					String n = "";
 					try {
