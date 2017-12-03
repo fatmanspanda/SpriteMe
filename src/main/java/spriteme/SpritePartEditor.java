@@ -17,6 +17,8 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import static javax.swing.SpringLayout.*;
+
 public class SpritePartEditor extends Container {
 	// class constants
 	private static final long serialVersionUID = 3880283257828608241L;
@@ -116,16 +118,12 @@ public class SpritePartEditor extends Container {
 	 */
 	public final void initializeDisplay() {
 		final JLabel nameLbl = new JLabel(partName + ":");
-		l.putConstraint(SpringLayout.EAST, nameLbl, -6,
-				SpringLayout.WEST, selector);
-		l.putConstraint(SpringLayout.VERTICAL_CENTER, nameLbl, 0,
-				SpringLayout.VERTICAL_CENTER, selector);
+		l.putConstraint(EAST, nameLbl, -6, WEST, selector);
+		l.putConstraint(VERTICAL_CENTER, nameLbl, 0, VERTICAL_CENTER, selector);
 		this.add(nameLbl);
 
-		l.putConstraint(SpringLayout.EAST, selector, 0,
-				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.NORTH, selector, 0,
-				SpringLayout.NORTH, this);
+		l.putConstraint(EAST, selector, 0, EAST, this);
+		l.putConstraint(NORTH, selector, 0, NORTH, this);
 		this.add(selector);
 
 		selector.addItemListener(
@@ -179,10 +177,8 @@ public class SpritePartEditor extends Container {
 		}
 
 		// add palette area
-		l.putConstraint(SpringLayout.EAST, paletteArea, 0,
-				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.NORTH, paletteArea, 0,
-				SpringLayout.SOUTH, selector);
+		l.putConstraint(EAST, paletteArea, 0, EAST, this);
+		l.putConstraint(NORTH, paletteArea, 0, SOUTH, selector);
 		this.add(paletteArea);
 
 		this.revalidate();

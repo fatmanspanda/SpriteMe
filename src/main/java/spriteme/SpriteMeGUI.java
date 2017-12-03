@@ -32,6 +32,8 @@ import SpriteManipulator.SpriteManipulator;
 import SpriteManipulator.ZSPRFile;
 import SpriteManipulator.ZSPRFormatException;
 
+import static javax.swing.SpringLayout.*;
+
 public class SpriteMeGUI {
 	// version numbering
 	// Time stamp: 7 Nov 2017
@@ -112,10 +114,8 @@ public class SpriteMeGUI {
 				"Anything mapped to index 0 will be fully transparent." +
 				"</div>" +
 				"</html>");
-		l.putConstraint(SpringLayout.EAST, helpText, 0,
-				SpringLayout.EAST, controls);
-		l.putConstraint(SpringLayout.NORTH, helpText, 0,
-				SpringLayout.NORTH, controls);
+		l.putConstraint(EAST, helpText, 0, EAST, controls);
+		l.putConstraint(NORTH, helpText, 0, NORTH, controls);
 		controls.add(helpText);
 
 		/*
@@ -129,16 +129,12 @@ public class SpriteMeGUI {
 				arg0 -> mySprite.setMail(mailPick.getSelectedIndex())
 			);
 
-		l.putConstraint(SpringLayout.EAST, mailLbl, -6,
-				SpringLayout.WEST, mailPick);
-		l.putConstraint(SpringLayout.VERTICAL_CENTER, mailLbl, 0,
-				SpringLayout.VERTICAL_CENTER, mailPick);
+		l.putConstraint(EAST, mailLbl, -6, WEST, mailPick);
+		l.putConstraint(VERTICAL_CENTER, mailLbl, 0, VERTICAL_CENTER, mailPick);
 		controls.add(mailLbl);
 
-		l.putConstraint(SpringLayout.EAST, mailPick, -5,
-				SpringLayout.EAST, controls);
-		l.putConstraint(SpringLayout.NORTH, mailPick, 5,
-				SpringLayout.SOUTH, helpText);
+		l.putConstraint(EAST, mailPick, -5, EAST, controls);
+		l.putConstraint(NORTH, mailPick, 5, SOUTH, helpText);
 		controls.add(mailPick);
 
 		// skin color
@@ -149,18 +145,13 @@ public class SpriteMeGUI {
 				arg0 -> pal.setSkinColor((ColorPair) skinPick.getSelectedItem())
 			);
 
-		l.putConstraint(SpringLayout.EAST, skinLbl, 0,
-				SpringLayout.EAST, mailLbl);
-		l.putConstraint(SpringLayout.VERTICAL_CENTER, skinLbl, 0,
-				SpringLayout.VERTICAL_CENTER, skinPick);
+		l.putConstraint(EAST, skinLbl, 0, EAST, mailLbl);
+		l.putConstraint(VERTICAL_CENTER, skinLbl, 0, VERTICAL_CENTER, skinPick);
 		controls.add(skinLbl);
 
-		l.putConstraint(SpringLayout.EAST, skinPick, 0,
-				SpringLayout.EAST, mailPick);
-		l.putConstraint(SpringLayout.WEST, skinPick, 0,
-				SpringLayout.WEST, mailPick);
-		l.putConstraint(SpringLayout.NORTH, skinPick, 2,
-				SpringLayout.SOUTH, mailPick);
+		l.putConstraint(EAST, skinPick, 0, EAST, mailPick);
+		l.putConstraint(WEST, skinPick, 0, WEST, mailPick);
+		l.putConstraint(NORTH, skinPick, 2, SOUTH, mailPick);
 		controls.add(skinPick);
 
 		// hair
@@ -170,10 +161,8 @@ public class SpriteMeGUI {
 				new SpritePartEditor("Hair", pal, hairPick, hairPickThis, null);
 		setAllSizes(hairPick, cbd);
 
-		l.putConstraint(SpringLayout.EAST, hairEditor, 0,
-				SpringLayout.EAST, mailPick);
-		l.putConstraint(SpringLayout.NORTH, hairEditor, 2,
-				SpringLayout.SOUTH, skinPick);
+		l.putConstraint(EAST, hairEditor, 0, EAST, mailPick);
+		l.putConstraint(NORTH, hairEditor, 2, SOUTH, skinPick);
 		controls.add(hairEditor);
 
 		// accessories
@@ -203,10 +192,8 @@ public class SpriteMeGUI {
 				new SpritePartEditor("Accessory 1", pal, acc1Pick, acc1PickThis, accessoryUnpicker);
 		setAllSizes(acc1Pick, cbd);
 
-		l.putConstraint(SpringLayout.EAST, acc1Editor, 0,
-				SpringLayout.EAST, mailPick);
-		l.putConstraint(SpringLayout.NORTH, acc1Editor, 2,
-				SpringLayout.SOUTH, hairEditor);
+		l.putConstraint(EAST, acc1Editor, 0, EAST, mailPick);
+		l.putConstraint(NORTH, acc1Editor, 2, SOUTH, hairEditor);
 		controls.add(acc1Editor);
 
 		// accessory 2
@@ -215,10 +202,8 @@ public class SpriteMeGUI {
 				new SpritePartEditor("Accessory 2", pal, acc2Pick, acc2PickThis, accessoryUnpicker);
 		setAllSizes(acc2Pick, cbd);
 
-		l.putConstraint(SpringLayout.EAST, acc2Editor, 0,
-				SpringLayout.EAST, mailPick);
-		l.putConstraint(SpringLayout.NORTH, acc2Editor, 2,
-				SpringLayout.SOUTH, acc1Editor);
+		l.putConstraint(EAST, acc2Editor, 0, EAST, mailPick);
+		l.putConstraint(NORTH, acc2Editor, 2, SOUTH, acc1Editor);
 		controls.add(acc2Editor);
 
 		// accessory 3
@@ -227,10 +212,8 @@ public class SpriteMeGUI {
 				new SpritePartEditor("Accessory 3", pal, acc3Pick, acc3PickThis, accessoryUnpicker);
 		setAllSizes(acc3Pick, cbd);
 
-		l.putConstraint(SpringLayout.EAST, acc3Editor, 0,
-				SpringLayout.EAST, mailPick);
-		l.putConstraint(SpringLayout.NORTH, acc3Editor, 2,
-				SpringLayout.SOUTH, acc2Editor);
+		l.putConstraint(EAST, acc3Editor, 0, EAST, mailPick);
+		l.putConstraint(NORTH, acc3Editor, 2, SOUTH, acc2Editor);
 		controls.add(acc3Editor);
 
 		// format frame
@@ -239,17 +222,13 @@ public class SpriteMeGUI {
 		framesWrap.setLayout(f);
 
 		// palette
-		f.putConstraint(SpringLayout.NORTH, pal, 0,
-				SpringLayout.NORTH, framesWrap);
-		f.putConstraint(SpringLayout.EAST, pal, 0,
-				SpringLayout.EAST, framesWrap);
+		f.putConstraint(NORTH, pal, 0, NORTH, framesWrap);
+		f.putConstraint(EAST, pal, 0, EAST, framesWrap);
 		framesWrap.add(pal);
 
 		// sprite appearance
-		l.putConstraint(SpringLayout.NORTH, mySprite, 5,
-				SpringLayout.NORTH, controls);
-		l.putConstraint(SpringLayout.WEST, mySprite, 5,
-				SpringLayout.WEST, controls);
+		l.putConstraint(NORTH, mySprite, 5, NORTH, controls);
+		l.putConstraint(WEST, mySprite, 5, WEST, controls);
 		controls.add(mySprite);
 
 		// color changer
@@ -257,21 +236,15 @@ public class SpriteMeGUI {
 		pal.attachEditor(colorEditor);
 
 		// wrapper frame
-		f.putConstraint(SpringLayout.NORTH, controls, 2,
-				SpringLayout.NORTH, framesWrap);
-		f.putConstraint(SpringLayout.SOUTH, controls, -2,
-				SpringLayout.SOUTH, framesWrap);
-		f.putConstraint(SpringLayout.WEST, controls, 2,
-				SpringLayout.WEST, framesWrap);
+		f.putConstraint(NORTH, controls, 2, NORTH, framesWrap);
+		f.putConstraint(SOUTH, controls, -2, SOUTH, framesWrap);
+		f.putConstraint(WEST, controls, 2, WEST, framesWrap);
 		framesWrap.add(controls);
 
 		// color editor
-		f.putConstraint(SpringLayout.NORTH, colorEditor, 2,
-				SpringLayout.SOUTH, pal);
-		f.putConstraint(SpringLayout.SOUTH, colorEditor, 2,
-				SpringLayout.SOUTH, framesWrap);
-		f.putConstraint(SpringLayout.EAST, colorEditor, -2,
-				SpringLayout.EAST, framesWrap);
+		f.putConstraint(NORTH, colorEditor, 2, SOUTH, pal);
+		f.putConstraint(SOUTH, colorEditor, 2, SOUTH, framesWrap);
+		f.putConstraint(EAST, colorEditor, -2, EAST, framesWrap);
 		framesWrap.add(colorEditor);
 
 		// menu

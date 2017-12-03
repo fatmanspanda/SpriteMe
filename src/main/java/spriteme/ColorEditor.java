@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
+import static javax.swing.SpringLayout.*;
 
 public class ColorEditor extends Container {
 	private static final long serialVersionUID = -6002186857197093009L;
@@ -105,38 +106,26 @@ public class ColorEditor extends Container {
 				"</div>" +
 				"</html>");
 
-		l.putConstraint(SpringLayout.WEST, helpText, 0,
-				SpringLayout.WEST, curEditing);
-		l.putConstraint(SpringLayout.EAST, helpText, 0,
-				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.NORTH, helpText, 0,
-				SpringLayout.NORTH, this);
+		l.putConstraint(WEST, helpText, 0, WEST, curEditing);
+		l.putConstraint(EAST, helpText, 0, EAST, this);
+		l.putConstraint(NORTH, helpText, 0, NORTH, this);
 		this.add(helpText);
 
-		l.putConstraint(SpringLayout.WEST, editableText, 0,
-				SpringLayout.WEST, curEditing);
-		l.putConstraint(SpringLayout.EAST, editableText, 0,
-				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.NORTH, editableText, 10,
-				SpringLayout.SOUTH, helpText);
+		l.putConstraint(WEST, editableText, 0, WEST, curEditing);
+		l.putConstraint(EAST, editableText, 0, EAST, this);
+		l.putConstraint(NORTH, editableText, 10, SOUTH, helpText);
 		this.add(editableText);
 
-		l.putConstraint(SpringLayout.EAST, curEditing, 0,
-				SpringLayout.HORIZONTAL_CENTER, this);
-		l.putConstraint(SpringLayout.SOUTH, curEditing, -10,
-				SpringLayout.NORTH, blob);
+		l.putConstraint(EAST, curEditing, 0, HORIZONTAL_CENTER, this);
+		l.putConstraint(SOUTH, curEditing, -10, NORTH, blob);
 		this.add(curEditing);
 
-		l.putConstraint(SpringLayout.WEST, indexLabel, 0,
-				SpringLayout.EAST, curEditing);
-		l.putConstraint(SpringLayout.SOUTH, indexLabel, -10,
-				SpringLayout.NORTH, blob);
+		l.putConstraint(WEST, indexLabel, 0, EAST, curEditing);
+		l.putConstraint(SOUTH, indexLabel, -10, NORTH, blob);
 		this.add(indexLabel);
 		
-		l.putConstraint(SpringLayout.EAST, blob, 0,
-				SpringLayout.EAST, this);
-		l.putConstraint(SpringLayout.SOUTH, blob, 0,
-				SpringLayout.SOUTH, this);
+		l.putConstraint(EAST, blob, 0, EAST, this);
+		l.putConstraint(SOUTH, blob, 0, SOUTH, this);
 		this.add(blob);
 	} // end display initialization
 }

@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import static javax.swing.SpringLayout.*;
+
 public class PresetSplotchChooser extends JDialog {
 	private static final long serialVersionUID = -7435126379055131184L;
 
@@ -77,32 +79,23 @@ public class PresetSplotchChooser extends JDialog {
 		wrap.setMinimumSize(D);
 		wrap.setLayout(l);
 
-		l.putConstraint(SpringLayout.NORTH, CATEGORY_CHOOSER, 2,
-				SpringLayout.NORTH, wrap);
-		l.putConstraint(SpringLayout.EAST, CATEGORY_CHOOSER, -4,
-				SpringLayout.EAST, wrap);
-		l.putConstraint(SpringLayout.WEST, CATEGORY_CHOOSER, 4,
-				SpringLayout.WEST, wrap);
+		l.putConstraint(NORTH, CATEGORY_CHOOSER, 2, NORTH, wrap);
+		l.putConstraint(EAST, CATEGORY_CHOOSER, -4, EAST, wrap);
+		l.putConstraint(WEST, CATEGORY_CHOOSER, 4, WEST, wrap);
 		wrap.add(CATEGORY_CHOOSER);
 
-		l.putConstraint(SpringLayout.NORTH, curCat, 2,
-				SpringLayout.SOUTH, CATEGORY_CHOOSER);
-		l.putConstraint(SpringLayout.EAST, curCat, -4,
-				SpringLayout.EAST, wrap);
-		l.putConstraint(SpringLayout.WEST, curCat, 4,
-				SpringLayout.WEST, wrap);
+		l.putConstraint(NORTH, curCat, 2, SOUTH, CATEGORY_CHOOSER);
+		l.putConstraint(EAST, curCat, -4, EAST, wrap);
+		l.putConstraint(WEST, curCat, 4, WEST, wrap);
 		wrap.add(curCat);
 
 		CATEGORY_CHOOSER.addItemListener(
 				arg0 -> {
 					wrap.remove(curCat);
 					curCat = (PresetCategory) CATEGORY_CHOOSER.getSelectedItem();
-					l.putConstraint(SpringLayout.NORTH, curCat, 2,
-							SpringLayout.SOUTH, CATEGORY_CHOOSER);
-					l.putConstraint(SpringLayout.EAST, curCat, -4,
-							SpringLayout.EAST, wrap);
-					l.putConstraint(SpringLayout.WEST, curCat, 4,
-							SpringLayout.WEST, wrap);
+					l.putConstraint(NORTH, curCat, 2, SOUTH, CATEGORY_CHOOSER);
+					l.putConstraint(EAST, curCat, -4, EAST, wrap);
+					l.putConstraint(WEST, curCat, 4, WEST, wrap);
 					wrap.add(curCat);
 					PresetSplotchChooser.this.revalidate();
 					PresetSplotchChooser.this.repaint();
