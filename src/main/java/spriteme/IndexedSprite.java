@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import SpriteManipulator.*;
+import spritemanipulator.*;
 
 public class IndexedSprite extends Component {
 	private static final long serialVersionUID = -6792579285233025438L;

@@ -27,10 +27,10 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import SpriteManipulator.BetterJFileChooser;
-import SpriteManipulator.SpriteManipulator;
-import SpriteManipulator.ZSPRFile;
-import SpriteManipulator.ZSPRFormatException;
+import spritemanipulator.BetterJFileChooser;
+import spritemanipulator.SpriteManipulator;
+import spritemanipulator.ZSPRFile;
+import spritemanipulator.ZSPRFormatException;
 
 import static javax.swing.SpringLayout.*;
 

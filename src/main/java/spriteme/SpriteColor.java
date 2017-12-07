@@ -2,7 +2,7 @@ package spriteme;
 
 import java.awt.Color;
 
-import SpriteManipulator.SpriteManipulator;
+import spritemanipulator.SpriteManipulator;
 
 public class SpriteColor {
 	private String n;

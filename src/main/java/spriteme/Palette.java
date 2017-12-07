@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-import SpriteManipulator.SpriteManipulator;
+import spritemanipulator.SpriteManipulator;
 
 public class Palette extends Container {
 	// class constants

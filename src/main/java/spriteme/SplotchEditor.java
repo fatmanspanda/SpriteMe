@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import SpriteManipulator.SpriteManipulator;
+import spritemanipulator.SpriteManipulator;
 
 public class SplotchEditor extends Container {
 	private static final long serialVersionUID = -5665184823715239064L;

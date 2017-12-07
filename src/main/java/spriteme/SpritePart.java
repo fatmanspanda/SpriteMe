@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import SpriteManipulator.SpriteManipulator;
+import spritemanipulator.SpriteManipulator;
 
 public final class SpritePart implements Comparable<SpritePart> {
 	// class constants
