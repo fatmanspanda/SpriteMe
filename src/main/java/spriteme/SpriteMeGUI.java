@@ -52,11 +52,15 @@ public class SpriteMeGUI {
 	private static String[] INSTRUCTION_STYLE = {
 			"padding: 10px 10px 10px 0px",
 			"width: 230px"
-	};
+		};
 
 	public static final String[] MAIL_NAMES = {
 		"Green mail", "Blue mail", "Red mail", "Bunny"
-	};
+		};
+
+	public static final String[] GLOVE_NAMES = {
+			"No upgrade", "Power glove", "Titan's mitt"
+		};
 
 	// file type constants
 	static final String[] SPRITE_ME_EXTS = { "sme" }; // SpriteMe files
@@ -137,6 +141,23 @@ public class SpriteMeGUI {
 		l.putConstraint(NORTH, mailPick, 5, SOUTH, helpText);
 		controls.add(mailPick);
 
+		// mail preview
+		final JLabel gloveLbl = new JLabel("Gloves preview:", SwingConstants.RIGHT);
+		final JComboBox<String> glovePick = new JComboBox<String>(GLOVE_NAMES);
+		setAllSizes(glovePick, cbd);
+		glovePick.addItemListener(
+				arg0 -> mySprite.setGlove(glovePick.getSelectedIndex())
+			);
+
+		l.putConstraint(EAST, gloveLbl, 0, EAST, mailLbl);
+		l.putConstraint(VERTICAL_CENTER, gloveLbl, 0, VERTICAL_CENTER, glovePick);
+		controls.add(gloveLbl);
+
+		l.putConstraint(EAST, glovePick, 0, EAST, mailPick);
+		l.putConstraint(WEST, glovePick, 0, WEST, mailPick);
+		l.putConstraint(NORTH, glovePick, 2, SOUTH, mailPick);
+		controls.add(glovePick);
+
 		// skin color
 		final JLabel skinLbl = new JLabel("Skin color:", SwingConstants.RIGHT);
 		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(ColorPair.SKIN_COLORS);
@@ -145,13 +166,13 @@ public class SpriteMeGUI {
 				arg0 -> pal.setSkinColor((ColorPair) skinPick.getSelectedItem())
 			);
 
-		l.putConstraint(EAST, skinLbl, 0, EAST, mailLbl);
+		l.putConstraint(EAST, skinLbl, 0, EAST, gloveLbl);
 		l.putConstraint(VERTICAL_CENTER, skinLbl, 0, VERTICAL_CENTER, skinPick);
 		controls.add(skinLbl);
 
-		l.putConstraint(EAST, skinPick, 0, EAST, mailPick);
-		l.putConstraint(WEST, skinPick, 0, WEST, mailPick);
-		l.putConstraint(NORTH, skinPick, 2, SOUTH, mailPick);
+		l.putConstraint(EAST, skinPick, 0, EAST, glovePick);
+		l.putConstraint(WEST, skinPick, 0, WEST, glovePick);
+		l.putConstraint(NORTH, skinPick, 2, SOUTH, glovePick);
 		controls.add(skinPick);
 
 		// hair

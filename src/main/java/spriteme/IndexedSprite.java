@@ -24,7 +24,8 @@ public class IndexedSprite extends Component {
 	private byte[] rasterABGR;
 	private Palette pal;
 	private int mail;
-	private BufferedImage[] sheets;
+	private int lift;
+	private BufferedImage[][] sheets;
 
 	// Specific body parts
 	private final SpritePart body = SpritePart.BODY;
@@ -42,14 +43,23 @@ public class IndexedSprite extends Component {
 		this.setPreferredSize(d);
 		this.setMinimumSize(d);
 		this.setSize(d);
+		lift = 0;
 		setMail(0);
 	}
 
 	/**
-	 * @param m - Palette level to use
+	 * @param m - mail level to use
 	 */
 	public void setMail(int m) {
 		mail = m;
+		fireSpriteChangeEvent();
+	}
+
+	/**
+	 * @param g - lift upgrade to use
+	 */
+	public void setGlove(int g) {
+		lift = g;
 		fireSpriteChangeEvent();
 	}
 
@@ -168,8 +178,11 @@ public class IndexedSprite extends Component {
 	 */
 	private void refreshImage() {
 		makeRaster();
-		byte[][][] ebe = SpriteManipulator.indexAnd8x8(rasterABGR, pal.toRGB9Array());
-		sheets = SpriteManipulator.makeAllMails(ebe, pal.toArray());
+		int[] rgb9Pal = pal.toRGB9Array();
+		byte[] palData = SpriteManipulator.getPalDataFromArray(rgb9Pal);
+		byte[] glovesData = SpriteManipulator.getGlovesDataFromArray(rgb9Pal);
+		byte[][][] ebe = SpriteManipulator.indexAnd8x8(rasterABGR, rgb9Pal);
+		sheets = SpriteManipulator.makeAllMails(ebe, palData, glovesData);
 	}
 
 	/**
@@ -178,7 +191,7 @@ public class IndexedSprite extends Component {
 	public void paint(Graphics g) {
 		refreshImage();
 		// draw main sheet
-		BufferedImage cur = sheets[mail];
+		BufferedImage cur = sheets[mail][lift];
 		g.drawImage(cur, 0, 0, null);
 
 		// draw big preview
@@ -187,18 +200,20 @@ public class IndexedSprite extends Component {
 		int xOffset = 33;
 		BufferedImage body;
 		BufferedImage head;
+
 		// draw 3 mails
 		for (int i = 0; i < 3; i++) {
-			cur = sheets[i];
+			cur = sheets[i][lift];
 			body = cur.getSubimage(48, 16, 16, 16);
 			head = cur.getSubimage(16, 0, 16, 16);
 			int h = i * 24;
 			g2.drawImage(body, xOffset, h+8, null);
 			g2.drawImage(head, xOffset, h+0, null);
 		}
+
 		// draw bunny
 		int h = 3 * 24;
-		cur = sheets[3];
+		cur = sheets[3][0];
 		body = cur.getSubimage(0, 16 * 26, 16, 16);
 		head = cur.getSubimage(16 * 5, 16 * 25, 16, 16);
 		g2.drawImage(body, xOffset, h+8, null);
