@@ -37,12 +37,9 @@ import static javax.swing.SpringLayout.*;
 public class SpriteMeGUI {
 	// version numbering
 	// Time stamp: 7 Nov 2017
-	@SuppressWarnings("unused")
 	private static final byte VERSION = 1;
 	private static final String VERSION_TAG = "v0.0.0";
-	@SuppressWarnings("unused")
 	private static final byte SME_VERSION = 1; // file type specification
-	@SuppressWarnings("unused")
 	private static final byte[] SME_FLAG = { 'S', 'P', 'R', 'I', 'T', 'E', 'M', 'E' };
 
 	// class constants
