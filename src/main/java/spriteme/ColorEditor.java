@@ -123,7 +123,7 @@ public class ColorEditor extends Container {
 		l.putConstraint(WEST, indexLabel, 0, EAST, curEditing);
 		l.putConstraint(SOUTH, indexLabel, -10, NORTH, blob);
 		this.add(indexLabel);
-		
+
 		l.putConstraint(EAST, blob, 0, EAST, this);
 		l.putConstraint(SOUTH, blob, 0, SOUTH, this);
 		this.add(blob);

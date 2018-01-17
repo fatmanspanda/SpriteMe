@@ -70,7 +70,7 @@ public class SplotchEditor extends Container {
 	private final SplotchBlob mommy;
 
 	/**
-	 * 
+	 *
 	 * @param c - Splotch to apply color edits to.
 	 * @param e - Enable/Disabled
 	 */
@@ -347,7 +347,7 @@ public class SplotchEditor extends Container {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void setEnabled(boolean e) {
 		enabled = e;

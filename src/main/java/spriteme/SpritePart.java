@@ -80,7 +80,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public String toString() {
 		return n;
@@ -106,7 +106,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public String getNthRemappableColorName(int i) {
 		return remappableIndices[i].name;
@@ -214,7 +214,7 @@ public final class SpritePart implements Comparable<SpritePart> {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public int compareTo(SpritePart p) {
 		return z - p.z;

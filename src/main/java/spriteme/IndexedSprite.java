@@ -186,7 +186,7 @@ public class IndexedSprite extends Component {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void paint(Graphics g) {
 		refreshImage();

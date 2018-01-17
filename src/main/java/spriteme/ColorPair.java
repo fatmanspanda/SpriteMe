@@ -34,7 +34,7 @@ public class ColorPair {
 	public String toString() {
 		return n;
 	}
-	
+
 	/*
 	 * Some constants
 	 */

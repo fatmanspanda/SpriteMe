@@ -76,7 +76,7 @@ public class SplotchBlob extends Container {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void setEnabled(boolean b) {
 		editable = b;
@@ -116,7 +116,7 @@ public class SplotchBlob extends Container {
 			l.gridx = 0;
 			l.gridwidth = 1;
 			this.add(labels[i],l);
-	
+
 			l.gridx = 1;
 			l.gridwidth = 2;
 			editors[i] = new SplotchEditor(chooser,this,s,editable);
