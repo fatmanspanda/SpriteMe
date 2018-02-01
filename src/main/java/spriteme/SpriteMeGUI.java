@@ -1,13 +1,22 @@
 package spriteme;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -37,10 +46,35 @@ import static javax.swing.SpringLayout.*;
 public class SpriteMeGUI {
 	// version numbering
 	// Time stamp: 7 Nov 2017
-	private static final byte VERSION = 1;
-	private static final String VERSION_TAG = "v0.0.0";
+	public static final String VERSION;
+
+	private static final String VERSION_PATH = "/version";
+	private static final String VERSION_URL = "https://raw.githubusercontent.com/fatmanspanda/SpriteMe/master/version";
+	private static final boolean VERSION_GOOD;
+
 	private static final byte SME_VERSION = 1; // file type specification
 	private static final byte[] SME_FLAG = { 'S', 'P', 'R', 'I', 'T', 'E', 'M', 'E' };
+
+	private static final String UPDATES_LINK = "https://github.com/fatmanspanda/SpriteMe/releases/latest";
+
+	static {
+		String line = "v0.0";
+		try (
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						SpriteMeGUI.class.getResourceAsStream(VERSION_PATH),
+						StandardCharsets.UTF_8)
+				);
+			) {
+				line = br.readLine();
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		VERSION = line;
+		System.out.println("Current version: " + VERSION);
+		VERSION_GOOD = amIUpToDate();
+		System.out.println("Up to date: " + VERSION_GOOD);
+	}
 
 	// class constants
 	public static final int SPLOTCH_SIZE = 16;
@@ -88,7 +122,7 @@ public class SpriteMeGUI {
 
 		// main window
 		final Dimension d = new Dimension(1000,750);
-		final JFrame frame = new JFrame("Sprite Me " + VERSION_TAG);
+		final JFrame frame = new JFrame("Sprite Me " + VERSION);
 
 		// format main wrapper
 		final Container controls = new Container();
@@ -275,9 +309,7 @@ public class SpriteMeGUI {
 
 		// File load
 		final JMenuItem loadSpr = new JMenuItem("Open");
-		ImageIcon compass = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Compass.png")
-			);
+		ImageIcon compass = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Compass.png"));
 		loadSpr.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		loadSpr.setIcon(compass);
@@ -288,9 +320,7 @@ public class SpriteMeGUI {
 
 		// File quicksave
 		final JMenuItem saveSpr = new JMenuItem("Save");
-		ImageIcon book = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Book.png")
-			);
+		ImageIcon book = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Book.png"));
 		saveSpr.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		saveSpr.setIcon(book);
@@ -298,9 +328,7 @@ public class SpriteMeGUI {
 
 		// File save
 		final JMenuItem saveSprTo = new JMenuItem("Save as...");
-		ImageIcon bookAs = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Book as.png")
-			);
+		ImageIcon bookAs = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Book as.png"));
 		saveSprTo.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
 		saveSprTo.setIcon(bookAs);
@@ -311,11 +339,8 @@ public class SpriteMeGUI {
 
 		// ZSPR quicksave
 		final JMenuItem expSpr = new JMenuItem("Export to " + ZSPRFile.EXTENSION);
-		ImageIcon smallKey = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Small key.png")
-			);
-		expSpr.setAccelerator(KeyStroke.getKeyStroke(
-			KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+		ImageIcon smallKey = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Small key.png"));
+		expSpr.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 		expSpr.setIcon(smallKey);
 		fileMenu.add(expSpr);
 
@@ -334,9 +359,7 @@ public class SpriteMeGUI {
 
 		// ROM patch
 		final JMenuItem patchRom = new JMenuItem("Patch to ROM");
-		ImageIcon bigKey = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Big key.png")
-			);
+		ImageIcon bigKey = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Big key.png"));
 		patchRom.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_R, ActionEvent.CTRL_MASK));
 		patchRom.setIcon(bigKey);
@@ -348,9 +371,7 @@ public class SpriteMeGUI {
 
 		// exit
 		final JMenuItem exit = new JMenuItem("Exit");
-		ImageIcon mirror = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Mirror.png")
-			);
+		ImageIcon mirror = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Mirror.png"));
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
 		exit.addActionListener(arg0 -> System.exit(0));
@@ -361,11 +382,40 @@ public class SpriteMeGUI {
 		final JMenu helpMenu = new JMenu("Help");
 		menu.add(helpMenu);
 
+		// look for updates
+		final JMenuItem updates = new JMenuItem("Check for updates");
+		ImageIcon hammer = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/hammer.png"));
+		updates.setIcon(hammer);
+		helpMenu.add(updates);
+
+		updates.addActionListener(
+			arg0 -> {
+				try {
+					openLink(UPDATES_LINK);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(frame,
+							"uhhh...",
+							"How to internet",
+							JOptionPane.WARNING_MESSAGE);
+					e.printStackTrace();
+				}
+			});
+
+		if (!VERSION_GOOD) {
+			updates.setOpaque(true);
+			updates.setBackground(Color.RED);
+			updates.setForeground(Color.WHITE);
+			updates.setText("Updates are available.");
+
+			helpMenu.setOpaque(true);
+			helpMenu.setBackground(Color.RED);
+			helpMenu.setForeground(Color.WHITE);
+			helpMenu.setIcon(hammer);
+		}
+
 		// Acknowledgements
 		final JMenuItem peeps = new JMenuItem("About");
-		ImageIcon mapIcon = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Map.png")
-			);
+		ImageIcon mapIcon = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Map.png"));
 		peeps.setIcon(mapIcon);
 
 		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
@@ -397,12 +447,8 @@ public class SpriteMeGUI {
 		explorer.setAcceptAllFileFilterUsed(false);
 
 		// icon
-		ImageIcon ico = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Link thinking small.png")
-			);
-		ImageIcon icoTask = new ImageIcon(
-				SpriteMeGUI.class.getResource("/images/meta/Link thinking.png")
-			);
+		ImageIcon ico = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Link thinking small.png"));
+		ImageIcon icoTask = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Link thinking.png"));
 		ArrayList<Image> icons = new ArrayList<Image>();
 		icons.add(ico.getImage());
 		icons.add(icoTask.getImage());
@@ -604,6 +650,41 @@ public class SpriteMeGUI {
 		aboutFrame.setSize(300,300);
 		aboutFrame.setLocation(150,150);
 		aboutFrame.setResizable(false);
+	}
+
+	private static void openLink(String url) throws IOException, URISyntaxException {
+		URL aa;
+		aa = new URL(url);
+		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			desktop.browse(aa.toURI());
+		}
+	}
+
+	private static boolean amIUpToDate() {
+		boolean ret = true;
+		URL vURL;
+		try {
+			vURL = new URL(VERSION_URL);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		try (
+			InputStream s = vURL.openStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(s, StandardCharsets.UTF_8));
+		) {
+			String line = br.readLine();
+			System.out.println("Discovered version: " + line);
+			if (!line.equalsIgnoreCase(VERSION)) {
+				ret = false;
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 
 	/**
