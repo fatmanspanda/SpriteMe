@@ -66,7 +66,6 @@ public class SpriteMeGUI {
 				);
 			) {
 				line = br.readLine();
-				br.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -405,7 +404,7 @@ public class SpriteMeGUI {
 			updates.setOpaque(true);
 			updates.setBackground(Color.RED);
 			updates.setForeground(Color.WHITE);
-			updates.setText("Updates are available.");
+			updates.setText("Update available");
 
 			helpMenu.setOpaque(true);
 			helpMenu.setBackground(Color.RED);
