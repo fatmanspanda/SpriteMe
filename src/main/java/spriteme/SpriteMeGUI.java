@@ -66,7 +66,7 @@ public class SpriteMeGUI {
 				);
 			) {
 				line = br.readLine();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		VERSION = line;
@@ -120,23 +120,23 @@ public class SpriteMeGUI {
 		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE); // 596:31:23.647
 
 		// main window
-		final Dimension d = new Dimension(1000,750);
-		final JFrame frame = new JFrame("Sprite Me " + VERSION);
+		Dimension d = new Dimension(1000,750);
+		JFrame frame = new JFrame("Sprite Me " + VERSION);
 
 		// format main wrapper
-		final Container controls = new Container();
-		final Dimension cd = new Dimension(600,500);
-		final Dimension cbd = new Dimension(120, 20);
+		Container controls = new Container();
+		Dimension cd = new Dimension(600,500);
+		Dimension cbd = new Dimension(120, 20);
 		SpringLayout l = new SpringLayout();
 		controls.setLayout(l);
 		controls.setPreferredSize(cd);
 		controls.setMinimumSize(cd);
 
-		final PresetSplotchChooser presets = new PresetSplotchChooser(frame);
+		PresetSplotchChooser presets = new PresetSplotchChooser(frame);
 		Palette pal = new Palette();
-		final IndexedSprite mySprite = new IndexedSprite(pal);
+		IndexedSprite mySprite = new IndexedSprite(pal);
 
-		final JLabel helpText = new JLabel();
+		JLabel helpText = new JLabel();
 		helpText.setText("<html>" +
 				"<div style=\"" + String.join(";", INSTRUCTION_STYLE) + "\">" +
 				"Use this area to pick and customize your sprite's individual parts. " +
@@ -156,8 +156,8 @@ public class SpriteMeGUI {
 		 * Customization controls
 		 */
 		// mail preview
-		final JLabel mailLbl = new JLabel("Mail preview:", SwingConstants.RIGHT);
-		final JComboBox<String> mailPick = new JComboBox<String>(MAIL_NAMES);
+		JLabel mailLbl = new JLabel("Mail preview:", SwingConstants.RIGHT);
+		JComboBox<String> mailPick = new JComboBox<String>(MAIL_NAMES);
 		setAllSizes(mailPick, cbd);
 		mailPick.addItemListener(
 				arg0 -> mySprite.setMail(mailPick.getSelectedIndex())
@@ -172,8 +172,8 @@ public class SpriteMeGUI {
 		controls.add(mailPick);
 
 		// mail preview
-		final JLabel gloveLbl = new JLabel("Gloves preview:", SwingConstants.RIGHT);
-		final JComboBox<String> glovePick = new JComboBox<String>(GLOVE_NAMES);
+		JLabel gloveLbl = new JLabel("Gloves preview:", SwingConstants.RIGHT);
+		JComboBox<String> glovePick = new JComboBox<String>(GLOVE_NAMES);
 		setAllSizes(glovePick, cbd);
 		glovePick.addItemListener(
 				arg0 -> mySprite.setGlove(glovePick.getSelectedIndex())
@@ -189,8 +189,8 @@ public class SpriteMeGUI {
 		controls.add(glovePick);
 
 		// skin color
-		final JLabel skinLbl = new JLabel("Skin color:", SwingConstants.RIGHT);
-		final JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(ColorPair.SKIN_COLORS);
+		JLabel skinLbl = new JLabel("Skin color:", SwingConstants.RIGHT);
+		JComboBox<ColorPair> skinPick = new JComboBox<ColorPair>(ColorPair.SKIN_COLORS);
 		setAllSizes(skinPick, cbd);
 		skinPick.addItemListener(
 				arg0 -> pal.setSkinColor((ColorPair) skinPick.getSelectedItem())
@@ -206,7 +206,7 @@ public class SpriteMeGUI {
 		controls.add(skinPick);
 
 		// hair
-		final JComboBox<SpritePart> hairPick = new JComboBox<SpritePart>(SpritePart.HAIR_CHOICES);
+		JComboBox<SpritePart> hairPick = new JComboBox<SpritePart>(SpritePart.HAIR_CHOICES);
 		Picker hairPickThis = part -> mySprite.setHair(part);
 		SpritePartEditor hairEditor =
 				new SpritePartEditor("Hair", pal, hairPick, hairPickThis, null);
@@ -217,9 +217,9 @@ public class SpriteMeGUI {
 		controls.add(hairEditor);
 
 		// accessories
-		final JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
-		final JComboBox<SpritePart> acc2Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
-		final JComboBox<SpritePart> acc3Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
+		JComboBox<SpritePart> acc1Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
+		JComboBox<SpritePart> acc2Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
+		JComboBox<SpritePart> acc3Pick = new JComboBox<SpritePart>(SpritePart.ACCESSORIES);
 
 		// prevents duplicate items
 		Picker accessoryUnpicker = part -> {
@@ -268,7 +268,7 @@ public class SpriteMeGUI {
 		controls.add(acc3Editor);
 
 		// format frame
-		final Container framesWrap = frame.getContentPane();
+		Container framesWrap = frame.getContentPane();
 		SpringLayout f = new SpringLayout();
 		framesWrap.setLayout(f);
 
@@ -299,15 +299,15 @@ public class SpriteMeGUI {
 		framesWrap.add(colorEditor);
 
 		// menu
-		final JMenuBar menu = new JMenuBar();
+		JMenuBar menu = new JMenuBar();
 		frame.setJMenuBar(menu);
 
 		// file menu
-		final JMenu fileMenu = new JMenu("File");
+		JMenu fileMenu = new JMenu("File");
 		menu.add(fileMenu);
 
 		// File load
-		final JMenuItem loadSpr = new JMenuItem("Open");
+		JMenuItem loadSpr = new JMenuItem("Open");
 		ImageIcon compass = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Compass.png"));
 		loadSpr.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_O, ActionEvent.CTRL_MASK));
@@ -318,7 +318,7 @@ public class SpriteMeGUI {
 		fileMenu.addSeparator();
 
 		// File quicksave
-		final JMenuItem saveSpr = new JMenuItem("Save");
+		JMenuItem saveSpr = new JMenuItem("Save");
 		ImageIcon book = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Book.png"));
 		saveSpr.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_S, ActionEvent.CTRL_MASK));
@@ -326,7 +326,7 @@ public class SpriteMeGUI {
 		fileMenu.add(saveSpr);
 
 		// File save
-		final JMenuItem saveSprTo = new JMenuItem("Save as...");
+		JMenuItem saveSprTo = new JMenuItem("Save as...");
 		ImageIcon bookAs = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Book as.png"));
 		saveSprTo.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
@@ -337,14 +337,14 @@ public class SpriteMeGUI {
 		fileMenu.addSeparator();
 
 		// ZSPR quicksave
-		final JMenuItem expSpr = new JMenuItem("Export to " + ZSPRFile.EXTENSION);
+		JMenuItem expSpr = new JMenuItem("Export to " + ZSPRFile.EXTENSION);
 		ImageIcon smallKey = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Small key.png"));
 		expSpr.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 		expSpr.setIcon(smallKey);
 		fileMenu.add(expSpr);
 
 		// ZSPR save
-		final JMenuItem expSprTo = new JMenuItem("Export to " + ZSPRFile.EXTENSION + " as...");
+		JMenuItem expSprTo = new JMenuItem("Export to " + ZSPRFile.EXTENSION + " as...");
 		ImageIcon smallKeyAs = new ImageIcon(
 				SpriteMeGUI.class.getResource("/images/meta/Small key as.png")
 			);
@@ -357,7 +357,7 @@ public class SpriteMeGUI {
 		fileMenu.addSeparator();
 
 		// ROM patch
-		final JMenuItem patchRom = new JMenuItem("Patch to ROM");
+		JMenuItem patchRom = new JMenuItem("Patch to ROM");
 		ImageIcon bigKey = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Big key.png"));
 		patchRom.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_R, ActionEvent.CTRL_MASK));
@@ -369,7 +369,7 @@ public class SpriteMeGUI {
 		fileMenu.addSeparator();
 
 		// exit
-		final JMenuItem exit = new JMenuItem("Exit");
+		JMenuItem exit = new JMenuItem("Exit");
 		ImageIcon mirror = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Mirror.png"));
 		exit.setIcon(mirror);
 		fileMenu.add(exit);
@@ -378,11 +378,11 @@ public class SpriteMeGUI {
 		// end file menu
 
 		// help menu
-		final JMenu helpMenu = new JMenu("Help");
+		JMenu helpMenu = new JMenu("Help");
 		menu.add(helpMenu);
 
 		// look for updates
-		final JMenuItem updates = new JMenuItem("Check for updates");
+		JMenuItem updates = new JMenuItem("Check for updates");
 		ImageIcon hammer = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/hammer.png"));
 		updates.setIcon(hammer);
 		helpMenu.add(updates);
@@ -413,11 +413,11 @@ public class SpriteMeGUI {
 		}
 
 		// Acknowledgements
-		final JMenuItem peeps = new JMenuItem("About");
+		JMenuItem peeps = new JMenuItem("About");
 		ImageIcon mapIcon = new ImageIcon(SpriteMeGUI.class.getResource("/images/meta/Map.png"));
 		peeps.setIcon(mapIcon);
 
-		final JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
+		JDialog aboutFrame = new JDialog(frame, "Acknowledgements");
 		buildAbout(aboutFrame);
 
 		peeps.addActionListener(arg0 -> aboutFrame.setVisible(true)); // do it here because short
@@ -430,7 +430,7 @@ public class SpriteMeGUI {
 		FakeString lastSpritePath = new FakeString(null);
 
 		// file explorer
-		final BetterJFileChooser explorer = new BetterJFileChooser();
+		BetterJFileChooser explorer = new BetterJFileChooser();
 
 		// TODO Uncomment this for exports
 		// explorer.setCurrentDirectory(new File(".")); // quick way to set to current .jar loc
@@ -633,7 +633,7 @@ public class SpriteMeGUI {
 
 	// about frame built here
 	private static void buildAbout(JDialog aboutFrame) {
-		final TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_NONE);
+		TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_NONE);
 		peepsList.setEditable(false);
 		peepsList.append("Written by fatmanspanda"); // hey, that's me
 		peepsList.append("\n\nIs Mike:\nMikeTrethewey");
