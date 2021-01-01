@@ -49,13 +49,13 @@ public class SpriteMeGUI {
 	public static final String VERSION;
 
 	private static final String VERSION_PATH = "/version";
-	private static final String VERSION_URL = "https://raw.githubusercontent.com/fatmanspanda/SpriteMe/master/version";
+	private static final String VERSION_URL = "https://raw.githubusercontent.com/spannerisms/SpriteMe/master/version";
 	private static final boolean VERSION_GOOD;
 
 	private static final byte SME_VERSION = 1; // file type specification
 	private static final byte[] SME_FLAG = { 'S', 'P', 'R', 'I', 'T', 'E', 'M', 'E' };
 
-	private static final String UPDATES_LINK = "https://github.com/fatmanspanda/SpriteMe/releases/latest";
+	private static final String UPDATES_LINK = "https://github.com/spannerisms/SpriteMe/releases/latest";
 
 	static {
 		String line = "v0.0";
@@ -635,12 +635,11 @@ public class SpriteMeGUI {
 	private static void buildAbout(JDialog aboutFrame) {
 		TextArea peepsList = new TextArea("", 0, 0, TextArea.SCROLLBARS_NONE);
 		peepsList.setEditable(false);
-		peepsList.append("Written by fatmanspanda"); // hey, that's me
+		peepsList.append("Written by kan"); // hey, that's me
 		peepsList.append("\n\nIs Mike:\nMikeTrethewey");
 		peepsList.append("\n\nArt:\n");
 		peepsList.append(String.join(", ",
 				new String[]{
-						"iBazly",
 						"Fish"
 					}));
 

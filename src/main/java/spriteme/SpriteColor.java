@@ -168,7 +168,7 @@ public class SpriteColor {
 	 * Added for people that have been generally helpful or are just cool
 	 */
 	public static final SpriteColor[] DEV_FAVORITES = new SpriteColor[] {
-			new SpriteColor("Panda's raspberry", 152, 0, 64), // me
+			new SpriteColor("Spandawinkle", 200, 200, 248), // me
 			new SpriteColor("Mike's orange", 248, 176, 0),
 			new SpriteColor("Numpty blue", 56, 152, 216), // christos owen because he's cool
 			new SpriteColor("Fish's purple", 176, 0, 216),
