@@ -234,7 +234,6 @@ public class SpriteColor {
 			new SpriteColor("Garbage", 96, 88, 0),
 			new SpriteColor("Pink", 248, 88, 248),
 			new SpriteColor("Magenta", 248, 0, 128),
-			new SpriteColor("Periwinkle", 200, 200, 248),
 			new SpriteColor("Bronze", 136, 72, 48),
 			new SpriteColor("Silver", 192, 192, 192),
 			new SpriteColor("Gold", 240, 184, 0),
